@@ -251,10 +251,10 @@ export default function Editor({ data, onChange }: EditorProps) {
                             { label: 'Parlantes', key: 'parlantes' },
                             { label: 'Potencia', key: 'potencia' },
                             { label: 'Mic. Cable', key: 'micCable' },
-                            { label: 'Mic. Inalámbrico', key: 'micWireless' },
+                            { label: 'Mic. Inal.', key: 'micWireless' },
                         ].map((req) => (
-                            <div key={req.key} className="bg-slate-800 p-2 rounded border border-slate-700 flex justify-between items-center px-4">
-                                <label className="text-xs font-medium text-slate-400">{req.label}</label>
+                            <div key={req.key} className="bg-slate-800 p-3 rounded-lg border border-slate-700 flex flex-col justify-center items-center gap-2 shadow-sm">
+                                <label className="text-xs font-bold text-slate-400 uppercase tracking-wide text-center">{req.label}</label>
                                 <Stepper
                                     value={(data.requirements as any)[req.key] || 0}
                                     onChange={(val) => handleRequirementChange(req.key as any, val)}
