@@ -254,8 +254,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
         <Document
             title={`Presupuesto ${data.client.name || ''}`}
             author="Joaquín Rosas"
-            creator="Joaquín Rosas"
-            producer="Joaquín Rosas"
+            subject="Sistema desarrollado por Joaquín Rosas"
+            creator="Sistema desarrollado por Joaquín Rosas"
+            producer="Desarrollado por Joaquín Rosas"
+            keywords="Joaquín Rosas, Presupuesto, ALC Sonido"
         >
             <Page size="A4" style={styles.page}>
 
