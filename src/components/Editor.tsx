@@ -312,10 +312,10 @@ export default function Editor({ data, onChange }: EditorProps) {
                             <div key={item.id} className="relative p-3 rounded-lg bg-slate-800 border border-slate-700 group hover:border-orange-500/50 transition-all">
                                 <button
                                     onClick={() => removeLogisticsItem(item.id)}
-                                    className="absolute -top-2 -right-2 bg-slate-700 text-slate-400 hover:bg-red-500 hover:text-white transition p-1 rounded-full shadow-md opacity-0 group-hover:opacity-100"
+                                    className="absolute -top-2 -right-2 bg-slate-700 text-slate-400 hover:bg-red-500 hover:text-white transition p-1.5 rounded-full shadow-md z-10"
                                     title="Eliminar ubicación"
                                 >
-                                    <Trash2 size={12} />
+                                    <Trash2 size={14} />
                                 </button>
 
                                 <div className="space-y-4">
