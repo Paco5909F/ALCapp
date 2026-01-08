@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import Editor from '@/components/Editor';
-import Preview from '@/components/Preview';
+import dynamic from 'next/dynamic';
+
+const Preview = dynamic(() => import('@/components/Preview'), { ssr: false });
 import { BudgetData } from '@/types';
 
 const INITIAL_DATA: BudgetData = {
