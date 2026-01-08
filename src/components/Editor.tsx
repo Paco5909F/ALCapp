@@ -438,8 +438,8 @@ export default function Editor({ data, onChange }: EditorProps) {
                 </div>
             </section >
 
-            <div className="pt-8 pb-4 text-center opacity-30 hover:opacity-100 transition-opacity">
-                <p className="text-[10px] uppercase font-bold tracking-widest text-slate-500">
+            <div className="pt-8 pb-4 text-center opacity-60 hover:opacity-100 transition-opacity">
+                <p className="text-[10px] uppercase font-bold tracking-widest text-white">
                     Sistema desarrollado por Joaquín Rosas
                 </p>
             </div>
