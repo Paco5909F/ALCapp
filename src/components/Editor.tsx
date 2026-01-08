@@ -1,13 +1,57 @@
 'use client';
 
 import React from 'react';
-import { Plus, Trash2, Calendar, Clock, User, FileText, Settings, DollarSign, MapPin } from 'lucide-react';
+import { Plus, Trash2, Calendar, Clock, User, FileText, Settings, DollarSign, MapPin, Minus } from 'lucide-react';
 import { BudgetData, BudgetItem } from '@/types';
 
 interface EditorProps {
     data: BudgetData;
     onChange: (data: BudgetData) => void;
 }
+
+// Internal Stepper Component for improved mobile UX
+const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: number) => void, min?: number }) => {
+    const handleIncrement = () => onChange(value + 1);
+    const handleDecrement = () => {
+        if (value > min) onChange(value - 1);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = parseInt(e.target.value);
+        if (isNaN(val)) onChange(0); // Optional: handle empty as 0
+        else onChange(val);
+    };
+
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+        e.target.select();
+    };
+
+    return (
+        <div className="flex items-center bg-slate-900 rounded-lg border border-slate-600 overflow-hidden">
+            <button
+                onClick={handleDecrement}
+                className="p-2 hover:bg-slate-700 active:bg-slate-600 text-slate-400 transition"
+                type="button"
+            >
+                <Minus size={14} />
+            </button>
+            <input
+                type="number"
+                value={value}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                className="w-12 bg-transparent text-center font-bold outline-none text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+            <button
+                onClick={handleIncrement}
+                className="p-2 hover:bg-slate-700 active:bg-slate-600 text-slate-400 transition"
+                type="button"
+            >
+                <Plus size={14} />
+            </button>
+        </div>
+    );
+};
 
 export default function Editor({ data, onChange }: EditorProps) {
     const handleClientChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -211,12 +255,9 @@ export default function Editor({ data, onChange }: EditorProps) {
                         ].map((req) => (
                             <div key={req.key} className="bg-slate-800 p-2 rounded border border-slate-700 flex justify-between items-center px-4">
                                 <label className="text-xs font-medium text-slate-400">{req.label}</label>
-                                <input
-                                    type="number"
-                                    min="0"
+                                <Stepper
                                     value={(data.requirements as any)[req.key] || 0}
-                                    onChange={(e) => handleRequirementChange(req.key as any, parseInt(e.target.value) || 0)}
-                                    className="w-12 bg-transparent text-right font-bold outline-none focus:text-blue-400"
+                                    onChange={(val) => handleRequirementChange(req.key as any, val)}
                                 />
                             </div>
                         ))}
@@ -310,14 +351,11 @@ export default function Editor({ data, onChange }: EditorProps) {
                                                 { label: 'Mic. Cable', key: 'micCable' },
                                                 { label: 'Mic. Inal.', key: 'micWireless' },
                                             ].map((req) => (
-                                                <div key={req.key} className="bg-slate-800 p-2 rounded border border-slate-700 flex justify-between items-center px-3">
-                                                    <label className="text-[10px] font-medium text-slate-400 truncate mr-2">{req.label}</label>
-                                                    <input
-                                                        type="number"
-                                                        min="0"
+                                                <div key={req.key} className="bg-slate-800 p-2 rounded border border-slate-700 flex flex-col justify-center items-center gap-1">
+                                                    <label className="text-[10px] font-medium text-slate-400 truncate w-full text-center">{req.label}</label>
+                                                    <Stepper
                                                         value={(item.requirements as any)?.[req.key] || 0}
-                                                        onChange={(e) => updateLogisticsItem(item.id, `req.${req.key}`, parseInt(e.target.value) || 0)}
-                                                        className="w-8 bg-transparent text-right font-bold outline-none text-xs focus:text-orange-400"
+                                                        onChange={(val) => updateLogisticsItem(item.id, `req.${req.key}`, val)}
                                                     />
                                                 </div>
                                             ))}
