@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Plus, Trash2, Calendar, Clock, User, FileText, Settings, DollarSign, MapPin, Minus } from 'lucide-react';
 import { BudgetData, BudgetItem } from '@/types';
 
@@ -132,11 +133,19 @@ export default function Editor({ data, onChange }: EditorProps) {
 
     return (
         <div className="flex flex-col h-full bg-slate-900 text-white p-6 overflow-y-auto shadow-xl scrollbar-thin scrollbar-thumb-slate-700">
-            <div className="flex items-center gap-3 mb-8 pb-4 border-b border-slate-700">
-                <div className="bg-blue-600 p-2 rounded-lg">
-                    <FileText size={24} className="text-white" />
+            <div className="flex items-center gap-4 mb-8 pb-4 border-b border-slate-700">
+                <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border-2 border-slate-600">
+                    <Image
+                        src="/images/logo.png"
+                        alt="ALC Logo"
+                        fill
+                        className="object-contain p-1"
+                    />
                 </div>
-                <h2 className="text-2xl font-bold tracking-tight">Editor</h2>
+                <div>
+                    <h2 className="text-2xl font-bold tracking-tight uppercase text-white">ALC Presupuestos</h2>
+                    <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Generador de Cotizaciones</p>
+                </div>
             </div>
 
             {/* Client Section */}
