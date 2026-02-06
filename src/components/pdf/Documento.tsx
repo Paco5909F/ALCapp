@@ -473,15 +473,20 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             }}>
                                 {data.logistics.map((item, index) => (
                                     <View key={item.id} style={[styles.tableRow, {
-                                        borderBottomWidth: index === data.logistics!.length - 1 ? 0 : 1
+                                        borderBottomWidth: index === data.logistics!.length - 1 ? 0 : 1,
+                                        alignItems: 'stretch',
+                                        paddingVertical: 0,
+                                        paddingHorizontal: 0
                                     }]}>
-                                        <Text style={[styles.tableCell, { width: '25%', textAlign: 'left', paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000' }]}>{item.location}</Text>
-                                        <View style={{ width: '50%', paddingLeft: 12, paddingRight: 4, borderRightWidth: 1, borderRightColor: '#000000' }}>
+                                        <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000', justifyContent: 'center' }}>
+                                            <Text style={[styles.tableCell, { textAlign: 'left' }]}>{item.location}</Text>
+                                        </View>
+                                        <View style={{ width: '50%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4, borderRightWidth: 1, borderRightColor: '#000000', justifyContent: 'center' }}>
                                             <Text style={[styles.tableCell, { fontFamily: 'Helvetica-Bold', marginBottom: 2 }]}>
                                                 {formatRequirements(item.requirements)}
                                             </Text>
                                         </View>
-                                        <View style={{ width: '25%', paddingLeft: 12, paddingRight: 4 }}>
+                                        <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4, justifyContent: 'center' }}>
                                             <Text style={[styles.tableCell, { color: '#000' }]}>
                                                 {item.details || '-'}
                                             </Text>
