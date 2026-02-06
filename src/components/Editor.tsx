@@ -299,11 +299,11 @@ export default function Editor({ data, onChange }: EditorProps) {
                             >
                                 <option value="ninguna">Ninguna</option>
                                 <option value="basica">Básica</option>
-                                <option value="parled">Par LED</option>
-                                <option value="cabezales">Cabezales</option>
-                                <option value="estruct_chica">Est. Chica</option>
-                                <option value="estruct_media">Est. Media</option>
-                                <option value="estruct_grande">Est. Grande</option>
+                                <option value="media">Media</option>
+                                <option value="completa">Completa</option>
+                                <option value="torre_chica">Torre Chica</option>
+                                <option value="torre_media">Torre Media</option>
+                                <option value="estruct_grande">Estructura Grande</option>
                             </select>
                         </div>
 
