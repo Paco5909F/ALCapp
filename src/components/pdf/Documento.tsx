@@ -243,7 +243,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
         const parts = [];
         if (reqs.parlantes > 0) parts.push(`${reqs.parlantes} Parlantes`);
         if (reqs.retornos > 0) parts.push(`${reqs.retornos} Retornos`);
-        if (reqs.potencia > 0) parts.push(`${reqs.potencia} Potencia`);
+        if (reqs.potencia > 0) parts.push(`${reqs.potencia} Potencias`);
         if (reqs.micCable > 0) parts.push(`${reqs.micCable} Mic. Cable`);
         if (reqs.micWireless > 0) parts.push(`${reqs.micWireless} Mic. Inal.`);
 
@@ -377,7 +377,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             }]}>
                                 <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Parlantes</Text>
                                 <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Retornos</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Potencia</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Potencias</Text>
                                 <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Mic. Cable</Text>
                                 <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Mic. Inal.</Text>
                                 <Text style={[styles.tableHeaderCell, { width: '15%' }]}>Iluminación</Text>

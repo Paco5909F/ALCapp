@@ -274,7 +274,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                     <div className="grid grid-cols-2 gap-3">
                         {[
                             { label: 'Parlantes', key: 'parlantes' },
-                            { label: 'Potencia', key: 'potencia' },
+                            { label: 'Potencias', key: 'potencia' },
                             { label: 'Retornos', key: 'retornos' },
                             { label: 'Mic. Cable', key: 'micCable' },
                             { label: 'Mic. Inal.', key: 'micWireless' },
@@ -398,7 +398,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                                             {[
                                                 { label: 'Parlantes', key: 'parlantes' },
                                                 { label: 'Retornos', key: 'retornos' },
-                                                { label: 'Potencia', key: 'potencia' },
+                                                { label: 'Potencias', key: 'potencia' },
                                                 { label: 'Mic. Cable', key: 'micCable' },
                                                 { label: 'Mic. Inal.', key: 'micWireless' },
                                             ].map((req) => (
