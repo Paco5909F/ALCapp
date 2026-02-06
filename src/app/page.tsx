@@ -21,9 +21,11 @@ const INITIAL_DATA: BudgetData = {
     requirements: {
         parlantes: 0,
         potencia: 0,
+        retornos: 0,
         micCable: 0,
         micWireless: 0,
-        iluminacion: false,
+        iluminacion: 'ninguna',
+        consola: 'ninguna',
         karaoke: false,
     },
 };

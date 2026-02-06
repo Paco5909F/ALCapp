@@ -242,10 +242,27 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
         if (!reqs) return '';
         const parts = [];
         if (reqs.parlantes > 0) parts.push(`${reqs.parlantes} Parlantes`);
+        if (reqs.retornos > 0) parts.push(`${reqs.retornos} Retornos`);
         if (reqs.potencia > 0) parts.push(`${reqs.potencia} Potencia`);
         if (reqs.micCable > 0) parts.push(`${reqs.micCable} Mic. Cable`);
         if (reqs.micWireless > 0) parts.push(`${reqs.micWireless} Mic. Inal.`);
-        if (reqs.iluminacion) parts.push('Iluminación');
+
+        const ilumMap: Record<string, string> = {
+            'basica': 'Ilum. Básica',
+            'parled': 'Par LED',
+            'cabezales': 'Cabezales',
+            'estruct_chica': 'Est. Chica',
+            'estruct_media': 'Est. Media',
+            'estruct_grande': 'Est. Grande'
+        };
+        if (reqs.iluminacion && reqs.iluminacion !== 'ninguna' && reqs.iluminacion !== false) {
+            parts.push(ilumMap[reqs.iluminacion] || 'Ilum. Gral');
+        }
+
+        if (reqs.consola && reqs.consola !== 'ninguna') {
+            parts.push(`Consola ${reqs.consola}`);
+        }
+
         if (reqs.karaoke) parts.push('Karaoke');
         return parts.join(', ');
     };
@@ -350,12 +367,14 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                 borderTopRightRadius: 8,
                                 paddingVertical: 10
                             }]}>
-                                <Text style={[styles.tableHeaderCell, { width: '16%' }]}>Parlantes</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '16%' }]}>Potencia</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '16%' }]}>Mic. Cable</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '16%' }]}>Mic. Inalám.</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '16%' }]}>Iluminación</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '16%' }]}>Karaoke</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Parlantes</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Retornos</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Potencia</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Mic. Cable</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Mic. Inal.</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '15%' }]}>Iluminación</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '15%' }]}>Consola</Text>
+                                <Text style={[styles.tableHeaderCell, { width: '10%' }]}>Karaoke</Text>
                             </View>
                             <View style={{
                                 borderWidth: 1,
@@ -366,12 +385,27 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                 overflow: 'hidden'
                             }}>
                                 <View style={[styles.tableRow, { borderBottomWidth: 0 }]}>
-                                    <Text style={[styles.tableCell, { width: '16%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.parlantes}</Text>
-                                    <Text style={[styles.tableCell, { width: '16%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.potencia}</Text>
-                                    <Text style={[styles.tableCell, { width: '16%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.micCable}</Text>
-                                    <Text style={[styles.tableCell, { width: '16%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.micWireless}</Text>
-                                    <Text style={[styles.tableCell, { width: '16%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.iluminacion ? 'Sí' : 'No'}</Text>
-                                    <Text style={[styles.tableCell, { width: '16%', textAlign: 'center' }]}>{data.requirements.karaoke ? 'Sí' : 'No'}</Text>
+                                    <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.parlantes}</Text>
+                                    <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.retornos || 0}</Text>
+                                    <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.potencia}</Text>
+                                    <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.micCable}</Text>
+                                    <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.micWireless}</Text>
+                                    <Text style={[styles.tableCell, { width: '15%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000', fontSize: 8 }]}>
+                                        {data.requirements.iluminacion === 'ninguna' ? '-' : (
+                                            {
+                                                'basica': 'Básica',
+                                                'parled': 'Par LED',
+                                                'cabezales': 'Cabezales',
+                                                'estruct_chica': 'Est. Chica',
+                                                'estruct_media': 'Est. Media',
+                                                'estruct_grande': 'Est. Grande'
+                                            }[data.requirements.iluminacion as string] || '-'
+                                        )}
+                                    </Text>
+                                    <Text style={[styles.tableCell, { width: '15%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000', fontSize: 8 }]}>
+                                        {data.requirements.consola === 'ninguna' ? '-' : data.requirements.consola}
+                                    </Text>
+                                    <Text style={[styles.tableCell, { width: '10%', textAlign: 'center' }]}>{data.requirements.karaoke ? 'Sí' : 'No'}</Text>
                                 </View>
                             </View>
                         </View>
@@ -465,6 +499,74 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                     </Text>
                 </View>
 
+            </Page>
+
+            {/* Terms and Conditions Page */}
+            <Page size="A4" style={styles.page}>
+                {/* Header for Terms Page */}
+                <View style={styles.headerContainer}>
+                    <View style={styles.logoSection}>
+                        <Image src="/images/logo.png" style={styles.logoImage} />
+                        <View style={styles.companyDetails}>
+                            <Text style={{ fontSize: 14, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', marginBottom: 4 }}>
+                                ALC SONIDO EVENTOS
+                            </Text>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
+                                TÉRMINOS Y CONDICIONES
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style={[styles.sectionHeader, { marginTop: 0 }]}>
+                    <Text style={styles.sectionTitle}>CONDICIONES DE CONTRATACIÓN</Text>
+                    <View style={styles.sectionLine} />
+                </View>
+
+                <View style={{ marginTop: 20 }}>
+                    <Text style={{ fontSize: 10, marginBottom: 12, fontFamily: 'Helvetica-Bold' }}>
+                        1. CONFIRMACIÓN Y PAGO
+                    </Text>
+                    <Text style={{ fontSize: 10, marginBottom: 8, lineHeight: 1.5 }}>
+                        La fecha del evento queda confirmada únicamente con el pago acordado.
+                        El servicio deberá estar abonado en su totalidad antes del evento.
+                    </Text>
+
+                    <Text style={{ fontSize: 10, marginBottom: 12, marginTop: 10, fontFamily: 'Helvetica-Bold' }}>
+                        2. POLÍTICA DE CANCELACIÓN
+                    </Text>
+                    <Text style={{ fontSize: 10, marginBottom: 8, lineHeight: 1.5 }}>
+                        En caso de cancelación, no se realizan reintegros — solo reprogramación según disponibilidad.
+                    </Text>
+
+                    <Text style={{ fontSize: 10, marginBottom: 12, marginTop: 10, fontFamily: 'Helvetica-Bold' }}>
+                        3. CUIDADO DEL EQUIPAMIENTO
+                    </Text>
+                    <Text style={{ fontSize: 10, marginBottom: 8, lineHeight: 1.5 }}>
+                        El cuidado de los equipos y el respeto hacia el personal son condición indispensable para la continuidad del servicio.
+                    </Text>
+
+                    <Text style={{ fontSize: 10, marginBottom: 12, marginTop: 10, fontFamily: 'Helvetica-Bold' }}>
+                        4. SEGURIDAD Y CLIMA
+                    </Text>
+                    <Text style={{ fontSize: 10, marginBottom: 8, lineHeight: 1.5 }}>
+                        Las condiciones climáticas o de seguridad que pongan en riesgo el equipamiento pueden implicar suspensión o desmontaje del servicio.
+                    </Text>
+
+                    <Text style={{ fontSize: 10, marginBottom: 12, marginTop: 10, fontFamily: 'Helvetica-Bold' }}>
+                        5. CONDICIONES ESPECIALES
+                    </Text>
+                    <Text style={{ fontSize: 10, marginBottom: 8, lineHeight: 1.5 }}>
+                        Cualquier condición especial (traslado, bandas en vivo, uso del sonido por terceros, etc.) debe consultarse previamente.
+                    </Text>
+                </View>
+
+                {/* Footer for Terms Page */}
+                <View style={styles.footer}>
+                    <Text style={styles.footerText}>
+                        ALC SONIDO EVENTOS - TÉRMINOS Y CONDICIONES
+                    </Text>
+                </View>
             </Page>
         </Document>
     );

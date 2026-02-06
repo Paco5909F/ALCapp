@@ -18,9 +18,11 @@ export interface ClientData {
 export interface TechnicalRequirements {
     parlantes: number;
     potencia: number;
+    retornos: number;
     micCable: number;
     micWireless: number;
-    iluminacion: boolean;
+    iluminacion: string;
+    consola: string;
     karaoke: boolean;
 }
 

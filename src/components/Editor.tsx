@@ -69,7 +69,7 @@ export default function Editor({ data, onChange }: EditorProps) {
         });
     };
 
-    const handleRequirementChange = (field: keyof typeof data.requirements, value: number | boolean) => {
+    const handleRequirementChange = (field: keyof typeof data.requirements, value: number | boolean | string) => {
         onChange({
             ...data,
             requirements: {
@@ -89,9 +89,11 @@ export default function Editor({ data, onChange }: EditorProps) {
             requirements: {
                 parlantes: 0,
                 potencia: 0,
+                retornos: 0,
                 micCable: 0,
                 micWireless: 0,
-                iluminacion: false,
+                iluminacion: 'ninguna',
+                consola: 'ninguna',
                 karaoke: false
             }
         };
@@ -113,7 +115,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                     return {
                         ...item,
                         requirements: {
-                            ...(item.requirements || { parlantes: 0, potencia: 0, micCable: 0, micWireless: 0, iluminacion: false, karaoke: false }),
+                            ...(item.requirements || { parlantes: 0, potencia: 0, retornos: 0, micCable: 0, micWireless: 0, iluminacion: 'ninguna', consola: 'ninguna', karaoke: false }),
                             [reqField]: value
                         }
                     };
@@ -259,6 +261,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                         {[
                             { label: 'Parlantes', key: 'parlantes' },
                             { label: 'Potencia', key: 'potencia' },
+                            { label: 'Retornos', key: 'retornos' },
                             { label: 'Mic. Cable', key: 'micCable' },
                             { label: 'Mic. Inal.', key: 'micWireless' },
                         ].map((req) => (
@@ -272,25 +275,49 @@ export default function Editor({ data, onChange }: EditorProps) {
                         ))}
                     </div>
 
-                    <div className="flex gap-4">
-                        <label className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-lg border border-slate-700 cursor-pointer hover:border-blue-500 transition">
-                            <input
-                                type="checkbox"
-                                checked={data.requirements?.iluminacion || false}
-                                onChange={(e) => handleRequirementChange('iluminacion', e.target.checked)}
-                                className="accent-blue-500 w-4 h-4"
-                            />
-                            <span className="text-sm font-medium">Iluminación</span>
-                        </label>
-                        <label className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-lg border border-slate-700 cursor-pointer hover:border-purple-500 transition">
-                            <input
-                                type="checkbox"
-                                checked={data.requirements?.karaoke || false}
-                                onChange={(e) => handleRequirementChange('karaoke', e.target.checked)}
-                                className="accent-purple-500 w-4 h-4"
-                            />
-                            <span className="text-sm font-medium">Karaoke</span>
-                        </label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                            <label className="block text-xs font-bold text-slate-400 mb-2 uppercase">Iluminación</label>
+                            <select
+                                value={data.requirements.iluminacion}
+                                onChange={(e) => handleRequirementChange('iluminacion', e.target.value)}
+                                className="w-full bg-slate-900 text-white p-2 rounded border border-slate-600 outline-none text-sm"
+                            >
+                                <option value="ninguna">Ninguna</option>
+                                <option value="basica">Básica</option>
+                                <option value="parled">Par LED</option>
+                                <option value="cabezales">Cabezales</option>
+                                <option value="estruct_chica">Est. Chica</option>
+                                <option value="estruct_media">Est. Media</option>
+                                <option value="estruct_grande">Est. Grande</option>
+                            </select>
+                        </div>
+
+                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                            <label className="block text-xs font-bold text-slate-400 mb-2 uppercase">Consola</label>
+                            <select
+                                value={data.requirements.consola}
+                                onChange={(e) => handleRequirementChange('consola', e.target.value)}
+                                className="w-full bg-slate-900 text-white p-2 rounded border border-slate-600 outline-none text-sm"
+                            >
+                                <option value="ninguna">Ninguna</option>
+                                <option value="8ch">8 Canales</option>
+                                <option value="12ch">12 Canales</option>
+                                <option value="32ch">32 Canales</option>
+                            </select>
+                        </div>
+
+                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700 flex flex-col justify-center">
+                            <label className="flex items-center gap-2 cursor-pointer hover:border-purple-500 transition w-full h-full">
+                                <input
+                                    type="checkbox"
+                                    checked={data.requirements?.karaoke || false}
+                                    onChange={(e) => handleRequirementChange('karaoke', e.target.checked)}
+                                    className="accent-purple-500 w-4 h-4 ml-2"
+                                />
+                                <span className="text-sm font-medium ml-2">Karaoke</span>
+                            </label>
+                        </div>
                     </div>
                 </section>
             )}
@@ -356,6 +383,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
                                             {[
                                                 { label: 'Parlantes', key: 'parlantes' },
+                                                { label: 'Retornos', key: 'retornos' },
                                                 { label: 'Potencia', key: 'potencia' },
                                                 { label: 'Mic. Cable', key: 'micCable' },
                                                 { label: 'Mic. Inal.', key: 'micWireless' },
@@ -369,17 +397,33 @@ export default function Editor({ data, onChange }: EditorProps) {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="flex gap-4">
-                                            <label className="flex items-center gap-2 cursor-pointer hover:text-orange-400 transition">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={item.requirements?.iluminacion || false}
-                                                    onChange={(e) => updateLogisticsItem(item.id, 'req.iluminacion', e.target.checked)}
-                                                    className="accent-orange-500 w-3 h-3"
-                                                />
-                                                <span className="text-xs font-medium text-slate-400">Iluminación</span>
-                                            </label>
-                                            <label className="flex items-center gap-2 cursor-pointer hover:text-orange-400 transition">
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                            <select
+                                                value={item.requirements?.iluminacion || 'ninguna'}
+                                                onChange={(e) => updateLogisticsItem(item.id, 'req.iluminacion', e.target.value)}
+                                                className="bg-slate-800 text-white rounded border border-slate-700 text-xs p-1 outline-none"
+                                            >
+                                                <option value="ninguna">Ilum: Ninguna</option>
+                                                <option value="basica">Ilum: Básica</option>
+                                                <option value="parled">Ilum: Par LED</option>
+                                                <option value="cabezales">Ilum: Cabezales</option>
+                                                <option value="estruct_chica">Ilum: Est. Chica</option>
+                                                <option value="estruct_media">Ilum: Est. Media</option>
+                                                <option value="estruct_grande">Ilum: Est. Grande</option>
+                                            </select>
+
+                                            <select
+                                                value={item.requirements?.consola || 'ninguna'}
+                                                onChange={(e) => updateLogisticsItem(item.id, 'req.consola', e.target.value)}
+                                                className="bg-slate-800 text-white rounded border border-slate-700 text-xs p-1 outline-none"
+                                            >
+                                                <option value="ninguna">Consola: Ninguna</option>
+                                                <option value="8ch">Consola: 8ch</option>
+                                                <option value="12ch">Consola: 12ch</option>
+                                                <option value="32ch">Consola: 32ch</option>
+                                            </select>
+
+                                            <label className="flex items-center gap-2 cursor-pointer hover:text-orange-400 transition bg-slate-800 rounded border border-slate-700 p-1 justify-center">
                                                 <input
                                                     type="checkbox"
                                                     checked={item.requirements?.karaoke || false}
