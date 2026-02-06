@@ -482,8 +482,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                             <Text style={[styles.tableCell, { textAlign: 'left' }]}>{item.location}</Text>
                                         </View>
 
-                                        {/* Floating Separator */}
-                                        <View style={{ width: 1, backgroundColor: '#000000', marginVertical: 8, height: '60%', alignSelf: 'center' }} />
+                                        {/* Floating Separator Container */}
+                                        <View style={{ width: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                            <View style={{ width: 1, backgroundColor: '#000000', height: '60%' }} />
+                                        </View>
 
                                         <View style={{ width: '50%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4 }}>
                                             <Text style={[styles.tableCell, { fontFamily: 'Helvetica-Bold', marginBottom: 2 }]}>
@@ -491,8 +493,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                             </Text>
                                         </View>
 
-                                        {/* Floating Separator */}
-                                        <View style={{ width: 1, backgroundColor: '#000000', marginVertical: 8, height: '60%', alignSelf: 'center' }} />
+                                        {/* Floating Separator Container */}
+                                        <View style={{ width: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                            <View style={{ width: 1, backgroundColor: '#000000', height: '60%' }} />
+                                        </View>
 
                                         <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4 }}>
                                             <Text style={[styles.tableCell, { color: '#000' }]}>
