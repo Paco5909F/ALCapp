@@ -521,11 +521,8 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.companyName}>
                                 ALC SONIDO EVENTOS
                             </Text>
-                            <Text style={styles.companySub}>
-                                TÉRMINOS Y CONDICIONES
-                            </Text>
                             <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
-                                Documento Anexo
+                                TÉRMINOS Y CONDICIONES
                             </Text>
                         </View>
                     </View>
