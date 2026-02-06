@@ -524,14 +524,14 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.companySub}>
                                 TÉRMINOS Y CONDICIONES
                             </Text>
-                            <Text style={styles.companySub}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
                                 Documento Anexo
                             </Text>
                         </View>
                     </View>
                     {/* Optional: Add Date/Validity box if needed, or leave empty for clean look */}
+                    {/* Optional: Add Date/Validity box if needed, or leave empty for clean look */}
                     <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '40%' }}>
-                        <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', color: '#666' }}>ANEXO DE CONTRATACIÓN</Text>
                     </View>
                 </View>
 
@@ -604,7 +604,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 {/* Footer for Terms Page */}
                 <View style={styles.footer}>
                     <Text style={styles.footerText}>
-                        ALC SONIDO EVENTOS - {new Date().getFullYear()}
+                        Documento generado electrónicamente por el sistema de gestión de ALC PRODUCCIONES
                     </Text>
                 </View>
             </Page>
