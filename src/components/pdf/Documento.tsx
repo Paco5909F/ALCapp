@@ -478,15 +478,15 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                         paddingVertical: 0,
                                         paddingHorizontal: 0
                                     }]}>
-                                        <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000', justifyContent: 'center' }}>
+                                        <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000' }}>
                                             <Text style={[styles.tableCell, { textAlign: 'left' }]}>{item.location}</Text>
                                         </View>
-                                        <View style={{ width: '50%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4, borderRightWidth: 1, borderRightColor: '#000000', justifyContent: 'center' }}>
+                                        <View style={{ width: '50%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4, borderRightWidth: 1, borderRightColor: '#000000' }}>
                                             <Text style={[styles.tableCell, { fontFamily: 'Helvetica-Bold', marginBottom: 2 }]}>
                                                 {formatRequirements(item.requirements)}
                                             </Text>
                                         </View>
-                                        <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4, justifyContent: 'center' }}>
+                                        <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 12, paddingRight: 4 }}>
                                             <Text style={[styles.tableCell, { color: '#000' }]}>
                                                 {item.details || '-'}
                                             </Text>
