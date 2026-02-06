@@ -249,10 +249,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
 
         const ilumMap: Record<string, string> = {
             'basica': 'Ilum. Básica',
-            'parled': 'Par LED',
-            'cabezales': 'Cabezales',
-            'estruct_chica': 'Ilum. Estructura Chica',
-            'estruct_media': 'Ilum. Estructura Media',
+            'media': 'Ilum. Media',
+            'completa': 'Ilum. Completa',
+            'torre_chica': 'Ilum. Torre Chica',
+            'torre_media': 'Ilum. Torre Media',
             'estruct_grande': 'Ilum. Estructura Grande'
         };
         if (reqs.iluminacion && reqs.iluminacion !== 'ninguna' && reqs.iluminacion !== false) {
@@ -404,18 +404,18 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                         {data.requirements.iluminacion === 'ninguna' ? '-' : (
                                             (data.requirements.karaoke ? {
                                                 'basica': 'Básica',
-                                                'parled': 'Par LED',
-                                                'cabezales': 'Cabezales',
-                                                'estruct_chica': 'Estruc. Chica',
-                                                'estruct_media': 'Estruc. Media',
+                                                'media': 'Media',
+                                                'completa': 'Completa',
+                                                'torre_chica': 'Torre Chica',
+                                                'torre_media': 'Torre Media',
                                                 'estruct_grande': 'Estruc. Grande'
                                             } : {
                                                 'basica': 'Iluminación Básica',
-                                                'parled': 'Par LED',
-                                                'cabezales': 'Cabezales',
-                                                'estruct_chica': 'Estructura Chica',
-                                                'estruct_media': 'Estructura Media',
-                                                'estruct_grande': 'Estructura Grande'
+                                                'media': 'Iluminación Media',
+                                                'completa': 'Iluminación Completa',
+                                                'torre_chica': 'Torre Chica',
+                                                'torre_media': 'Torre Media',
+                                                'estruct_grande': 'Ilum. Estructura Grande'
                                             })[data.requirements.iluminacion as string] || '-'
                                         )}
                                     </Text>

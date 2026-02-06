@@ -419,10 +419,10 @@ export default function Editor({ data, onChange }: EditorProps) {
                                             >
                                                 <option value="ninguna">Ilum: Ninguna</option>
                                                 <option value="basica">Ilum: Básica</option>
-                                                <option value="parled">Ilum: Par LED</option>
-                                                <option value="cabezales">Ilum: Cabezales</option>
-                                                <option value="estruct_chica">Ilum: Estructura Chica</option>
-                                                <option value="estruct_media">Ilum: Estructura Media</option>
+                                                <option value="media">Ilum: Media</option>
+                                                <option value="completa">Ilum: Completa</option>
+                                                <option value="torre_chica">Ilum: Torre Chica</option>
+                                                <option value="torre_media">Ilum: Torre Media</option>
                                                 <option value="estruct_grande">Ilum: Estructura Grande</option>
                                             </select>
 
