@@ -213,7 +213,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                                     className="w-full bg-transparent border-b border-slate-600 focus:border-blue-500 outline-none pb-1 [&::-webkit-calendar-picker-indicator]:invert"
                                 />
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-medium text-slate-500 mb-1">TIPO</label>
                                     <input
@@ -232,28 +232,26 @@ export default function Editor({ data, onChange }: EditorProps) {
                                         <option value="EVENTO PRIVADO" />
                                     </datalist>
                                 </div>
-                                <div>
-                                    <div className="flex gap-2">
-                                        <div className="w-1/2">
-                                            <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO INICIO</label>
-                                            <input
-                                                type="time"
-                                                name="eventTime"
-                                                value={data.client.eventTime || ''}
-                                                onChange={handleClientChange}
-                                                className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
-                                            />
-                                        </div>
-                                        <div className="w-1/2">
-                                            <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO FIN</label>
-                                            <input
-                                                type="time"
-                                                name="eventEndTime"
-                                                value={data.client.eventEndTime || ''}
-                                                onChange={handleClientChange}
-                                                className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
-                                            />
-                                        </div>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO INICIO</label>
+                                        <input
+                                            type="time"
+                                            name="eventTime"
+                                            value={data.client.eventTime || ''}
+                                            onChange={handleClientChange}
+                                            className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO FIN</label>
+                                        <input
+                                            type="time"
+                                            name="eventEndTime"
+                                            value={data.client.eventEndTime || ''}
+                                            onChange={handleClientChange}
+                                            className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
+                                        />
                                     </div>
                                 </div>
                             </div>
