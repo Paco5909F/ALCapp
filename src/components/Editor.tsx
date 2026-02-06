@@ -407,9 +407,9 @@ export default function Editor({ data, onChange }: EditorProps) {
                                                 <option value="basica">Ilum: Básica</option>
                                                 <option value="parled">Ilum: Par LED</option>
                                                 <option value="cabezales">Ilum: Cabezales</option>
-                                                <option value="estruct_chica">Ilum: Est. Chica</option>
-                                                <option value="estruct_media">Ilum: Est. Media</option>
-                                                <option value="estruct_grande">Ilum: Est. Grande</option>
+                                                <option value="estruct_chica">Ilum: Estructura Chica</option>
+                                                <option value="estruct_media">Ilum: Estructura Media</option>
+                                                <option value="estruct_grande">Ilum: Estructura Grande</option>
                                             </select>
 
                                             <select
@@ -418,9 +418,9 @@ export default function Editor({ data, onChange }: EditorProps) {
                                                 className="bg-slate-800 text-white rounded border border-slate-700 text-xs p-1 outline-none"
                                             >
                                                 <option value="ninguna">Consola: Ninguna</option>
-                                                <option value="8ch">Consola: 8ch</option>
-                                                <option value="12ch">Consola: 12ch</option>
-                                                <option value="32ch">Consola: 32ch</option>
+                                                <option value="8ch">Consola: 8 Canales</option>
+                                                <option value="12ch">Consola: 12 Canales</option>
+                                                <option value="32ch">Consola: 32 Canales</option>
                                             </select>
 
                                             <label className="flex items-center gap-2 cursor-pointer hover:text-orange-400 transition bg-slate-800 rounded border border-slate-700 p-1 justify-center">

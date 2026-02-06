@@ -251,16 +251,21 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
             'basica': 'Ilum. Básica',
             'parled': 'Par LED',
             'cabezales': 'Cabezales',
-            'estruct_chica': 'Est. Chica',
-            'estruct_media': 'Est. Media',
-            'estruct_grande': 'Est. Grande'
+            'estruct_chica': 'Estructura Chica',
+            'estruct_media': 'Estructura Media',
+            'estruct_grande': 'Estructura Grande'
         };
         if (reqs.iluminacion && reqs.iluminacion !== 'ninguna' && reqs.iluminacion !== false) {
             parts.push(ilumMap[reqs.iluminacion] || 'Ilum. Gral');
         }
 
         if (reqs.consola && reqs.consola !== 'ninguna') {
-            parts.push(`Consola ${reqs.consola}`);
+            const consolaMap: Record<string, string> = {
+                '8ch': '8 Canales',
+                '12ch': '12 Canales',
+                '32ch': '32 Canales'
+            };
+            parts.push(`Consola ${consolaMap[reqs.consola] || reqs.consola}`);
         }
 
         if (reqs.karaoke) parts.push('Karaoke');
@@ -396,14 +401,20 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                                 'basica': 'Básica',
                                                 'parled': 'Par LED',
                                                 'cabezales': 'Cabezales',
-                                                'estruct_chica': 'Est. Chica',
-                                                'estruct_media': 'Est. Media',
-                                                'estruct_grande': 'Est. Grande'
+                                                'estruct_chica': 'Estruc. Chica',
+                                                'estruct_media': 'Estruc. Media',
+                                                'estruct_grande': 'Estruc. Grande'
                                             }[data.requirements.iluminacion as string] || '-'
                                         )}
                                     </Text>
                                     <Text style={[styles.tableCell, { width: '15%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000', fontSize: 8 }]}>
-                                        {data.requirements.consola === 'ninguna' ? '-' : data.requirements.consola}
+                                        {data.requirements.consola === 'ninguna' ? '-' : (
+                                            {
+                                                '8ch': '8 Canales',
+                                                '12ch': '12 Canales',
+                                                '32ch': '32 Canales'
+                                            }[data.requirements.consola as string] || data.requirements.consola
+                                        )}
                                     </Text>
                                     <Text style={[styles.tableCell, { width: '10%', textAlign: 'center' }]}>{data.requirements.karaoke ? 'Sí' : 'No'}</Text>
                                 </View>
@@ -448,7 +459,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                         backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#F4F4F4',
                                         borderBottomWidth: index === data.logistics!.length - 1 ? 0 : 1
                                     }]}>
-                                        <Text style={[styles.tableCell, { width: '40%', textAlign: 'left', paddingLeft: 10, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000' }]}>{item.location}</Text>
+                                        <Text style={[styles.tableCell, { width: '40%', textAlign: 'left', paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000' }]}>{item.location}</Text>
                                         <View style={{ width: '60%', paddingLeft: 12, paddingRight: 4 }}>
                                             <Text style={[styles.tableCell, { fontFamily: 'Helvetica-Bold', marginBottom: 2 }]}>
                                                 {formatRequirements(item.requirements)}
