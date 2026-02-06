@@ -251,9 +251,9 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
             'basica': 'Ilum. Básica',
             'parled': 'Par LED',
             'cabezales': 'Cabezales',
-            'estruct_chica': 'Estructura Chica',
-            'estruct_media': 'Estructura Media',
-            'estruct_grande': 'Estructura Grande'
+            'estruct_chica': 'Ilum. Estructura Chica',
+            'estruct_media': 'Ilum. Estructura Media',
+            'estruct_grande': 'Ilum. Estructura Grande'
         };
         if (reqs.iluminacion && reqs.iluminacion !== 'ninguna' && reqs.iluminacion !== false) {
             parts.push(ilumMap[reqs.iluminacion] || 'Ilum. Gral');
