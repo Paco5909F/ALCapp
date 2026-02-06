@@ -530,86 +530,73 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 </View>
 
                 {/* Content Container */}
-                <View style={{ flexDirection: 'column', gap: 15 }}>
+                <View style={{ flexDirection: 'column', gap: 20, marginTop: 10 }}>
 
                     {/* Item 1 */}
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ width: 30, height: 30, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 15 }}>
-                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 12 }}>01</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <View style={{ width: 24, height: 24, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 12 }}>
+                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 10 }}>01</Text>
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 11, fontFamily: 'Helvetica-Bold', marginBottom: 4, textTransform: 'uppercase' }}>CONFIRMACIÓN Y PAGO</Text>
-                            <Text style={{ fontSize: 10, lineHeight: 1.5, color: '#333' }}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 3, textTransform: 'uppercase' }}>CONFIRMACIÓN Y PAGO</Text>
+                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
                                 La fecha del evento queda confirmada únicamente con el pago acordado. El servicio deberá estar abonado en su totalidad antes del inicio del evento.
                             </Text>
                         </View>
                     </View>
 
                     {/* Item 2 */}
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <View style={{ width: 30, height: 30, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 15 }}>
-                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 12 }}>02</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <View style={{ width: 24, height: 24, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 12 }}>
+                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 10 }}>02</Text>
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 11, fontFamily: 'Helvetica-Bold', marginBottom: 4, textTransform: 'uppercase' }}>POLÍTICA DE CANCELACIÓN</Text>
-                            <Text style={{ fontSize: 10, lineHeight: 1.5, color: '#333' }}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 3, textTransform: 'uppercase' }}>POLÍTICA DE CANCELACIÓN</Text>
+                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
                                 En caso de cancelación por parte del cliente, no se realizan reintegros de dinero. Solo se podrá optar por una reprogramación de la fecha sujeta a la disponibilidad de la empresa.
                             </Text>
                         </View>
                     </View>
 
                     {/* Item 3 */}
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <View style={{ width: 30, height: 30, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 15 }}>
-                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 12 }}>03</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <View style={{ width: 24, height: 24, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 12 }}>
+                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 10 }}>03</Text>
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 11, fontFamily: 'Helvetica-Bold', marginBottom: 4, textTransform: 'uppercase' }}>CUIDADO DEL EQUIPAMIENTO</Text>
-                            <Text style={{ fontSize: 10, lineHeight: 1.5, color: '#333' }}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 3, textTransform: 'uppercase' }}>CUIDADO DEL EQUIPAMIENTO</Text>
+                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
                                 El cuidado de los equipos instalados y el respeto hacia el personal técnico son condición indispensable para la permanencia y continuidad del servicio durante el evento.
                             </Text>
                         </View>
                     </View>
 
                     {/* Item 4 */}
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <View style={{ width: 30, height: 30, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 15 }}>
-                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 12 }}>04</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <View style={{ width: 24, height: 24, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 12 }}>
+                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 10 }}>04</Text>
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 11, fontFamily: 'Helvetica-Bold', marginBottom: 4, textTransform: 'uppercase' }}>SEGURIDAD Y CLIMA</Text>
-                            <Text style={{ fontSize: 10, lineHeight: 1.5, color: '#333' }}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 3, textTransform: 'uppercase' }}>SEGURIDAD Y CLIMA</Text>
+                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
                                 Las condiciones climáticas adversas (en eventos al aire libre) o situaciones de inseguridad que pongan en riesgo el equipamiento o al personal pueden implicar la suspensión momentánea o el desmontaje total del servicio.
                             </Text>
                         </View>
                     </View>
 
                     {/* Item 5 */}
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <View style={{ width: 30, height: 30, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 15 }}>
-                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 12 }}>05</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <View style={{ width: 24, height: 24, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center', marginRight: 12 }}>
+                            <Text style={{ color: '#FFF', fontFamily: 'Helvetica-Bold', fontSize: 10 }}>05</Text>
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 11, fontFamily: 'Helvetica-Bold', marginBottom: 4, textTransform: 'uppercase' }}>CONDICIONES ESPECIALES</Text>
-                            <Text style={{ fontSize: 10, lineHeight: 1.5, color: '#333' }}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 3, textTransform: 'uppercase' }}>CONDICIONES ESPECIALES</Text>
+                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
                                 Cualquier requerimiento especial como traslados fuera de zona, conexión de bandas en vivo, o uso del sistema de sonido por terceros debe ser consultado y aprobado previamente.
                             </Text>
                         </View>
                     </View>
 
-                </View>
-
-                {/* Acceptance Box */}
-                <View style={{ marginTop: 50, borderTopWidth: 1, borderTopColor: '#CCC', paddingTop: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <View style={{ width: '45%' }}>
-                        <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 40 }}>FIRMA DEL CLIENTE:</Text>
-                        <View style={{ borderBottomWidth: 1, borderBottomColor: '#000', width: '100%' }} />
-                        <Text style={{ fontSize: 8, marginTop: 5, color: '#666' }}>ACLARACIÓN Y DNI</Text>
-                    </View>
-                    <View style={{ width: '45%' }}>
-                        <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 40 }}>POR ALC SONIDO:</Text>
-                        <View style={{ borderBottomWidth: 1, borderBottomColor: '#000', width: '100%' }} />
-                    </View>
                 </View>
 
                 {/* Footer for Terms Page */}
