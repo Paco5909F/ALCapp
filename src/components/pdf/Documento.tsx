@@ -496,6 +496,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                                 {item.details || '-'}
                                             </Text>
                                         </View>
+
+                                        {/* Floating Separators (Absolute Positioned Overlay) */}
+                                        <View style={{ position: 'absolute', left: '25%', top: '15%', bottom: '15%', width: 1, backgroundColor: '#000000' }} />
+                                        <View style={{ position: 'absolute', left: '75%', top: '15%', bottom: '15%', width: 1, backgroundColor: '#000000' }} />
                                     </View>
                                 ))}
                             </View>
