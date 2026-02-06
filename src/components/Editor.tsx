@@ -233,14 +233,29 @@ export default function Editor({ data, onChange }: EditorProps) {
                                     </datalist>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO</label>
-                                    <input
-                                        type="time"
-                                        name="eventTime"
-                                        value={data.client.eventTime || ''}
-                                        onChange={handleClientChange}
-                                        className="w-full bg-transparent border-b border-slate-600 focus:border-blue-500 outline-none pb-1 [&::-webkit-calendar-picker-indicator]:invert"
-                                    />
+                                    <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO (DESDE - HASTA)</label>
+                                    <div className="flex gap-2">
+                                        <div className="w-1/2 relative">
+                                            <input
+                                                type="time"
+                                                name="eventTime"
+                                                value={data.client.eventTime || ''}
+                                                onChange={handleClientChange}
+                                                className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
+                                            />
+                                            <span className="absolute -top-4 left-0 text-[9px] text-slate-400 font-bold uppercase">Desde</span>
+                                        </div>
+                                        <div className="w-1/2 relative">
+                                            <input
+                                                type="time"
+                                                name="eventEndTime"
+                                                value={data.client.eventEndTime || ''}
+                                                onChange={handleClientChange}
+                                                className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
+                                            />
+                                            <span className="absolute -top-4 left-0 text-[9px] text-slate-400 font-bold uppercase">Hasta</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
