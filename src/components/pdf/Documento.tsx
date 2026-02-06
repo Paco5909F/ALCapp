@@ -410,12 +410,12 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                                 'torre_media': 'Torre Media',
                                                 'estruct_grande': 'Estruc. Grande'
                                             } : {
-                                                'basica': 'Iluminación Básica',
-                                                'media': 'Iluminación Media',
-                                                'completa': 'Iluminación Completa',
+                                                'basica': 'Básica',
+                                                'media': 'Media',
+                                                'completa': 'Completa',
                                                 'torre_chica': 'Torre Chica',
                                                 'torre_media': 'Torre Media',
-                                                'estruct_grande': 'Ilum. Estructura Grande'
+                                                'estruct_grande': 'Estructura Grande'
                                             })[data.requirements.iluminacion as string] || '-'
                                         )}
                                     </Text>
