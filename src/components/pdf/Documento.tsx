@@ -453,11 +453,14 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                 paddingHorizontal: 0,
                                 alignItems: 'stretch'
                             }]}>
-                                <View style={{ width: '40%', borderRightWidth: 1, borderRightColor: '#FFFFFF', paddingVertical: 10, paddingLeft: 14 }}>
+                                <View style={{ width: '25%', borderRightWidth: 1, borderRightColor: '#FFFFFF', paddingVertical: 10, paddingLeft: 14 }}>
                                     <Text style={[styles.tableHeaderCell, { textAlign: 'left' }]}>UBICACIÓN / LUGAR</Text>
                                 </View>
-                                <View style={{ width: '60%', paddingVertical: 10, paddingLeft: 12 }}>
+                                <View style={{ width: '50%', borderRightWidth: 1, borderRightColor: '#FFFFFF', paddingVertical: 10, paddingLeft: 12 }}>
                                     <Text style={[styles.tableHeaderCell, { textAlign: 'left' }]}>DETALLE / EQUIPAMIENTO</Text>
+                                </View>
+                                <View style={{ width: '25%', paddingVertical: 10, paddingLeft: 12 }}>
+                                    <Text style={[styles.tableHeaderCell, { textAlign: 'left' }]}>OBSERVACIONES</Text>
                                 </View>
                             </View>
                             <View style={{
@@ -472,16 +475,16 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                     <View key={item.id} style={[styles.tableRow, {
                                         borderBottomWidth: index === data.logistics!.length - 1 ? 0 : 1
                                     }]}>
-                                        <Text style={[styles.tableCell, { width: '40%', textAlign: 'left', paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000' }]}>{item.location}</Text>
-                                        <View style={{ width: '60%', paddingLeft: 12, paddingRight: 4 }}>
+                                        <Text style={[styles.tableCell, { width: '25%', textAlign: 'left', paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000' }]}>{item.location}</Text>
+                                        <View style={{ width: '50%', paddingLeft: 12, paddingRight: 4, borderRightWidth: 1, borderRightColor: '#000000' }}>
                                             <Text style={[styles.tableCell, { fontFamily: 'Helvetica-Bold', marginBottom: 2 }]}>
                                                 {formatRequirements(item.requirements)}
                                             </Text>
-                                            {item.details && (
-                                                <Text style={[styles.tableCell, { color: '#444' }]}>
-                                                    {item.details}
-                                                </Text>
-                                            )}
+                                        </View>
+                                        <View style={{ width: '25%', paddingLeft: 12, paddingRight: 4 }}>
+                                            <Text style={[styles.tableCell, { color: '#000' }]}>
+                                                {item.details || '-'}
+                                            </Text>
                                         </View>
                                     </View>
                                 ))}
