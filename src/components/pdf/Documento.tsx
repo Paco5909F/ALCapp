@@ -380,9 +380,11 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                 <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Potencias</Text>
                                 <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Mic. Cable</Text>
                                 <Text style={[styles.tableHeaderCell, { width: '12%' }]}>Mic. Inal.</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '15%' }]}>Iluminación</Text>
+                                <Text style={[styles.tableHeaderCell, { width: data.requirements.karaoke ? '15%' : '25%' }]}>Iluminación</Text>
                                 <Text style={[styles.tableHeaderCell, { width: '15%' }]}>Consola</Text>
-                                <Text style={[styles.tableHeaderCell, { width: '10%' }]}>Karaoke</Text>
+                                {data.requirements.karaoke && (
+                                    <Text style={[styles.tableHeaderCell, { width: '10%' }]}>Karaoke</Text>
+                                )}
                             </View>
                             <View style={{
                                 borderWidth: 1,
@@ -398,19 +400,26 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                     <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.potencia}</Text>
                                     <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.micCable}</Text>
                                     <Text style={[styles.tableCell, { width: '12%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000' }]}>{data.requirements.micWireless}</Text>
-                                    <Text style={[styles.tableCell, { width: '15%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000', fontSize: 8 }]}>
+                                    <Text style={[styles.tableCell, { width: data.requirements.karaoke ? '15%' : '25%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000', fontSize: 8 }]}>
                                         {data.requirements.iluminacion === 'ninguna' ? '-' : (
-                                            {
+                                            (data.requirements.karaoke ? {
                                                 'basica': 'Básica',
                                                 'parled': 'Par LED',
                                                 'cabezales': 'Cabezales',
                                                 'estruct_chica': 'Estruc. Chica',
                                                 'estruct_media': 'Estruc. Media',
                                                 'estruct_grande': 'Estruc. Grande'
-                                            }[data.requirements.iluminacion as string] || '-'
+                                            } : {
+                                                'basica': 'Iluminación Básica',
+                                                'parled': 'Par LED',
+                                                'cabezales': 'Cabezales',
+                                                'estruct_chica': 'Estructura Chica',
+                                                'estruct_media': 'Estructura Media',
+                                                'estruct_grande': 'Estructura Grande'
+                                            })[data.requirements.iluminacion as string] || '-'
                                         )}
                                     </Text>
-                                    <Text style={[styles.tableCell, { width: '15%', textAlign: 'center', borderRightWidth: 1, borderRightColor: '#000000', fontSize: 8 }]}>
+                                    <Text style={[styles.tableCell, { width: '15%', textAlign: 'center', borderRightWidth: data.requirements.karaoke ? 1 : 0, borderRightColor: '#000000', fontSize: 8 }]}>
                                         {data.requirements.consola === 'ninguna' ? '-' : (
                                             {
                                                 '8ch': '8 Canales',
@@ -419,7 +428,9 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                             }[data.requirements.consola as string] || data.requirements.consola
                                         )}
                                     </Text>
-                                    <Text style={[styles.tableCell, { width: '10%', textAlign: 'center' }]}>{data.requirements.karaoke ? 'Sí' : 'No'}</Text>
+                                    {data.requirements.karaoke && (
+                                        <Text style={[styles.tableCell, { width: '10%', textAlign: 'center' }]}>Sí</Text>
+                                    )}
                                 </View>
                             </View>
                         </View>
