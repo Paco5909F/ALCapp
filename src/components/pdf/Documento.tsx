@@ -353,7 +353,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                         </View>
                         <View style={{ width: '30%' }}>
                             <Text style={styles.fieldLabel}>HORARIO</Text>
-                            <Text style={styles.fieldValue}>{data.client.eventTime || '-'}</Text>
+                            <Text style={styles.fieldValue}>
+                                {data.client.eventTime || '-'}
+                                {data.client.eventEndTime ? ` - ${data.client.eventEndTime}` : ''}
+                            </Text>
                         </View>
                     </View>
                 </View>

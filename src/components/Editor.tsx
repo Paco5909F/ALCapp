@@ -58,7 +58,7 @@ export default function Editor({ data, onChange }: EditorProps) {
     const handleClientChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         // Automatic Uppercase for specific fields
-        const shouldUpperCase = ['name', 'eventType', 'eventTime'].includes(name);
+        const shouldUpperCase = ['name', 'eventType', 'eventTime', 'eventEndTime'].includes(name);
 
         onChange({
             ...data,
@@ -222,7 +222,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                                         name="eventType"
                                         value={data.client.eventType || ''}
                                         onChange={handleClientChange}
-                                        className="w-full bg-transparent border-b border-slate-600 focus:border-blue-500 outline-none pb-1"
+                                        className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition"
                                         placeholder="SELECCIONAR..."
                                     />
                                     <datalist id="event-types">

@@ -11,6 +11,7 @@ export interface ClientData {
     conditions: string;
     eventType?: string;
     eventTime?: string;
+    eventEndTime?: string;
     emissionDate?: string;
     validityDays?: number;
 }
