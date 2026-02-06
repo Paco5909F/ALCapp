@@ -456,7 +456,6 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             }}>
                                 {data.logistics.map((item, index) => (
                                     <View key={item.id} style={[styles.tableRow, {
-                                        backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#F4F4F4',
                                         borderBottomWidth: index === data.logistics!.length - 1 ? 0 : 1
                                     }]}>
                                         <Text style={[styles.tableCell, { width: '40%', textAlign: 'left', paddingLeft: 14, paddingRight: 10, borderRightWidth: 1, borderRightColor: '#000000' }]}>{item.location}</Text>
