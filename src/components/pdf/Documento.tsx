@@ -241,9 +241,9 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
     const formatRequirements = (reqs?: any) => {
         if (!reqs) return '';
         const parts = [];
-        if (reqs.parlantes > 0) parts.push(`${reqs.parlantes} Parlantes`);
-        if (reqs.retornos > 0) parts.push(`${reqs.retornos} Retornos`);
-        if (reqs.potencia > 0) parts.push(`${reqs.potencia} Potencias`);
+        if (reqs.parlantes > 0) parts.push(`${reqs.parlantes} ${reqs.parlantes === 1 ? 'Parlante' : 'Parlantes'}`);
+        if (reqs.retornos > 0) parts.push(`${reqs.retornos} ${reqs.retornos === 1 ? 'Retorno' : 'Retornos'}`);
+        if (reqs.potencia > 0) parts.push(`${reqs.potencia} ${reqs.potencia === 1 ? 'Potencia' : 'Potencias'}`);
         if (reqs.micCable > 0) parts.push(`${reqs.micCable} Mic. Cable`);
         if (reqs.micWireless > 0) parts.push(`${reqs.micWireless} Mic. Inal.`);
 
