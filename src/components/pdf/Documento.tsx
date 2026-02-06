@@ -351,7 +351,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.fieldLabel}>TIPO</Text>
                             <Text style={styles.fieldValue}>{data.client.eventType || '-'}</Text>
                         </View>
-                        <View style={{ width: '30%' }}>
+                        <View style={{ width: '35%' }}>
                             <Text style={styles.fieldLabel}>HORARIO</Text>
                             <Text style={styles.fieldValue}>
                                 {data.client.eventTime || '-'}
