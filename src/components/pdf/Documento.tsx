@@ -310,7 +310,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={{ fontSize: 12, fontFamily: 'Helvetica-Bold' }}>OFICIAL</Text>
                         </View>
                         <View style={{ alignItems: 'flex-start', width: '100%', paddingLeft: 10 }}>
-                            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold' }}>FECHA: {emissionDate.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</Text>
+                            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold' }}>FECHA DE EMISIÓN: {emissionDate.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</Text>
                             <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold' }}>VÁLIDO HASTA: {validUntil.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</Text>
                         </View>
                     </View>

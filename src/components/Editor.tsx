@@ -4,6 +4,35 @@ import React from 'react';
 import Image from 'next/image';
 import { Plus, Trash2, Calendar, Clock, User, FileText, Settings, DollarSign, MapPin, Minus } from 'lucide-react';
 import { BudgetData, BudgetItem } from '@/types';
+import { Combobox } from './ui/Combobox';
+
+const EVENT_TYPES = [
+    '15 AÑOS',
+    'BODA / CASAMIENTO',
+    'CUMPLEAÑOS',
+    'EGRESADOS / GRADUACIÓN',
+    'ANIVERSARIO',
+    'BAUTISMO',
+    'COMUNIÓN',
+    'BABY SHOWER',
+    'EVENTO CORPORATIVO',
+    'CONFERENCIA / ACTO',
+    'EVENTO PRIVADO',
+    'OTRO'
+];
+
+const LOCATIONS = [
+    "CENTRO DE JUBILADOS Y PENSIONADOS DE O'HIGGINS",
+    'CLUB DEFENSORES',
+    'CLUB JUAN BAUTISTA ALBERDI',
+    "CLUB O'HIGGINS",
+    'CUARTEL DE BOMBEROS VOLUNTARIOS',
+    "DELEGACIÓN MUNICIPAL O'HIGGINS",
+    'MARIÁPOLIS LÍA',
+    'PARROQUIA SAN JOSÉ',
+    'PLAZA SAN MARTÍN',
+    "PLAZOLETA O'HIGGINS"
+];
 
 interface EditorProps {
     data: BudgetData;
@@ -216,21 +245,12 @@ export default function Editor({ data, onChange }: EditorProps) {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-medium text-slate-500 mb-1">TIPO</label>
-                                    <input
-                                        list="event-types"
-                                        type="text"
-                                        name="eventType"
+                                    <Combobox
+                                        options={EVENT_TYPES}
                                         value={data.client.eventType || ''}
-                                        onChange={handleClientChange}
-                                        className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition"
-                                        placeholder="SELECCIONAR..."
+                                        onChange={(val) => handleClientChange({ target: { name: 'eventType', value: val } } as any)}
+                                        placeholder="SELECCIONAR TIPO..."
                                     />
-                                    <datalist id="event-types">
-                                        <option value="CUMPLEAÑOS" />
-                                        <option value="CASAMIENTO" />
-                                        <option value="15 AÑOS" />
-                                        <option value="EVENTO PRIVADO" />
-                                    </datalist>
                                 </div>
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
@@ -370,11 +390,10 @@ export default function Editor({ data, onChange }: EditorProps) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
                                             <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Lugar / Ubicación</label>
-                                            <input
-                                                type="text"
+                                            <Combobox
+                                                options={LOCATIONS}
                                                 value={item.location}
-                                                onChange={(e) => updateLogisticsItem(item.id, 'location', e.target.value)}
-                                                className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-orange-500 outline-none placeholder-slate-700"
+                                                onChange={(val) => updateLogisticsItem(item.id, 'location', val)}
                                                 placeholder="Ej: Cuartel de Bomberos"
                                             />
                                         </div>
