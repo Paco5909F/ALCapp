@@ -3,6 +3,7 @@
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { Mail, Lock, LogIn, ShieldCheck } from 'lucide-react';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_EMAIL_LENGTH = 254;
@@ -83,61 +84,112 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4">
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-5"
-      >
-        <div className="flex items-center gap-4 pb-3 border-b border-slate-700">
-          <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border-2 border-slate-600">
-            <Image src="/images/logo.png" alt="ALC Logo" fill sizes="56px" className="object-contain p-1" priority />
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#05070a] p-4 font-sans relative overflow-hidden">
+      {/* Ambient Background Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div className="w-full max-w-md z-10">
+        <div className="bg-[#0f141d]/80 backdrop-blur-xl p-8 rounded-3xl border border-white/5 shadow-2xl shadow-black/50">
+          {/* Header */}
+          <div className="flex flex-col items-center mb-10">
+            <div className="w-20 h-20 bg-white rounded-2xl p-2 mb-6 shadow-xl shadow-blue-500/10 border border-white/10 relative group">
+              <div className="absolute inset-0 bg-blue-500/20 rounded-2xl blur-lg group-hover:blur-xl transition-all duration-500 opacity-50"></div>
+              <div className="relative h-full w-full">
+                <Image
+                  src="/images/logo.png"
+                  alt="ALC Logo"
+                  fill
+                  className="object-contain p-1"
+                  priority
+                />
+              </div>
+            </div>
+            <h1 className="text-2xl font-black text-white tracking-tight uppercase text-center">
+              ALC PRESUPUESTOS
+            </h1>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="h-px w-4 bg-blue-500/50"></span>
+              <p className="text-[10px] text-slate-400 font-bold tracking-[0.2em] uppercase">
+                Ingreso Administrativo
+              </p>
+              <span className="h-px w-4 bg-blue-500/50"></span>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-bold tracking-tight uppercase">ALC Presupuestos</h1>
-            <p className="text-[11px] text-slate-400 font-medium tracking-wider uppercase">Ingreso Administrativo</p>
+
+          {/* Form */}
+          <form onSubmit={onSubmit} className="space-y-6">
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs py-3 px-4 rounded-xl flex items-center gap-3">
+                <div className="h-1.5 w-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                {error}
+              </div>
+            )}
+
+            <div className="space-y-4">
+              {/* Email Field */}
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Email</label>
+                <div className="relative group">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 transition-colors">
+                    <Mail size={18} />
+                  </div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 pl-12 pr-4 text-white outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-slate-700"
+                    placeholder="usuario@alc.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Password Field */}
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Contraseña</label>
+                <div className="relative group">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 transition-colors">
+                    <Lock size={18} />
+                  </div>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 pl-12 pr-4 text-white outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-slate-700"
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl shadow-xl shadow-blue-900/20 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+            >
+              {loading ? (
+                <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              ) : (
+                <>
+                  <span>Ingresar</span>
+                  <LogIn size={18} className="group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Footer */}
+          <div className="mt-10 flex flex-col items-center">
+            <div className="flex items-center gap-2 text-[9px] text-slate-500 font-bold uppercase tracking-[0.2em] opacity-60">
+              <ShieldCheck size={12} className="text-blue-500" />
+              Acceso Restringido - Personal Autorizado
+            </div>
           </div>
         </div>
-
-        <div>
-          <label className="block text-xs font-bold tracking-wide uppercase text-slate-400 mb-1" htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="username"
-            maxLength={MAX_EMAIL_LENGTH}
-            className="w-full rounded-lg bg-slate-800 border border-slate-600 px-3 py-2 outline-none focus:border-blue-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-bold tracking-wide uppercase text-slate-400 mb-1" htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-            maxLength={MAX_PASSWORD_LENGTH}
-            className="w-full rounded-lg bg-slate-800 border border-slate-600 px-3 py-2 outline-none focus:border-blue-500"
-          />
-        </div>
-
-        {error ? <p className="text-red-400 text-sm font-medium">{error}</p> : null}
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-60 transition rounded-lg py-2 font-semibold"
-        >
-          {loading ? 'Ingresando...' : 'Ingresar'}
-        </button>
-
-        <p className="text-[10px] text-slate-500 text-center uppercase tracking-wider">Acceso restringido para personal autorizado</p>
-      </form>
-    </main>
+      </div>
+    </div>
   );
 }
