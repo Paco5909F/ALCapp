@@ -80,7 +80,7 @@ export function verifySessionToken(token: string): SessionPayload | null {
 }
 
 export function verifyAdminCredentials(email: string, password: string): boolean {
-  const adminEmail = (getEnv('AUTH_ADMIN_EMAIL') || 'admin@alc.com').trim().toLowerCase();
+  const adminEmail = (getEnv('AUTH_ADMIN_EMAIL') || '').trim().toLowerCase();
   const adminPasswordHash = getEnv('AUTH_ADMIN_PASSWORD_HASH');
   const adminPasswordPlain = getEnv('AUTH_ADMIN_PASSWORD');
 
@@ -101,9 +101,7 @@ export function verifyAdminCredentials(email: string, password: string): boolean
     return timingSafeEquals(password, adminPasswordPlain);
   }
 
-  if (process.env.NODE_ENV !== 'production') {
-    return timingSafeEquals(password, 'AdminALC2026!');
-  }
+  // No fallbacks for security. Must use env variables.
 
   return false;
 }
