@@ -1,8 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AUTH_COOKIE_NAME, createSessionToken, getSessionTtlSeconds, verifyAdminCredentials } from '@/lib/auth';
+import { createSessionToken, getAuthCookieName, getSessionTtlSeconds, hasConfiguredCredentials, verifyAdminCredentials } from '@/lib/auth';
 import { clearRateLimit, isRateLimited } from '@/lib/rate-limit';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_PASSWORD_LENGTH = 256;
+
+type LoginErrorCode =
+  | 'SERVER_MISCONFIGURED'
+  | 'INVALID_REQUEST'
+  | 'RATE_LIMITED'
+  | 'INVALID_CREDENTIALS';
+
+function errorResponse(status: number, code: LoginErrorCode, error: string) {
+  return NextResponse.json({ error, code }, { status });
+}
 
 function getClientIp(request: NextRequest): string {
   const forwardedFor = request.headers.get('x-forwarded-for');
@@ -13,16 +25,20 @@ function getClientIp(request: NextRequest): string {
 }
 
 export async function POST(request: NextRequest) {
+  if (!hasConfiguredCredentials()) {
+    return errorResponse(500, 'SERVER_MISCONFIGURED', 'Falta configurar credenciales del servidor.');
+  }
+
   const origin = request.headers.get('origin');
   const host = request.headers.get('host');
   if (origin && host) {
     try {
       const originUrl = new URL(origin);
       if (originUrl.host !== host) {
-        return NextResponse.json({ error: 'Solicitud inválida.' }, { status: 403 });
+        return errorResponse(403, 'INVALID_REQUEST', 'Solicitud inválida.');
       }
     } catch {
-      return NextResponse.json({ error: 'Solicitud inválida.' }, { status: 403 });
+      return errorResponse(403, 'INVALID_REQUEST', 'Solicitud inválida.');
     }
   }
 
@@ -32,7 +48,7 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Solicitud inválida.' }, { status: 400 });
+    return errorResponse(400, 'INVALID_REQUEST', 'Solicitud inválida.');
   }
 
   const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
@@ -40,16 +56,16 @@ export async function POST(request: NextRequest) {
 
   const limiterKey = `${ip}:${email || 'unknown'}`;
   if (isRateLimited(limiterKey)) {
-    return NextResponse.json({ error: 'Demasiados intentos. Probá de nuevo más tarde.' }, { status: 429 });
+    return errorResponse(429, 'RATE_LIMITED', 'Demasiados intentos. Probá de nuevo más tarde.');
   }
 
-  if (!email || !password || !EMAIL_REGEX.test(email) || password.length > 256) {
-    return NextResponse.json({ error: 'Credenciales inválidas.' }, { status: 401 });
+  if (!email || !password || email.length > MAX_EMAIL_LENGTH || password.length > MAX_PASSWORD_LENGTH || !EMAIL_REGEX.test(email)) {
+    return errorResponse(401, 'INVALID_CREDENTIALS', 'Credenciales inválidas.');
   }
 
   const isValid = verifyAdminCredentials(email, password);
   if (!isValid) {
-    return NextResponse.json({ error: 'Credenciales inválidas.' }, { status: 401 });
+    return errorResponse(401, 'INVALID_CREDENTIALS', 'Credenciales inválidas.');
   }
 
   clearRateLimit(limiterKey);
@@ -58,7 +74,7 @@ export async function POST(request: NextRequest) {
   const response = NextResponse.json({ ok: true });
 
   response.cookies.set({
-    name: AUTH_COOKIE_NAME,
+    name: getAuthCookieName(),
     value: token,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

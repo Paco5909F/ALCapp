@@ -4,6 +4,15 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_PASSWORD_LENGTH = 256;
+
+type LoginApiError = {
+  error?: string;
+  code?: 'SERVER_MISCONFIGURED' | 'INVALID_REQUEST' | 'RATE_LIMITED' | 'INVALID_CREDENTIALS';
+};
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -11,20 +20,55 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  function validateForm(): string | null {
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedEmail) return 'Ingresá tu email.';
+    if (!EMAIL_REGEX.test(normalizedEmail)) return 'Ingresá un email válido.';
+    if (normalizedEmail.length > MAX_EMAIL_LENGTH) return 'El email es demasiado largo.';
+    if (!password) return 'Ingresá tu contraseña.';
+    if (password.length > MAX_PASSWORD_LENGTH) return 'La contraseña es demasiado larga.';
+
+    return null;
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError('');
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setLoading(true);
 
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
       });
 
       if (!response.ok) {
-        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        const data = (await response.json().catch(() => null)) as LoginApiError | null;
+
+        if (response.status === 429 || data?.code === 'RATE_LIMITED') {
+          setError('Demasiados intentos. Esperá unos minutos y volvé a intentar.');
+          return;
+        }
+
+        if (response.status === 401 || data?.code === 'INVALID_CREDENTIALS') {
+          setError('Email o contraseña incorrectos.');
+          return;
+        }
+
+        if (response.status === 500 || data?.code === 'SERVER_MISCONFIGURED') {
+          setError('Error interno de autenticación. Contactá al administrador.');
+          return;
+        }
+
         setError(data?.error || 'No se pudo iniciar sesión.');
         return;
       }
@@ -46,7 +90,7 @@ export default function LoginPage() {
       >
         <div className="flex items-center gap-4 pb-3 border-b border-slate-700">
           <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border-2 border-slate-600">
-            <Image src="/images/logo.png" alt="ALC Logo" fill className="object-contain p-1" priority />
+            <Image src="/images/logo.png" alt="ALC Logo" fill sizes="56px" className="object-contain p-1" priority />
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight uppercase">ALC Presupuestos</h1>
@@ -63,6 +107,7 @@ export default function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
             autoComplete="username"
+            maxLength={MAX_EMAIL_LENGTH}
             className="w-full rounded-lg bg-slate-800 border border-slate-600 px-3 py-2 outline-none focus:border-blue-500"
           />
         </div>
@@ -76,6 +121,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             autoComplete="current-password"
+            maxLength={MAX_PASSWORD_LENGTH}
             className="w-full rounded-lg bg-slate-800 border border-slate-600 px-3 py-2 outline-none focus:border-blue-500"
           />
         </div>

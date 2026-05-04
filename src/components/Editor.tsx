@@ -190,6 +190,7 @@ export default function Editor({ data, onChange }: EditorProps) {
                         src="/images/logo.png"
                         alt="ALC Logo"
                         fill
+                        sizes="56px"
                         className="object-contain p-1"
                     />
                 </div>

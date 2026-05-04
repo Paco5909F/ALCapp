@@ -1,6 +1,8 @@
 import crypto from 'crypto';
 
-export const AUTH_COOKIE_NAME = '__Host-alc_session';
+export function getAuthCookieName(): string {
+  return process.env.NODE_ENV === 'production' ? '__Host-alc_session' : 'alc_session';
+}
 const SESSION_TTL_SECONDS = 60 * 60 * 8;
 
 type SessionPayload = {
@@ -104,6 +106,17 @@ export function verifyAdminCredentials(email: string, password: string): boolean
   }
 
   return false;
+}
+
+export function hasConfiguredCredentials(): boolean {
+  const hasHash = Boolean(getEnv('AUTH_ADMIN_PASSWORD_HASH'));
+  const hasPlain = Boolean(getEnv('AUTH_ADMIN_PASSWORD'));
+
+  if (process.env.NODE_ENV === 'production') {
+    return hasHash || hasPlain;
+  }
+
+  return true;
 }
 
 export function hashPasswordForEnv(password: string): string {

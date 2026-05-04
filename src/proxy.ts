@@ -1,35 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AUTH_COOKIE_NAME, verifySessionToken } from '@/lib/auth';
+import { getAuthCookieName, verifySessionTokenEdge } from '@/lib/auth-edge';
 
 const PUBLIC_PATHS = new Set(['/login']);
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
+  const authCookieName = getAuthCookieName();
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get(authCookieName)?.value;
+
+  const isSessionValid = token ? Boolean(await verifySessionTokenEdge(token)) : false;
 
   if (pathname.startsWith('/_next') || pathname.startsWith('/api/auth') || pathname === '/favicon.ico') {
     return NextResponse.next();
   }
 
   if (PUBLIC_PATHS.has(pathname)) {
-    const token = request.cookies.get(AUTH_COOKIE_NAME)?.value;
-    if (!token) return NextResponse.next();
-
-    const session = verifySessionToken(token);
-    if (session) {
+    if (isSessionValid) {
       return NextResponse.redirect(new URL('/', request.url));
     }
-    return NextResponse.next();
+
+    const response = NextResponse.next();
+    if (token) {
+      response.cookies.set({
+        name: authCookieName,
+        value: '',
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/',
+        maxAge: 0,
+      });
+    }
+    return response;
   }
 
-  const token = request.cookies.get(AUTH_COOKIE_NAME)?.value;
-  if (!token) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
-  const session = verifySessionToken(token);
-  if (!session) {
+  if (!isSessionValid) {
     const response = NextResponse.redirect(new URL('/login', request.url));
-    response.cookies.delete(AUTH_COOKIE_NAME);
+    if (token) {
+      response.cookies.set({
+        name: authCookieName,
+        value: '',
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/',
+        maxAge: 0,
+      });
+    }
     return response;
   }
 

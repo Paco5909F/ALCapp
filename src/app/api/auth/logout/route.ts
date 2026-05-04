@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AUTH_COOKIE_NAME } from '@/lib/auth';
+import { getAuthCookieName } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get('origin');
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
   const response = NextResponse.json({ ok: true });
   response.cookies.set({
-    name: AUTH_COOKIE_NAME,
+    name: getAuthCookieName(),
     value: '',
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
