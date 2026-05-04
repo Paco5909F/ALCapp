@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Plus, Trash2, Calendar, User, Settings, DollarSign, MapPin, Minus } from 'lucide-react';
+import { Plus, Trash2, Calendar, User, Settings, DollarSign, MapPin, Minus, LogOut } from 'lucide-react';
 import { BudgetData, TechnicalRequirements } from '@/types';
 import { Combobox } from './ui/Combobox';
 
@@ -37,6 +37,7 @@ const LOCATIONS = [
 interface EditorProps {
     data: BudgetData;
     onChange: (data: BudgetData) => void;
+    onLogout?: () => void;
 }
 
 type RequirementNumberKey = 'parlantes' | 'potencia' | 'retornos' | 'micCable' | 'micWireless';
@@ -103,7 +104,7 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
     );
 };
 
-export default function Editor({ data, onChange }: EditorProps) {
+export default function Editor({ data, onChange, onLogout }: EditorProps) {
     const handleClientChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         // Automatic Uppercase for specific fields
@@ -194,10 +195,19 @@ export default function Editor({ data, onChange }: EditorProps) {
                         className="object-contain p-1"
                     />
                 </div>
-                <div>
+                <div className="flex-1">
                     <h2 className="text-2xl font-bold tracking-tight uppercase text-white">ALC Presupuestos</h2>
                     <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Generador de Cotizaciones</p>
                 </div>
+                {onLogout && (
+                    <button
+                        onClick={onLogout}
+                        className="p-2 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-lg transition-colors"
+                        title="Cerrar sesión"
+                    >
+                        <LogOut size={20} />
+                    </button>
+                )}
             </div>
 
             {/* Client Section */}

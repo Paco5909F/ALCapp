@@ -34,25 +34,33 @@ const INITIAL_DATA: BudgetData = {
 export default function Home() {
     const router = useRouter();
     const [data, setData] = useState<BudgetData>(INITIAL_DATA);
+    const [isVerifying, setIsVerifying] = useState(false);
 
     const handleLogout = async () => {
-        await fetch('/api/auth/logout', { method: 'POST' });
-        router.replace('/login');
-        router.refresh();
+        setIsVerifying(true);
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            router.replace('/login');
+            router.refresh();
+        } catch (error) {
+            console.error('Error during logout:', error);
+            setIsVerifying(false);
+        }
     };
+
+    if (isVerifying) {
+        return (
+            <div className="h-screen w-screen bg-slate-900 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            </div>
+        );
+    }
 
     return (
         <main className="flex flex-col md:flex-row h-screen overflow-hidden relative">
-            <button
-                type="button"
-                onClick={handleLogout}
-                className="absolute top-3 right-3 z-20 bg-slate-800 text-white border border-slate-600 rounded-md px-3 py-1 text-sm hover:bg-slate-700"
-            >
-                Cerrar sesión
-            </button>
             {/* Left / Top Panel: Editor */}
             <div className="w-full md:w-1/2 h-1/2 md:h-full overflow-hidden border-r border-gray-200">
-                <Editor data={data} onChange={setData} />
+                <Editor data={data} onChange={setData} onLogout={handleLogout} />
             </div>
 
             {/* Right / Bottom Panel: Preview */}
