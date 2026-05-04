@@ -225,7 +225,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             name="name"
                             value={data.client.name}
                             onChange={handleClientChange}
-                            className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 outline-none transition-all py-2 text-lg font-medium placeholder-slate-600"
+                            className="w-full bg-transparent text-white border-b-2 border-slate-600 focus:border-blue-500 outline-none transition-all py-2 text-lg font-medium placeholder-slate-600"
                             placeholder="EJ: JUAN PÉREZ"
                         />
                     </div>
@@ -276,7 +276,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                     name="date"
                                     value={data.client.date}
                                     onChange={handleClientChange}
-                                    className="w-full bg-transparent border-b border-slate-600 focus:border-blue-500 outline-none pb-1 [&::-webkit-calendar-picker-indicator]:invert"
+                                    className="w-full bg-transparent text-white border-b border-slate-600 focus:border-blue-500 outline-none pb-1 [&::-webkit-calendar-picker-indicator]:invert"
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -303,7 +303,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                             name="eventTime"
                                             value={data.client.eventTime || ''}
                                             onChange={handleClientChange}
-                                            className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
+                                            className="w-full bg-slate-900 text-white border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
                                         />
                                     </div>
                                     <div>
@@ -313,7 +313,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                             name="eventEndTime"
                                             value={data.client.eventEndTime || ''}
                                             onChange={handleClientChange}
-                                            className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
+                                            className="w-full bg-slate-900 text-white border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
                                         />
                                     </div>
                                 </div>
@@ -440,7 +440,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 type="text"
                                                 value={item.details}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'details', e.target.value)}
-                                                className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm focus:border-orange-500 outline-none placeholder-slate-700"
+                                                className="w-full bg-slate-900 text-white border border-slate-600 rounded p-2 text-sm focus:border-orange-500 outline-none placeholder-slate-700"
                                                 placeholder="Notas adicionales..."
                                             />
                                         </div>
@@ -539,7 +539,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             value={data.client.conditions}
                             onChange={handleClientChange}
                             rows={3}
-                            className="w-full bg-slate-900/50 p-3 rounded border border-slate-600 focus:border-blue-500 outline-none transition resize-none text-sm"
+                            className="w-full bg-slate-900/50 text-white p-3 rounded border border-slate-600 focus:border-blue-500 outline-none transition resize-none text-sm"
                             placeholder="Forma de pago, horarios, requerimientos..."
                         />
                     </div>

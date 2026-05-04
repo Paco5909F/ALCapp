@@ -218,7 +218,11 @@ interface PresupuestoPdfProps {
 }
 
 export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
-    const total = data.items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    // Safety check for data
+    if (!data || !data.client) return null;
+
+    const items = Array.isArray(data.items) ? data.items : [];
+    const total = items.reduce((acc, item) => acc + (item.quantity || 0) * (item.price || 0), 0);
 
     // Helper to parse "YYYY-MM-DD" or use today
     const parseDate = (dateStr?: string) => {
