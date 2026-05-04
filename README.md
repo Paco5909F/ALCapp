@@ -49,7 +49,7 @@ npm run auth:hash -- "tu_password_segura"
 2. Crea un archivo `.env.local` con:
 
 ```env
-AUTH_ADMIN_EMAIL=admin@alc.com
+AUTH_ADMIN_EMAIL=admin@example.com
 AUTH_ADMIN_PASSWORD_HASH=<pega_aqui_el_hash_generado>
 AUTH_SESSION_SECRET=<cadena_larga_aleatoria>
 ```
