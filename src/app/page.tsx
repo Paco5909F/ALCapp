@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Editor from '@/components/Editor';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 
 const Preview = dynamic(() => import('@/components/Preview'), { ssr: false });
 import { BudgetData } from '@/types';
@@ -31,10 +32,24 @@ const INITIAL_DATA: BudgetData = {
 };
 
 export default function Home() {
+    const router = useRouter();
     const [data, setData] = useState<BudgetData>(INITIAL_DATA);
 
+    const handleLogout = async () => {
+        await fetch('/api/auth/logout', { method: 'POST' });
+        router.replace('/login');
+        router.refresh();
+    };
+
     return (
-        <main className="flex flex-col md:flex-row h-screen overflow-hidden">
+        <main className="flex flex-col md:flex-row h-screen overflow-hidden relative">
+            <button
+                type="button"
+                onClick={handleLogout}
+                className="absolute top-3 right-3 z-20 bg-slate-800 text-white border border-slate-600 rounded-md px-3 py-1 text-sm hover:bg-slate-700"
+            >
+                Cerrar sesión
+            </button>
             {/* Left / Top Panel: Editor */}
             <div className="w-full md:w-1/2 h-1/2 md:h-full overflow-hidden border-r border-gray-200">
                 <Editor data={data} onChange={setData} />

@@ -35,3 +35,23 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # ALCapp
+
+## Login local seguro
+
+Este proyecto ahora usa login local con sesion en cookie `HttpOnly`.
+
+1. Genera el hash de la clave:
+
+```bash
+npm run auth:hash -- "tu_password_segura"
+```
+
+2. Crea un archivo `.env.local` con:
+
+```env
+AUTH_ADMIN_EMAIL=admin@alc.com
+AUTH_ADMIN_PASSWORD_HASH=<pega_aqui_el_hash_generado>
+AUTH_SESSION_SECRET=<cadena_larga_aleatoria>
+```
+
+3. Inicia la app y entra por `/login`.

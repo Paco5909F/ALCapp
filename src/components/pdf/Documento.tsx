@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
-import { BudgetData } from '@/types';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+import { BudgetData, TechnicalRequirements } from '@/types';
 import { formatCurrency, formatDate } from '@/lib/format';
 
 const COLORS = {
@@ -238,7 +238,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
     const validUntil = new Date(emissionDate);
     validUntil.setDate(emissionDate.getDate() + (data.client.validityDays || 15));
 
-    const formatRequirements = (reqs?: any) => {
+    const formatRequirements = (reqs?: TechnicalRequirements) => {
         if (!reqs) return '';
         const parts = [];
         if (reqs.parlantes > 0) parts.push(`${reqs.parlantes} ${reqs.parlantes === 1 ? 'Parlante' : 'Parlantes'}`);
@@ -255,7 +255,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
             'torre_media': 'Ilum. Torre Media',
             'estruct_grande': 'Ilum. Estructura Grande'
         };
-        if (reqs.iluminacion && reqs.iluminacion !== 'ninguna' && reqs.iluminacion !== false) {
+        if (reqs.iluminacion && reqs.iluminacion !== 'ninguna') {
             parts.push(ilumMap[reqs.iluminacion] || 'Ilum. Gral');
         }
 
@@ -296,7 +296,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                 Blanco Laura
                             </Text>
                             <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000', marginBottom: 2 }}>
-                                O'Higgins, Buenos Aires
+                                O&apos;Higgins, Buenos Aires
                             </Text>
                             <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
                                 Tel: 2364 - 608008 | Email: alcproduccionescontacto@gmail.com

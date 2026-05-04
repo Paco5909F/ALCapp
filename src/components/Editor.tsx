@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Plus, Trash2, Calendar, Clock, User, FileText, Settings, DollarSign, MapPin, Minus } from 'lucide-react';
-import { BudgetData, BudgetItem } from '@/types';
+import { Plus, Trash2, Calendar, User, Settings, DollarSign, MapPin, Minus } from 'lucide-react';
+import { BudgetData, TechnicalRequirements } from '@/types';
 import { Combobox } from './ui/Combobox';
 
 const EVENT_TYPES = [
@@ -38,6 +38,26 @@ interface EditorProps {
     data: BudgetData;
     onChange: (data: BudgetData) => void;
 }
+
+type RequirementNumberKey = 'parlantes' | 'potencia' | 'retornos' | 'micCable' | 'micWireless';
+const REQUIREMENT_NUMBER_KEYS: Array<{ label: string; key: RequirementNumberKey }> = [
+    { label: 'Parlantes', key: 'parlantes' },
+    { label: 'Potencias', key: 'potencia' },
+    { label: 'Retornos', key: 'retornos' },
+    { label: 'Mic. Cable', key: 'micCable' },
+    { label: 'Mic. Inal.', key: 'micWireless' },
+];
+
+const DEFAULT_REQUIREMENTS: TechnicalRequirements = {
+    parlantes: 0,
+    potencia: 0,
+    retornos: 0,
+    micCable: 0,
+    micWireless: 0,
+    iluminacion: 'ninguna',
+    consola: 'ninguna',
+    karaoke: false,
+};
 
 // Internal Stepper Component for improved mobile UX
 const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: number) => void, min?: number }) => {
@@ -132,7 +152,7 @@ export default function Editor({ data, onChange }: EditorProps) {
         });
     };
 
-    const updateLogisticsItem = (id: string, field: string, value: any) => {
+    const updateLogisticsItem = (id: string, field: string, value: string | number | boolean) => {
         onChange({
             ...data,
             logistics: (data.logistics || []).map((item) => {
@@ -140,12 +160,12 @@ export default function Editor({ data, onChange }: EditorProps) {
 
                 // Handle nested requirement updates
                 if (field.startsWith('req.')) {
-                    const reqField = field.split('.')[1];
+                    const reqField = field.split('.')[1] as keyof TechnicalRequirements;
                     return {
                         ...item,
                         requirements: {
-                            ...(item.requirements || { parlantes: 0, potencia: 0, retornos: 0, micCable: 0, micWireless: 0, iluminacion: 'ninguna', consola: 'ninguna', karaoke: false }),
-                            [reqField]: value
+                            ...(item.requirements || DEFAULT_REQUIREMENTS),
+                            [reqField]: value as never
                         }
                     };
                 }
@@ -216,7 +236,13 @@ export default function Editor({ data, onChange }: EditorProps) {
                             <select
                                 name="validityDays"
                                 value={data.client.validityDays || 15}
-                                onChange={(e) => handleClientChange({ target: { name: 'validityDays', value: parseInt(e.target.value) } } as any)}
+                                onChange={(e) => onChange({
+                                    ...data,
+                                    client: {
+                                        ...data.client,
+                                        validityDays: Number(e.target.value),
+                                    },
+                                })}
                                 className="w-full bg-slate-800 text-white outline-none cursor-pointer"
                             >
                                 <option value={15}>15 días</option>
@@ -248,7 +274,13 @@ export default function Editor({ data, onChange }: EditorProps) {
                                     <Combobox
                                         options={EVENT_TYPES}
                                         value={data.client.eventType || ''}
-                                        onChange={(val) => handleClientChange({ target: { name: 'eventType', value: val } } as any)}
+                                        onChange={(val) => onChange({
+                                            ...data,
+                                            client: {
+                                                ...data.client,
+                                                eventType: val.toUpperCase(),
+                                            },
+                                        })}
                                         placeholder="SELECCIONAR TIPO..."
                                     />
                                 </div>
@@ -290,18 +322,12 @@ export default function Editor({ data, onChange }: EditorProps) {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                        {[
-                            { label: 'Parlantes', key: 'parlantes' },
-                            { label: 'Potencias', key: 'potencia' },
-                            { label: 'Retornos', key: 'retornos' },
-                            { label: 'Mic. Cable', key: 'micCable' },
-                            { label: 'Mic. Inal.', key: 'micWireless' },
-                        ].map((req) => (
+                        {REQUIREMENT_NUMBER_KEYS.map((req) => (
                             <div key={req.key} className="bg-slate-800 p-3 rounded-lg border border-slate-700 flex flex-col justify-center items-center gap-2 shadow-sm">
                                 <label className="text-xs font-bold text-slate-400 uppercase tracking-wide text-center">{req.label}</label>
                                 <Stepper
-                                    value={(data.requirements as any)[req.key] || 0}
-                                    onChange={(val) => handleRequirementChange(req.key as any, val)}
+                                    value={data.requirements[req.key] || 0}
+                                    onChange={(val) => handleRequirementChange(req.key, val)}
                                 />
                             </div>
                         ))}
@@ -412,17 +438,11 @@ export default function Editor({ data, onChange }: EditorProps) {
                                     {/* Per-Location Requirements */}
                                     <div className="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
                                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
-                                            {[
-                                                { label: 'Parlantes', key: 'parlantes' },
-                                                { label: 'Retornos', key: 'retornos' },
-                                                { label: 'Potencias', key: 'potencia' },
-                                                { label: 'Mic. Cable', key: 'micCable' },
-                                                { label: 'Mic. Inal.', key: 'micWireless' },
-                                            ].map((req) => (
+                                            {REQUIREMENT_NUMBER_KEYS.map((req) => (
                                                 <div key={req.key} className="bg-slate-800 p-2 rounded border border-slate-700 flex flex-col justify-center items-center gap-1">
                                                     <label className="text-[10px] font-medium text-slate-400 truncate w-full text-center">{req.label}</label>
                                                     <Stepper
-                                                        value={(item.requirements as any)?.[req.key] || 0}
+                                                        value={item.requirements?.[req.key] || 0}
                                                         onChange={(val) => updateLogisticsItem(item.id, `req.${req.key}`, val)}
                                                     />
                                                 </div>
