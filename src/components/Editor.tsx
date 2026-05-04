@@ -514,6 +514,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
                             <input
                                 type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
                                 value={data.customTotal !== undefined ? new Intl.NumberFormat('es-AR').format(data.customTotal) : ''}
                                 onChange={(e) => {
                                     const raw = e.target.value.replace(/\./g, '');
