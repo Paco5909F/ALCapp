@@ -30,8 +30,12 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-background-clip: text;
   -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px #1e293b inset !important; /* Matches bg-slate-800 */
   transition: background-color 5000s ease-in-out 0s;
-  box-shadow: inset 0 0 20px 20px #0f172a20 !important;
+}
+
+/* Also for Firefox */
+input:filter(autofill) {
+  filter: none;
 }
