@@ -184,7 +184,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
     };
 
     return (
-        <div className="flex flex-col h-full bg-slate-900 text-white p-6 overflow-y-auto shadow-xl scrollbar-thin scrollbar-thumb-slate-700">
+        <div className="flex flex-col h-full bg-slate-900/40 backdrop-blur-md text-white p-6 overflow-y-auto shadow-xl scrollbar-thin scrollbar-thumb-slate-700">
             <div className="flex items-center gap-4 mb-8 pb-4 border-b border-slate-700">
                 <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border-2 border-slate-600">
                     <Image
