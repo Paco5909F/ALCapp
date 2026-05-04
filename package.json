@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint",
-    "auth:hash": "node scripts/hash-password.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",
