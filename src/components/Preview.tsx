@@ -73,8 +73,14 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 overflow-hidden">
-                <PDFViewer style={{ width: '100%', height: '100%', border: 'none' }} showToolbar={false}>
+            <div className="flex-1 relative overflow-hidden bg-gray-200">
+                <PDFViewer 
+                    style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        border: 'none',
+                    }}
+                >
                     <PresupuestoPdf data={deferredData} />
                 </PDFViewer>
             </div>
