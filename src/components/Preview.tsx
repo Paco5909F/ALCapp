@@ -50,9 +50,9 @@ export default function Preview({ data }: PreviewProps) {
     if (!isClient) return null;
 
     return (
-        <div className="h-full w-full bg-slate-200 border-l border-slate-300 relative flex flex-col">
-            <div className="bg-white border-b border-slate-200 p-3 flex justify-between items-center shadow-sm z-10">
-                <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wide">Vista Previa</h3>
+        <div className="h-full w-full bg-gray-100 border-l border-gray-200 relative flex flex-col">
+            <div className="bg-white border-b border-gray-200 p-3 flex justify-between items-center shadow-sm z-10">
+                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Vista Previa</h3>
                 <PDFDownloadLink
                     document={<PresupuestoPdf data={deferredData} />}
                     fileName={getFileName()}
@@ -73,8 +73,8 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 bg-slate-300 relative overflow-hidden">
-                <PDFViewer style={{ width: '100%', height: '100%', minHeight: '500px', border: 'none' }} showToolbar={false}>
+            <div className="flex-1 overflow-hidden">
+                <PDFViewer style={{ width: '100%', height: '100%', border: 'none' }} showToolbar={false}>
                     <PresupuestoPdf data={deferredData} />
                 </PDFViewer>
             </div>
