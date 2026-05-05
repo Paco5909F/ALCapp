@@ -290,6 +290,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 {/* Header */}
                 <View style={styles.headerContainer}>
                     <View style={styles.logoSection}>
+                        {/* Logo kept as it adds value, but layout adjusted to match text style of reference */}
                         <Image src="/images/logo.png" style={styles.logoImage} />
                         <View style={styles.companyDetails}>
                             <Text style={{ fontSize: 14, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', marginBottom: 4 }}>
