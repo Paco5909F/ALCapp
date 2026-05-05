@@ -290,10 +290,13 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 {/* Header */}
                 <View style={styles.headerContainer}>
                     <View style={styles.logoSection}>
-                        {/* Logo kept as it adds value, but layout adjusted to match text style of reference */}
-                        <Image src="/images/logo.png" style={styles.logoImage} />
+                        {/* 
+                            Si el PDF no carga en Vercel, solemos desactivar la imagen 
+                            temporalmente para confirmar si es el problema de carga de assets.
+                        */}
+                        {/* <Image src="/images/logo.png" style={styles.logoImage} /> */}
                         <View style={styles.companyDetails}>
-                            <Text style={{ fontSize: 14, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', marginBottom: 4 }}>
+                            <Text style={{ fontSize: 16, fontFamily: 'Helvetica-Bold', color: '#1e293b', marginBottom: 2 }}>
                                 ALC SONIDO EVENTOS
                             </Text>
                             <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
@@ -551,7 +554,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 {/* Standard Header (Logo Left) */}
                 <View style={styles.headerContainer}>
                     <View style={styles.logoSection}>
-                        <Image src="/images/logo.png" style={styles.logoImage} />
+                        {/* <Image src="/images/logo.png" style={styles.logoImage} /> */}
                         <View style={styles.companyDetails}>
                             <Text style={styles.companyName}>
                                 ALC SONIDO EVENTOS
