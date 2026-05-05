@@ -1,6 +1,6 @@
 'use client';
 
-import { useDeferredValue, useState, useEffect } from 'react';
+import { useDeferredValue } from 'react';
 import dynamic from 'next/dynamic';
 import { BudgetData } from '@/types';
 import { PresupuestoPdf } from './pdf/Documento';
@@ -10,12 +10,7 @@ const PDFViewer = dynamic(
     () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
     {
         ssr: false,
-        loading: () => (
-            <div className="flex flex-col items-center justify-center h-full bg-slate-50 text-slate-400 gap-3">
-                <Loader2 size={24} className="animate-spin text-blue-500" />
-                <span className="text-sm font-medium">Preparando visor de PDF...</span>
-            </div>
-        ),
+        loading: () => <div className="flex items-center justify-center h-full bg-gray-100 text-gray-500">Cargando visor PDF...</div>,
     }
 );
 
@@ -29,25 +24,18 @@ interface PreviewProps {
 }
 
 export default function Preview({ data }: PreviewProps) {
-    // Use deferred value to prevent crashes during typing
+    // Defer the data update for the PDF to avoid crashing during rapid typing
     const deferredData = useDeferredValue(data);
-
-    // Safety: check if we are on client
-    const [isClient, setIsClient] = useState(false);
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     // Generate Filename: Presupuesto-Nombre-DDMM.pdf
     const getFileName = () => {
         const name = deferredData.client.name ? deferredData.client.name.split(' ')[0] : 'Cliente';
+        // Use client date (event date) as requested "fecha sea 19/02..."
         const dateDate = deferredData.client.date ? new Date(deferredData.client.date + 'T12:00:00') : new Date();
         const day = dateDate.getDate().toString().padStart(2, '0');
         const month = (dateDate.getMonth() + 1).toString().padStart(2, '0');
         return `Presupuesto-${name}-${day}${month}.pdf`;
     };
-
-    if (!isClient) return null;
 
     return (
         <div className="h-full w-full bg-gray-100 border-l border-gray-200 relative flex flex-col">
@@ -73,14 +61,8 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 relative overflow-hidden bg-gray-200">
-                <PDFViewer 
-                    style={{ 
-                        width: '100%', 
-                        height: '100%', 
-                        border: 'none',
-                    }}
-                >
+            <div className="flex-1 overflow-hidden">
+                <PDFViewer style={{ width: '100%', height: '100%', border: 'none' }} showToolbar={false}>
                     <PresupuestoPdf data={deferredData} />
                 </PDFViewer>
             </div>
