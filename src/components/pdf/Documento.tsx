@@ -292,7 +292,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                     <View style={styles.logoSection}>
                         <Image src="/images/logo.png" style={styles.logoImage} />
                         <View style={styles.companyDetails}>
-                            <Text style={{ fontSize: 16, fontFamily: 'Helvetica-Bold', color: '#1e293b', marginBottom: 2 }}>
+                            <Text style={{ fontSize: 14, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', marginBottom: 4 }}>
                                 ALC SONIDO EVENTOS
                             </Text>
                             <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
