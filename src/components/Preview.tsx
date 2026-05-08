@@ -1,16 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { BudgetData } from '@/types';
 import { PresupuestoPdf } from './pdf/Documento';
-import { Download, Loader2, Eye } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
 
 const PDFViewer = dynamic(
     () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
     {
         ssr: false,
-        loading: () => <div className="flex items-center justify-center h-full bg-gray-100 text-gray-500">Cargando visor PDF...</div>,
+        loading: () => (
+            <div className="flex flex-col items-center justify-center h-full bg-slate-50 text-slate-400 gap-3">
+                <Loader2 size={24} className="animate-spin text-blue-500" />
+                <span className="text-sm font-medium">Preparando visor de PDF...</span>
+            </div>
+        ),
     }
 );
 
@@ -24,21 +28,6 @@ interface PreviewProps {
 }
 
 export default function Preview({ data }: PreviewProps) {
-    const [isMobile, setIsMobile] = useState(false);
-    const [showViewer, setShowViewer] = useState(false);
-
-    useEffect(() => {
-        const checkMobile = () => {
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            const isSmallScreen = window.innerWidth < 768;
-            setIsMobile(isTouchDevice || isSmallScreen);
-        };
-        
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
     const getFileName = () => {
         const name = data.client.name ? data.client.name.split(' ')[0] : 'Cliente';
         const dateDate = data.client.date ? new Date(data.client.date + 'T12:00:00') : new Date();
@@ -71,24 +60,10 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 overflow-hidden relative">
-                {isMobile && !showViewer ? (
-                    <div className="h-full flex flex-col items-center justify-center text-gray-500 p-4 text-center">
-                        <Eye size={48} className="mb-4 text-slate-400" />
-                        <p className="text-sm font-medium mb-2">Vista previa no disponible en móvil</p>
-                        <p className="text-xs text-slate-400">Usa el botón "Descargar PDF" para ver el documento</p>
-                        <button
-                            onClick={() => setShowViewer(true)}
-                            className="mt-4 px-4 py-2 text-sm bg-slate-200 hover:bg-slate-300 rounded transition"
-                        >
-                            Probar visor
-                        </button>
-                    </div>
-                ) : (
-                    <PDFViewer style={{ width: '100%', height: '100%', border: 'none' }} showToolbar={false}>
-                        <PresupuestoPdf data={data} />
-                    </PDFViewer>
-                )}
+            <div className="flex-1 overflow-hidden">
+                <PDFViewer style={{ width: '100%', height: '100%', border: 'none' }} showToolbar={false}>
+                    <PresupuestoPdf data={data} />
+                </PDFViewer>
             </div>
         </div>
     );
