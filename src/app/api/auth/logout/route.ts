@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuthCookieName } from '@/lib/auth';
+import { getAuthCookieName, verifySessionToken } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get('origin');
@@ -13,6 +13,13 @@ export async function POST(request: NextRequest) {
     } catch {
       return NextResponse.json({ error: 'Solicitud inválida.' }, { status: 403 });
     }
+  }
+
+  const cookie = request.cookies.get(getAuthCookieName());
+  const token = cookie?.value;
+
+  if (!token || !verifySessionToken(token)) {
+    return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
   }
 
   const response = NextResponse.json({ ok: true });
