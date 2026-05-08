@@ -1,23 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { BudgetData } from '@/types';
 import { PresupuestoPdf } from './pdf/Documento';
 import { Download, Loader2 } from 'lucide-react';
 
-const PDFViewer = dynamic(
-    () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
-    {
-        ssr: false,
-        loading: () => (
-            <div className="flex flex-col items-center justify-center h-full bg-yellow-100 text-yellow-800 gap-3 p-8">
-                <Loader2 size={32} className="animate-spin text-yellow-600" />
-                <span className="text-sm font-bold">CARGANDO VISOR...</span>
-                <p className="text-xs">Si esto no desaparece, el visor no funciona</p>
-            </div>
-        ),
-    }
+const BlobProvider = dynamic(
+    () => import('@react-pdf/renderer').then((mod) => mod.BlobProvider),
+    { ssr: false }
 );
 
 const PDFDownloadLink = dynamic(
@@ -32,6 +23,7 @@ interface PreviewProps {
 export default function Preview({ data }: PreviewProps) {
     const [forceViewer, setForceViewer] = useState(false);
     const [width, setWidth] = useState(0);
+    const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
     useEffect(() => {
         const updateWidth = () => setWidth(window.innerWidth);
@@ -49,7 +41,7 @@ export default function Preview({ data }: PreviewProps) {
         return `Presupuesto-${name}-${day}${month}.pdf`;
     };
 
-    if (isMobile && !forceViewer) {
+    if (isMobile && !pdfUrl) {
         return (
             <div className="h-full w-full bg-red-500 border-l border-red-700 relative flex flex-col">
                 <div className="bg-white border-b border-red-200 p-3 flex justify-between items-center shadow-sm z-10">
@@ -80,16 +72,23 @@ export default function Preview({ data }: PreviewProps) {
                         MODO MÓVIL
                     </p>
                     <p className="text-sm text-gray-600 mb-4">
-                        Ancho de pantalla: {width}px
+                        Ancho: {width}px
                     </p>
-                    <p className="text-xs text-gray-500 mb-6">
-                        El visor PDF no funciona en dispositivos móviles reales.
-                    </p>
+                    <BlobProvider document={<PresupuestoPdf data={data} />}>
+                        {({ url }) => {
+                            if (url) {
+                                setPdfUrl(url);
+                            }
+                            return null;
+                        }}
+                    </BlobProvider>
                     <button
-                        onClick={() => setForceViewer(true)}
+                        onClick={() => {
+                            setForceViewer(true);
+                        }}
                         className="px-6 py-3 text-base font-bold bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
                     >
-                        PROBAR VISOR IGUAL
+                        ABRIR EN PESTAÑA
                     </button>
                 </div>
             </div>
@@ -99,7 +98,7 @@ export default function Preview({ data }: PreviewProps) {
     return (
         <div className="h-full w-full bg-blue-100 border-l border-blue-300 relative flex flex-col">
             <div className="bg-white border-b border-blue-200 p-3 flex justify-between items-center shadow-sm z-10">
-                <h3 className="text-sm font-bold text-blue-700 uppercase tracking-wide">Vista Previa ({width}px)</h3>
+                <h3 className="text-sm font-bold text-blue-700 uppercase tracking-wide">Vista Previa</h3>
                 <PDFDownloadLink
                     document={<PresupuestoPdf data={data} />}
                     fileName={getFileName()}
@@ -120,10 +119,19 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 overflow-hidden">
-                <PDFViewer style={{ width: '100%', height: '100%', border: 'none' }} showToolbar={false}>
-                    <PresupuestoPdf data={data} />
-                </PDFViewer>
+            <div className="flex-1 overflow-hidden relative">
+                {forceViewer && pdfUrl ? (
+                    <iframe
+                        src={pdfUrl}
+                        className="w-full h-full border-none"
+                        title="PDF Preview"
+                    />
+                ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100">
+                        <Loader2 size={48} className="animate-spin text-blue-500 mb-4" />
+                        <p className="text-sm font-medium text-gray-600">Generando PDF...</p>
+                    </div>
+                )}
             </div>
         </div>
     );
