@@ -9,12 +9,7 @@ const PDFViewer = dynamic(
     () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
     {
         ssr: false,
-        loading: () => (
-            <div className="flex flex-col items-center justify-center h-full bg-slate-50 text-slate-400 gap-3">
-                <Loader2 size={24} className="animate-spin text-blue-500" />
-                <span className="text-sm font-medium">Preparando visor de PDF...</span>
-            </div>
-        ),
+        loading: () => <div className="flex items-center justify-center h-full bg-gray-100 text-gray-500">Cargando visor PDF...</div>,
     }
 );
 
@@ -29,8 +24,8 @@ interface PreviewProps {
 
 export default function Preview({ data }: PreviewProps) {
     const getFileName = () => {
-        const name = data.client.name ? data.client.name.split(' ')[0] : 'Cliente';
-        const dateDate = data.client.date ? new Date(data.client.date + 'T12:00:00') : new Date();
+        const name = data?.client?.name ? data.client.name.split(' ')[0] : 'Cliente';
+        const dateDate = data?.client?.date ? new Date(data.client.date + 'T12:00:00') : new Date();
         const day = dateDate.getDate().toString().padStart(2, '0');
         const month = (dateDate.getMonth() + 1).toString().padStart(2, '0');
         return `Presupuesto-${name}-${day}${month}.pdf`;
