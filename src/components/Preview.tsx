@@ -4,16 +4,17 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { BudgetData } from '@/types';
 import { PresupuestoPdf } from './pdf/Documento';
-import { Download, Loader2, Eye, EyeOff } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
 
 const PDFViewer = dynamic(
     () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
     {
         ssr: false,
         loading: () => (
-            <div className="flex flex-col items-center justify-center h-full bg-slate-50 text-slate-400 gap-3">
-                <Loader2 size={24} className="animate-spin text-blue-500" />
-                <span className="text-sm font-medium">Preparando visor de PDF...</span>
+            <div className="flex flex-col items-center justify-center h-full bg-yellow-100 text-yellow-800 gap-3 p-8">
+                <Loader2 size={32} className="animate-spin text-yellow-600" />
+                <span className="text-sm font-bold">CARGANDO VISOR...</span>
+                <p className="text-xs">Si esto no desaparece, el visor no funciona</p>
             </div>
         ),
     }
@@ -28,26 +29,18 @@ interface PreviewProps {
     data: BudgetData;
 }
 
-function isMobileDevice(): boolean {
-    if (typeof window === 'undefined') return false;
-    const userAgent = navigator.userAgent.toLowerCase();
-    const mobileKeywords = ['android', 'iphone', 'ipad', 'mobile', 'tablet'];
-    const isMobileUA = mobileKeywords.some(keyword => userAgent.includes(keyword));
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isSmallScreen = window.innerWidth < 768;
-    return (isMobileUA || isTouchDevice) && isSmallScreen;
-}
-
 export default function Preview({ data }: PreviewProps) {
-    const [isMobile, setIsMobile] = useState(true);
-    const [mounted, setMounted] = useState(false);
     const [forceViewer, setForceViewer] = useState(false);
+    const [width, setWidth] = useState(0);
 
     useEffect(() => {
-        setMounted(true);
-        setIsMobile(isMobileDevice());
+        const updateWidth = () => setWidth(window.innerWidth);
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+        return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
+    const isMobile = width < 768;
     const getFileName = () => {
         const name = data?.client?.name ? data.client.name.split(' ')[0] : 'Cliente';
         const dateDate = data?.client?.date ? new Date(data.client.date + 'T12:00:00') : new Date();
@@ -56,17 +49,15 @@ export default function Preview({ data }: PreviewProps) {
         return `Presupuesto-${name}-${day}${month}.pdf`;
     };
 
-    const showFallback = mounted && isMobile && !forceViewer;
-
-    if (showFallback) {
+    if (isMobile && !forceViewer) {
         return (
-            <div className="h-full w-full bg-gray-100 border-l border-gray-200 relative flex flex-col">
-                <div className="bg-white border-b border-gray-200 p-3 flex justify-between items-center shadow-sm z-10">
-                    <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Vista Previa</h3>
+            <div className="h-full w-full bg-red-500 border-l border-red-700 relative flex flex-col">
+                <div className="bg-white border-b border-red-200 p-3 flex justify-between items-center shadow-sm z-10">
+                    <h3 className="text-sm font-bold text-red-700 uppercase tracking-wide">Vista Previa</h3>
                     <PDFDownloadLink
                         document={<PresupuestoPdf data={data} />}
                         fileName={getFileName()}
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium transition shadow-sm"
+                        className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition shadow-sm"
                     >
                         {({ loading }) => (
                             loading ? (
@@ -83,20 +74,22 @@ export default function Preview({ data }: PreviewProps) {
                         )}
                     </PDFDownloadLink>
                 </div>
-                <div className="flex-1 flex flex-col items-center justify-center p-4 text-center">
-                    <Eye size={48} className="mb-4 text-slate-400" />
-                    <p className="text-sm font-medium text-gray-600 mb-2">
-                        Vista previa no disponible en móvil
+                <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-white">
+                    <div className="text-6xl mb-4">📱</div>
+                    <p className="text-xl font-bold text-gray-800 mb-2">
+                        MODO MÓVIL
                     </p>
-                    <p className="text-xs text-gray-400 mb-4">
-                        Usá el botón "Descargar PDF" para ver el documento
+                    <p className="text-sm text-gray-600 mb-4">
+                        Ancho de pantalla: {width}px
+                    </p>
+                    <p className="text-xs text-gray-500 mb-6">
+                        El visor PDF no funciona en dispositivos móviles reales.
                     </p>
                     <button
                         onClick={() => setForceViewer(true)}
-                        className="flex items-center gap-2 px-4 py-2 text-sm bg-slate-200 hover:bg-slate-300 rounded transition"
+                        className="px-6 py-3 text-base font-bold bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
                     >
-                        <EyeOff size={16} />
-                        Probar visor
+                        PROBAR VISOR IGUAL
                     </button>
                 </div>
             </div>
@@ -104,9 +97,9 @@ export default function Preview({ data }: PreviewProps) {
     }
 
     return (
-        <div className="h-full w-full bg-gray-100 border-l border-gray-200 relative flex flex-col">
-            <div className="bg-white border-b border-gray-200 p-3 flex justify-between items-center shadow-sm z-10">
-                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Vista Previa</h3>
+        <div className="h-full w-full bg-blue-100 border-l border-blue-300 relative flex flex-col">
+            <div className="bg-white border-b border-blue-200 p-3 flex justify-between items-center shadow-sm z-10">
+                <h3 className="text-sm font-bold text-blue-700 uppercase tracking-wide">Vista Previa ({width}px)</h3>
                 <PDFDownloadLink
                     document={<PresupuestoPdf data={data} />}
                     fileName={getFileName()}
