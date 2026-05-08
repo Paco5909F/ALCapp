@@ -24,30 +24,28 @@ const PDFDownloadLink = dynamic(
     { ssr: false }
 );
 
-const BlobProvider = dynamic(
-    () => import('@react-pdf/renderer').then((mod) => mod.BlobProvider),
-    { ssr: false }
-);
-
 interface PreviewProps {
     data: BudgetData;
 }
 
+function isMobileDevice(): boolean {
+    if (typeof window === 'undefined') return false;
+    const userAgent = navigator.userAgent.toLowerCase();
+    const mobileKeywords = ['android', 'iphone', 'ipad', 'mobile', 'tablet'];
+    const isMobileUA = mobileKeywords.some(keyword => userAgent.includes(keyword));
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isSmallScreen = window.innerWidth < 768;
+    return (isMobileUA || isTouchDevice) && isSmallScreen;
+}
+
 export default function Preview({ data }: PreviewProps) {
-    const [isMobile, setIsMobile] = useState(false);
-    const [useIframe, setUseIframe] = useState(false);
-    const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+    const [isMobile, setIsMobile] = useState(true);
+    const [mounted, setMounted] = useState(false);
+    const [forceViewer, setForceViewer] = useState(false);
 
     useEffect(() => {
-        const checkMobile = () => {
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            const isSmallScreen = window.innerWidth < 768;
-            setIsMobile(isTouchDevice && isSmallScreen);
-        };
-        
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        setMounted(true);
+        setIsMobile(isMobileDevice());
     }, []);
 
     const getFileName = () => {
@@ -58,7 +56,9 @@ export default function Preview({ data }: PreviewProps) {
         return `Presupuesto-${name}-${day}${month}.pdf`;
     };
 
-    if (isMobile && !pdfUrl) {
+    const showFallback = mounted && isMobile && !forceViewer;
+
+    if (showFallback) {
         return (
             <div className="h-full w-full bg-gray-100 border-l border-gray-200 relative flex flex-col">
                 <div className="bg-white border-b border-gray-200 p-3 flex justify-between items-center shadow-sm z-10">
@@ -92,7 +92,7 @@ export default function Preview({ data }: PreviewProps) {
                         Usá el botón "Descargar PDF" para ver el documento
                     </p>
                     <button
-                        onClick={() => setIsMobile(false)}
+                        onClick={() => setForceViewer(true)}
                         className="flex items-center gap-2 px-4 py-2 text-sm bg-slate-200 hover:bg-slate-300 rounded transition"
                     >
                         <EyeOff size={16} />
