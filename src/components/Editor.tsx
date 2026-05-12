@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Plus, Trash2, Calendar, User, Settings, DollarSign, MapPin, Minus, LogOut } from 'lucide-react';
+import { Plus, Trash2, Calendar, User, Settings, DollarSign, MapPin, Minus, LogOut, Sun, Moon } from 'lucide-react';
 import { BudgetData, TechnicalRequirements } from '@/types';
 import { Combobox } from './ui/Combobox';
 
@@ -105,6 +105,23 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
 };
 
 export default function Editor({ data, onChange, onLogout }: EditorProps) {
+    const [theme, setTheme] = React.useState<'dark' | 'light'>('dark');
+
+    React.useEffect(() => {
+        const savedTheme = localStorage.getItem('theme') as 'dark' | 'light';
+        if (savedTheme) {
+            setTheme(savedTheme);
+            if (savedTheme === 'light') document.documentElement.classList.add('light');
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+        if (newTheme === 'light') document.documentElement.classList.add('light');
+        else document.documentElement.classList.remove('light');
+    };
     const handleClientChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         // Automatic Uppercase for specific fields
@@ -198,15 +215,24 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                 <div className="flex-1">
                     <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Generador de Cotizaciones</p>
                 </div>
-                {onLogout && (
+                <div className="flex items-center gap-2">
                     <button
-                        onClick={onLogout}
-                        className="p-2.5 bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-xl border border-white/5 transition-all active:scale-95"
-                        title="Cerrar sesión"
+                        onClick={toggleTheme}
+                        className="p-2.5 bg-white/5 hover:bg-blue-500/10 text-slate-400 hover:text-blue-400 rounded-xl border border-white/5 transition-all active:scale-95"
+                        title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
                     >
-                        <LogOut size={18} />
+                        {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                     </button>
-                )}
+                    {onLogout && (
+                        <button
+                            onClick={onLogout}
+                            className="p-2.5 bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-xl border border-white/5 transition-all active:scale-95"
+                            title="Cerrar sesión"
+                        >
+                            <LogOut size={18} />
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Client Section */}

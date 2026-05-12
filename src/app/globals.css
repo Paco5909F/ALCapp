@@ -8,8 +8,21 @@
 :root {
   --background: #05070a;
   --foreground: #f8fafc;
-  --slate-800: #0f141d;
-  --blue-600: #2563eb;
+  --glass-bg: rgba(15, 20, 29, 0.8);
+  --card-bg: rgba(0, 0, 0, 0.4);
+  --border: rgba(255, 255, 255, 0.05);
+  --scrollbar-bg: #05070a;
+  --scrollbar-thumb: #1e293b;
+}
+
+.light {
+  --background: #f1f5f9;
+  --foreground: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.4);
+  --border: rgba(0, 0, 0, 0.05);
+  --scrollbar-bg: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
 }
 
 @theme inline {
@@ -23,19 +36,20 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Glass Panels to match Login */
+/* Glass Panels */
 @utility glass-panel {
-  background-color: rgba(15, 20, 29, 0.8);
+  background-color: var(--glass-bg);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
 }
 
 @utility glass-card {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--card-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
 }
 
 /* Premium Button interactions */
@@ -46,17 +60,17 @@ body {
   }
 }
 
-/* Custom Scrollbar for a cleaner look */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #05070a;
+  background: var(--scrollbar-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--scrollbar-thumb);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: color-mix(in srgb, var(--scrollbar-thumb), black 10%);
 }
