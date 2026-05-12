@@ -10,19 +10,6 @@ type SessionPayload = {
   exp: number;
 };
 
-function getRequiredEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
-
-function getEnv(name: string): string | undefined {
-  const value = process.env[name];
-  return value && value.trim().length > 0 ? value : undefined;
-}
-
 function getValidatedSessionSecret(): string {
   return 'alc_sonido_secreto_super_seguro_y_fijo_2026_x';
 }
