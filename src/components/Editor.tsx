@@ -78,7 +78,7 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
     };
 
     return (
-        <div className="flex items-center bg-black/40 rounded-xl border border-white/5 overflow-hidden">
+        <div className="flex items-center glass-input rounded-xl overflow-hidden">
             <button
                 onClick={handleDecrement}
                 className="p-2 hover:bg-white/5 active:bg-white/10 text-slate-500 transition-colors"
@@ -91,7 +91,7 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
                 value={value}
                 onChange={handleChange}
                 onFocus={handleFocus}
-                className="w-10 bg-transparent text-center font-black outline-none text-white text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-10 bg-transparent text-center font-black outline-none text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <button
                 onClick={handleIncrement}
@@ -201,7 +201,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
     };
 
     return (
-        <div className="flex flex-col h-full glass-panel text-white p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
+        <div className="flex flex-col h-full glass-panel p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
             <div className="flex items-center gap-4 mb-8 pb-4 border-b border-white/10">
                 <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border border-white/10">
                     <Image
@@ -237,13 +237,13 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
             {/* Client Section */}
             <section className="mb-8 space-y-6">
-                <div className="flex items-center gap-2 text-blue-400 mb-4">
+                <div className="flex items-center gap-2 text-[var(--accent-blue)] mb-4">
                     <User size={18} />
                     <h3 className="text-lg font-semibold uppercase tracking-wider">Datos del Cliente</h3>
                 </div>
 
                 <div className="grid grid-cols-1 gap-5">
-                    <div className="bg-black/40 p-4 rounded-2xl border border-white/5 hover:border-blue-500/40 transition-colors group">
+                    <div className="glass-card p-4 rounded-2xl hover:border-blue-500/40 transition-colors group">
                         <label className="block text-xs font-bold text-slate-400 mb-2 uppercase group-hover:text-blue-400 transition-colors">Nombre / Razón Social</label>
                         <input
                             type="text"
@@ -287,8 +287,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         </div>
                     </div>
 
-                    <div className="bg-black/40 p-5 rounded-3xl border border-white/5">
-                        <div className="flex items-center gap-2 mb-4 text-blue-400">
+                    <div className="glass-panel p-5 rounded-3xl">
+                        <div className="flex items-center gap-2 mb-4 text-[var(--accent-blue)]">
                             <Calendar size={16} />
                             <span className="text-xs font-bold uppercase">Detalles del Evento</span>
                         </div>
@@ -301,7 +301,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                     name="date"
                                     value={data.client.date}
                                     onChange={handleClientChange}
-                                    className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                    className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -329,7 +329,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 name="eventTime"
                                                 value={data.client.eventTime || ''}
                                                 onChange={handleClientChange}
-                                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-4 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
                                             />
                                         </div>
                                     </div>
@@ -341,7 +341,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 name="eventEndTime"
                                                 value={data.client.eventEndTime || ''}
                                                 onChange={handleClientChange}
-                                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-4 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
                                             />
                                         </div>
                                     </div>
@@ -356,14 +356,14 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
             {/* Requirements Section (Hidden if Logistics exist) */}
             {(!data.logistics || data.logistics.length === 0) && (
                 <section className="mb-8 space-y-4">
-                    <div className="flex items-center gap-2 text-purple-400 mb-4">
+                    <div className="flex items-center gap-2 text-[var(--accent-purple)] mb-4">
                         <Settings size={18} />
                         <h3 className="text-lg font-semibold uppercase tracking-wider">Técnica</h3>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
                         {REQUIREMENT_NUMBER_KEYS.map((req) => (
-                        <div key={req.key} className="bg-black/40 p-4 rounded-2xl border border-white/5 flex flex-col justify-center items-center gap-2 shadow-sm hover:border-purple-500/40 transition-colors">
+                        <div key={req.key} className="glass-card p-4 rounded-2xl flex flex-col justify-center items-center gap-2 shadow-sm hover:border-purple-500/40 transition-colors">
                                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">{req.label}</label>
                                 <Stepper
                                     value={data.requirements[req.key] || 0}
@@ -374,34 +374,34 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                        <div className="glass-card p-3 rounded-2xl">
                             <label className="block text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-widest ml-1">Iluminación</label>
                             <select
                                 value={data.requirements.iluminacion}
                                 onChange={(e) => handleRequirementChange('iluminacion', e.target.value)}
-                                className="w-full bg-transparent text-white p-2 rounded-xl border border-white/5 outline-none text-sm appearance-none"
+                                className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-sm appearance-none"
                             >
-                                <option value="ninguna" className="bg-slate-900">Ninguna</option>
-                                <option value="basica" className="bg-slate-900">Básica</option>
-                                <option value="media" className="bg-slate-900">Media</option>
-                                <option value="completa" className="bg-slate-900">Completa</option>
-                                <option value="torre_chica" className="bg-slate-900">Torre Chica</option>
-                                <option value="torre_media" className="bg-slate-900">Torre Media</option>
-                                <option value="estruct_grande" className="bg-slate-900">Estructura Grande</option>
+                                <option value="ninguna" className="bg-[var(--dropdown-bg)]">Ninguna</option>
+                                <option value="basica" className="bg-[var(--dropdown-bg)]">Básica</option>
+                                <option value="media" className="bg-[var(--dropdown-bg)]">Media</option>
+                                <option value="completa" className="bg-[var(--dropdown-bg)]">Completa</option>
+                                <option value="torre_chica" className="bg-[var(--dropdown-bg)]">Torre Chica</option>
+                                <option value="torre_media" className="bg-[var(--dropdown-bg)]">Torre Media</option>
+                                <option value="estruct_grande" className="bg-[var(--dropdown-bg)]">Estructura Grande</option>
                             </select>
                         </div>
 
-                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                        <div className="glass-card p-3 rounded-2xl">
                             <label className="block text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-widest ml-1">Consola</label>
                             <select
                                 value={data.requirements.consola}
                                 onChange={(e) => handleRequirementChange('consola', e.target.value)}
-                                className="w-full bg-transparent text-white p-2 rounded-xl border border-white/5 outline-none text-sm appearance-none"
+                                className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-sm appearance-none"
                             >
-                                <option value="ninguna" className="bg-slate-900">Ninguna</option>
-                                <option value="8ch" className="bg-slate-900">8 Canales</option>
-                                <option value="12ch" className="bg-slate-900">12 Canales</option>
-                                <option value="32ch" className="bg-slate-900">32 Canales</option>
+                                <option value="ninguna" className="bg-[var(--dropdown-bg)]">Ninguna</option>
+                                <option value="8ch" className="bg-[var(--dropdown-bg)]">8 Canales</option>
+                                <option value="12ch" className="bg-[var(--dropdown-bg)]">12 Canales</option>
+                                <option value="32ch" className="bg-[var(--dropdown-bg)]">32 Canales</option>
                             </select>
                         </div>
 
@@ -424,7 +424,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
             {/* Logistics Section */}
             <section className="mb-8 space-y-4">
-                <div className="flex justify-between items-center mb-4 text-orange-400">
+                <div className="flex justify-between items-center mb-4 text-[var(--accent-orange)]">
                     <div className="flex items-center gap-2">
                         <MapPin size={18} />
                         <h3 className="text-lg font-semibold uppercase tracking-wider">Logística / Ubicaciones</h3>
@@ -445,10 +445,10 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         </div>
                     ) : (
                         data.logistics.map((item) => (
-                            <div key={item.id} className="relative p-5 rounded-3xl bg-black/40 border border-white/5 group hover:border-blue-500/40 transition-all">
+                            <div key={item.id} className="relative p-5 rounded-3xl glass-card group hover:border-blue-500/40 transition-all">
                                 <button
                                     onClick={() => removeLogisticsItem(item.id)}
-                                    className="absolute -top-2 -right-2 bg-[#0f141d] text-slate-500 hover:bg-red-500 hover:text-white transition-all p-2 rounded-xl border border-white/10 shadow-xl z-10 active:scale-90"
+                                    className="absolute -top-2 -right-2 bg-[var(--dropdown-bg)] text-slate-500 hover:bg-red-500 hover:text-white transition-all p-2 rounded-xl border border-[var(--border)] shadow-xl z-10 active:scale-90"
                                     title="Eliminar ubicación"
                                 >
                                     <Trash2 size={16} />
@@ -471,7 +471,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 type="text"
                                                 value={item.details}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'details', e.target.value)}
-                                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-white font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-slate-600"
+                                                className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-slate-500/50"
                                                 placeholder="Notas adicionales..."
                                             />
                                         </div>

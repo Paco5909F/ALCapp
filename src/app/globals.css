@@ -10,19 +10,27 @@
   --foreground: #f8fafc;
   --glass-bg: rgba(15, 20, 29, 0.8);
   --card-bg: rgba(0, 0, 0, 0.4);
+  --dropdown-bg: #0f141d;
   --border: rgba(255, 255, 255, 0.05);
   --scrollbar-bg: #05070a;
   --scrollbar-thumb: #1e293b;
+  --accent-blue: #60a5fa;
+  --accent-orange: #fb923c;
+  --accent-purple: #c084fc;
 }
 
 .light {
-  --background: #f1f5f9;
-  --foreground: #0f172a;
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --card-bg: rgba(255, 255, 255, 0.4);
-  --border: rgba(0, 0, 0, 0.05);
-  --scrollbar-bg: #f1f5f9;
+  --background: #ffffff;
+  --foreground: #1e293b;
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --card-bg: rgba(241, 245, 249, 0.7);
+  --dropdown-bg: #ffffff;
+  --border: rgba(37, 99, 235, 0.15);
+  --scrollbar-bg: #ffffff;
   --scrollbar-thumb: #cbd5e1;
+  --accent-blue: #2563eb;
+  --accent-orange: #ea580c;
+  --accent-purple: #9333ea;
 }
 
 @theme inline {
@@ -50,6 +58,13 @@ body {
   background-color: var(--card-bg);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border);
+}
+
+@utility glass-input {
+  background-color: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  color: var(--foreground);
 }
 
 /* Premium Button interactions */

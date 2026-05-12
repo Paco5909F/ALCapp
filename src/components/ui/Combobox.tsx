@@ -69,7 +69,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                     onChange={handleInputChange}
                     onFocus={handleFocus}
                     placeholder={placeholder}
-                    className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 pr-12 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-slate-700 uppercase"
+                    className="w-full glass-input rounded-2xl py-4 px-6 pr-12 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-slate-500/50 uppercase"
                 />
                 <button
                     type="button"
@@ -88,7 +88,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
             </div>
 
             {isOpen && (
-                <div className="absolute z-50 w-full mt-2 bg-[#1a1f2e] border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-h-60 overflow-y-auto scrollbar-none animate-in fade-in zoom-in-95 duration-200">
+                <div className="absolute z-50 w-full mt-2 bg-[var(--dropdown-bg)] border border-[var(--border)] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] max-h-60 overflow-y-auto scrollbar-none animate-in fade-in zoom-in-95 duration-200">
                     {filteredOptions.length > 0 ? (
                         <div className="p-2 space-y-1">
                             {filteredOptions.map((option) => (
@@ -96,7 +96,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                                     key={option}
                                     type="button"
                                     onClick={() => handleSelect(option)}
-                                    className="w-full text-left px-4 py-3 text-xs font-bold text-slate-400 hover:bg-blue-600/20 hover:text-white rounded-xl transition flex items-center justify-between group/item uppercase tracking-widest"
+                                    className="w-full text-left px-4 py-3 text-xs font-bold text-slate-500 hover:bg-blue-600/10 hover:text-blue-600 dark:hover:text-white rounded-xl transition flex items-center justify-between group/item uppercase tracking-widest"
                                 >
                                     {option}
                                     {value === option && <Check size={16} className="text-blue-400" />}

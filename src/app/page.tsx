@@ -58,13 +58,13 @@ export default function Home() {
     }
 
     return (
-        <main className="flex flex-col h-[100dvh] overflow-hidden relative bg-[#05070a] font-sans">
+        <main className="flex flex-col h-[100dvh] overflow-hidden relative bg-[var(--background)] font-sans">
             {/* Ambient Background Glows */}
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
 
             {/* Mobile Tabs Header */}
-            <div className="md:hidden flex w-full bg-slate-900/80 backdrop-blur-md border-b border-white/10 z-20 shrink-0">
+            <div className="md:hidden flex w-full bg-[var(--background)] backdrop-blur-md border-b border-[var(--border)] z-20 shrink-0">
                 <button 
                     onClick={() => setActiveTab('editor')}
                     className={`flex-1 py-3 text-sm font-bold tracking-wider uppercase transition-colors ${activeTab === 'editor' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-500 hover:text-slate-300'}`}
