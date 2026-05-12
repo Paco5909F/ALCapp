@@ -13,6 +13,8 @@ const COLORS = {
     textLight: '#646464',
 };
 
+const LOGO_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAU8AAAFGCAYAAADqwh06AAAAAXNSR0IArs4c6QAAIABJREFUeF7sfQmYLElVbiy5VHffYViEYd+RHdkchh0FZFVRGYdNBURAQVAfij6XJ25P4aGAiggiKAwMIJuyq2wDDMMmyyAoqzAswzIzzEx3V1VmRLz688bpOZ03qzKzMqurujri++537+2OjOVExB8nzipFKIECgQKBAoECrSkgW38RPggUCBQIFAgUEAE8wyYIFAgUCBSYgwIBPOcgWvgkUCBQIFAggGfYA4ECgQKBAnNQIIDnHEQLnwQKBAoECgTwDHsgUCBQIFBgDgoE8JyDaOGTQIFAgUCBAJ5hDwQKBAoECsxBgQCecxAtfBIoECgQKBDAM+yBQIFAgUCBOSgQwHMOooVPAgUCBQIFAniGPRAoECgQKDAHBQJ4zkG08EmgQKBAoEAAz7AHAgUCBQIF5qBAAM85iBY+CRQIFAgUCOAZ9kCgQKBAoMAcFAjgOQfRwieBAoECgQIBPMMeCBQIFAgUmIMCATznIFr4JFAgUCBQIIBn2AOBAoECgQJzUCCA5xxEC58ECgQKBAoE8Ax7IFAgUCBQYA4KBPCcg2jhk0CBQIFAgQCeYQ8ECgQKBArMQYEAnnMQLXwSKBAoECgQwDPsgUCBQIFAgTkoEMBzDqKFTwIFAgUCBQJ4hj0QKBAoECgwBwUCeM5BtPBJoECgQKBAAM+wBwIFAgUCBeagQADPOYh2xD/BnnFHnAZh+oECIoBn2ARdKcD3kBJCRP7PlYQQVxBCbAghThKi2Gvad7YjhLjMg/AlQohtIQR+NhZCWP+n67jC94ECC6VAAM+FknetGr9CFEV3sNY+MEmS2w+Hw1tIKa/KALGYrHPtmFKttTDGCCmliONYjMfj4t/4uRAiE0J8N8/zL2mtP2aMOUcIcbYQ4isNKBs45AZEClXmp0AAz/lpt65fXlcI8RNCiAcPBoPTsiw7BnADsAEY8zwvgI1+hv9TqQJOAOGsgm/QdpZlBWjSH7SvlBLWWrG5uSl2dsCYir2f4d8Yh5TyYinlx7Ise5kQ4vVCiO+t68KEea0WBQJ4rtZ6HORo8MTG0/pxURQ9Ns/z7wdYAbw4cGFAURQVpFQv8zwwD4AHA88ZfM8Yc8WmO6Zp+tjRaHT60EAn0O7XGkXRA/M8fxt/Y1A8AAsAY0z9Ofm65E0e58W/YV4E87C6xEnR9R8CpxvOAxieF9u6Y6FpY2PD7ezsFPEyAAnmSTvIsE1+NuunvA0Gg3w0Gu3zkqE/6u7P69on68XvU/0vYpY69o9yT9fP6+u50vfhY+XjV4UnVfQZREwP60O+K39vYm71tD79p0l0P0uS5NPj8fhXyXN0fT3S6R70mYpXInzYqD2+9yLp1mR98Lz/2D0ZPJclv/Wsz6fF3+m3I9o/f0OonvL8vL+7l7X0SAn6N2mOf88zQ784KMcZqT8y457Ndf0pUj65fN/76O+K36rbeXvX5Uv9fU95D4SOfM91+R7174P8O/rE5W0Z0V7yPeYd9z97m0zWf/rUv3/7y/XdxvOa+S0yqUu96/WdYvXjM6MoeiaF3fT69Z7W9v8D6RZZqLSuX2IAAAAASUVORK5CYII=';
+
 const styles = StyleSheet.create({
     page: {
         padding: 30,
@@ -297,7 +299,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 <View style={styles.headerContainer}>
                     <View style={styles.logoSection}>
                         {/* Logo kept as it adds value, but layout adjusted to match text style of reference */}
-                        <Image src="/images/logo.png" style={styles.logoImage} />
+                        <Image src={LOGO_BASE64} style={styles.logoImage} />
                         <View style={styles.companyDetails}>
                             <Text style={{ fontSize: 14, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', marginBottom: 4 }}>
                                 ALC SONIDO EVENTOS
@@ -557,7 +559,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 {/* Standard Header (Logo Left) */}
                 <View style={styles.headerContainer}>
                     <View style={styles.logoSection}>
-                        <Image src="/images/logo.png" style={styles.logoImage} />
+                        <Image src={LOGO_BASE64} style={styles.logoImage} />
                         <View style={styles.companyDetails}>
                             <Text style={styles.companyName}>
                                 ALC SONIDO EVENTOS

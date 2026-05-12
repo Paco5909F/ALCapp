@@ -71,12 +71,28 @@ export default function Preview({ data }: PreviewProps) {
                             );
                         }
                         return (
-                            <iframe 
-                                key={url} 
-                                src={`${url}#toolbar=0`} 
-                                className="w-full h-full border-none" 
-                                title="Vista Previa PDF"
-                            />
+                            <div className="w-full h-full flex flex-col">
+                                <div className="flex-1 relative bg-white border border-gray-200">
+                                    <iframe 
+                                        key={url} 
+                                        src={url} 
+                                        className="w-full h-full border-none" 
+                                        title="Vista Previa PDF"
+                                    />
+                                </div>
+                                {/* Mobile Fallback Button */}
+                                <div className="md:hidden p-4 bg-white border-t border-gray-200 flex justify-center">
+                                    <a 
+                                        href={url} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-bold text-center flex items-center justify-center gap-2"
+                                    >
+                                        <Download size={20} />
+                                        VER PDF EN PANTALLA COMPLETA
+                                    </a>
+                                </div>
+                            </div>
                         );
                     }}
                 </BlobProvider>
