@@ -76,11 +76,18 @@ export function verifySessionToken(token: string): SessionPayload | null {
 }
 
 export function verifyAdminCredentials(email: string, password: string): boolean {
-  // Login súper sencillo y fijo sin variables de entorno
-  const validUser = 'admin';
-  const validPass = 'alc2026';
+  const validUser = 'admin@alc.com';
+  const validHash = '90682248addbc8426a24176becb7e3c8:66a668c0ae44371c45cd9d344816f73b32354b7e23b46f63a189edb905384dda0357443aa84201e70e1be213b244875ebf342321ea1dc4ab5591f980fb680374';
   
-  return email.trim().toLowerCase() === validUser && password === validPass;
+  if (email.trim().toLowerCase() !== validUser) {
+    return false;
+  }
+
+  const [salt, expectedHash] = validHash.split(':');
+  if (!salt || !expectedHash) return false;
+
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return timingSafeEquals(hash, expectedHash);
 }
 
 export function hasConfiguredCredentials(): boolean {
