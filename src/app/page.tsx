@@ -58,7 +58,7 @@ export default function Home() {
     }
 
     return (
-        <main className="flex flex-col h-[100dvh] overflow-hidden relative bg-[var(--background)] font-sans max-w-full overflow-x-hidden">
+        <main className="fixed inset-0 flex flex-col h-[100dvh] w-screen overflow-hidden bg-[var(--background)] font-sans">
             {/* Ambient Background Glows */}
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>

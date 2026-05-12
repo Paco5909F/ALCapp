@@ -32,12 +32,12 @@ export default function Preview({ data }: PreviewProps) {
 
     return (
         <div className="h-full w-full bg-[var(--background)] relative flex flex-col">
-            <div className="glass-panel border-b border-[var(--border)] p-4 flex justify-between items-center z-10">
+            <div className="glass-panel border-b border-[var(--border)] p-3 sm:p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 z-10">
                 <h3 className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em]">Vista Previa</h3>
                 <PDFDownloadLink
                     document={<PresupuestoPdf data={data} />}
                     fileName={getFileName()}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-900/20 btn-premium"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-900/20 btn-premium"
                 >
                     {({ loading }) => (
                         loading ? (

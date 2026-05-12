@@ -201,7 +201,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
     };
 
     return (
-        <div className="flex flex-col h-full glass-panel p-3 sm:p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--accent-blue)]/20">
+        <div className="flex flex-col h-full glass-panel p-3 sm:p-6 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-[var(--accent-blue)]/20">
             <div className="flex items-center gap-4 mb-8 pb-4 border-b border-[var(--border)]">
                 <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border border-[var(--border)]">
                     <Image
