@@ -287,7 +287,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         </div>
                     </div>
 
-                    <div className="glass-panel p-5 rounded-3xl">
+                    <div className="glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl">
                         <div className="flex items-center gap-2 mb-4 text-[var(--accent-blue)]">
                             <Calendar size={16} />
                             <span className="text-xs font-bold uppercase">Detalles del Evento</span>
@@ -425,13 +425,13 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
             {/* Logistics Section */}
             <section className="mb-8 space-y-4">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 text-[var(--accent-orange)]">
-                    <div className="flex items-center gap-2 min-w-0">
+                    <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
                         <MapPin size={16} className="shrink-0" />
                         <h3 className="text-sm sm:text-lg font-semibold uppercase tracking-wider truncate">Logística / Ubicaciones</h3>
                     </div>
                     <button
                         onClick={addLogisticsItem}
-                        className="flex items-center gap-1.5 px-3 py-2 sm:px-5 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl sm:rounded-2xl transition-all shadow-lg text-[9px] sm:text-[10px] font-black uppercase tracking-wider btn-premium shrink-0"
+                        className="flex items-center justify-center gap-1.5 px-3 py-2 sm:px-5 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl sm:rounded-2xl transition-all shadow-lg text-[9px] sm:text-[10px] font-black uppercase tracking-wider btn-premium w-full sm:w-auto shrink-0"
                     >
                         <Plus size={14} className="sm:w-4 sm:h-4" />
                         <span className="whitespace-nowrap">Agregar Ubicación</span>
@@ -471,7 +471,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 type="text"
                                                 value={item.details}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'details', e.target.value)}
-                                                className="w-full glass-input rounded-2xl py-3 px-5 font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-[var(--text-muted)]/50 text-base"
+                                                className="w-full glass-input rounded-2xl py-3 px-5 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-[var(--text-muted)]/50 text-base"
                                                 placeholder="Notas adicionales..."
                                             />
                                         </div>
@@ -479,7 +479,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                                     {/* Per-Location Requirements */}
                                     <div className="bg-[var(--background)]/50 p-4 rounded-2xl border border-[var(--border)]">
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
+                                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
                                             {REQUIREMENT_NUMBER_KEYS.map((req) => (
                                                 <div key={req.key} className="glass-card p-2 rounded-xl flex flex-col justify-center items-center gap-1 border border-[var(--border)]">
                                                     <label className="text-[10px] font-medium text-[var(--text-muted)] truncate w-full text-center">{req.label}</label>
@@ -516,12 +516,12 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 <option value="32ch">Consola: 32 Canales</option>
                                             </select>
 
-                                            <label className="flex items-center gap-2 cursor-pointer hover:text-orange-500 transition glass-card rounded-xl p-2 justify-center border border-[var(--border)]">
+                                            <label className="flex items-center gap-2 cursor-pointer hover:text-blue-500 transition glass-card rounded-xl p-2 justify-center border border-[var(--border)]">
                                                 <input
                                                     type="checkbox"
                                                     checked={item.requirements?.karaoke || false}
                                                     onChange={(e) => updateLogisticsItem(item.id, 'req.karaoke', e.target.checked)}
-                                                    className="accent-orange-500 w-3 h-3"
+                                                    className="accent-blue-500 w-3 h-3"
                                                 />
                                                 <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Karaoke</span>
                                             </label>
