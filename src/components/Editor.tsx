@@ -301,7 +301,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                     name="date"
                                     value={data.client.date}
                                     onChange={handleClientChange}
-                                    className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                    className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -320,7 +320,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         placeholder="SELECCIONAR TIPO..."
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div>
                                         <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Horario Inicio</label>
                                         <div className="relative group">
@@ -329,7 +329,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 name="eventTime"
                                                 value={data.client.eventTime || ''}
                                                 onChange={handleClientChange}
-                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
                                             />
                                         </div>
                                     </div>
@@ -341,7 +341,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 name="eventEndTime"
                                                 value={data.client.eventEndTime || ''}
                                                 onChange={handleClientChange}
-                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
                                             />
                                         </div>
                                     </div>
