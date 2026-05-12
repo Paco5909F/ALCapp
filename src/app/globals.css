@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Geist';
-  src: url('https://cdn.jsdelivr.net/font-geist/1.0.0/geist.css');
-}
+
 
 :root {
   --background: #05070a;
@@ -48,6 +45,7 @@ html, body {
   position: relative;
   width: 100%;
   touch-action: pan-y;
+  overscroll-behavior: none;
 }
 
 body {

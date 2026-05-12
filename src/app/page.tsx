@@ -67,27 +67,27 @@ export default function Home() {
             <div className="md:hidden flex w-full bg-[var(--background)] backdrop-blur-md border-b border-[var(--border)] z-20 shrink-0">
                 <button 
                     onClick={() => setActiveTab('editor')}
-                    className={`flex-1 py-3 text-sm font-bold tracking-wider uppercase transition-colors ${activeTab === 'editor' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-500 hover:text-slate-300'}`}
+                    className={`flex-1 py-3 text-[10px] font-black tracking-wider uppercase transition-colors whitespace-nowrap ${activeTab === 'editor' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-[var(--text-muted)] hover:text-slate-300'}`}
                 >
                     Editor
                 </button>
                 <button 
                     onClick={() => setActiveTab('preview')}
-                    className={`flex-1 py-3 text-sm font-bold tracking-wider uppercase transition-colors ${activeTab === 'preview' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-500 hover:text-slate-300'}`}
+                    className={`flex-1 py-3 text-[10px] font-black tracking-wider uppercase transition-colors whitespace-nowrap ${activeTab === 'preview' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-[var(--text-muted)] hover:text-slate-300'}`}
                 >
                     Vista Previa
                 </button>
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative z-10 w-full h-full">
+            <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative z-10 w-full h-full max-w-full overflow-x-hidden">
                 {/* Left Panel: Editor */}
                 <div className={`w-full md:w-1/2 h-full overflow-hidden border-r border-white/5 ${activeTab === 'editor' ? 'block' : 'hidden md:block'}`}>
                     <Editor data={data} onChange={setData} onLogout={handleLogout} />
                 </div>
 
                 {/* Right Panel: Preview */}
-                <div className={`w-full md:w-1/2 h-full overflow-hidden bg-gray-100 ${activeTab === 'preview' ? 'block' : 'hidden md:block'}`}>
+                <div className={`w-full md:w-1/2 h-full overflow-hidden bg-[var(--background)] ${activeTab === 'preview' ? 'block' : 'hidden md:block'}`}>
                     <Preview data={data} />
                 </div>
             </div>

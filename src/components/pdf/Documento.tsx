@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logoImage: {
-        width: 60,
-        height: 60,
+        width: 75,
+        height: 75,
         marginRight: 20,
         flexShrink: 0,
     },
@@ -354,7 +354,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
 
                 <View style={styles.dataBox}>
                     <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'space-between' }]}>
-                        <View style={{ width: '30%' }}>
+                        <View style={{ width: '25%' }}>
                             <Text style={styles.fieldLabel}>FECHA</Text>
                             <Text style={styles.fieldValue}>{formatDate(data.client.date) || '-'}</Text>
                         </View>
@@ -362,7 +362,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.fieldLabel}>TIPO</Text>
                             <Text style={styles.fieldValue}>{data.client.eventType || '-'}</Text>
                         </View>
-                        <View style={{ width: '35%' }}>
+                        <View style={{ width: '40%' }}>
                             <Text style={styles.fieldLabel}>HORARIO</Text>
                             <Text style={styles.fieldValue}>
                                 {data.client.eventTime || '-'}
@@ -563,8 +563,11 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.companyName}>
                                 ALC SONIDO EVENTOS
                             </Text>
-                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000', marginBottom: 2 }}>
                                 TÉRMINOS Y CONDICIONES
+                            </Text>
+                            <Text style={{ fontSize: 8, fontFamily: 'Helvetica', color: COLORS.textLight }}>
+                                CONDICIONES GENERALES DEL SERVICIO
                             </Text>
                         </View>
                     </View>

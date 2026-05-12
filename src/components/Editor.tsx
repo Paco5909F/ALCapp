@@ -78,27 +78,27 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
     };
 
     return (
-        <div className="flex items-center glass-input rounded-xl overflow-hidden">
+        <div className="flex items-center glass-input rounded-xl overflow-hidden shrink-0">
             <button
                 onClick={handleDecrement}
-                className="p-2 hover:bg-[var(--card-bg)] active:bg-white/10 text-[var(--text-muted)] transition-colors"
+                className="p-1.5 hover:bg-[var(--card-bg)] active:bg-white/10 text-[var(--text-muted)] transition-colors"
                 type="button"
             >
-                <Minus size={14} />
+                <Minus size={12} />
             </button>
             <input
                 type="number"
                 value={value}
                 onChange={handleChange}
                 onFocus={handleFocus}
-                className="w-10 bg-transparent text-center font-black outline-none text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-8 bg-transparent text-center font-black outline-none text-[10px] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <button
                 onClick={handleIncrement}
-                className="p-2 hover:bg-[var(--card-bg)] active:bg-white/10 text-[var(--text-muted)] transition-colors"
+                className="p-1.5 hover:bg-[var(--card-bg)] active:bg-white/10 text-[var(--text-muted)] transition-colors"
                 type="button"
             >
-                <Plus size={14} />
+                <Plus size={12} />
             </button>
         </div>
     );
@@ -212,8 +212,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         className="object-contain p-1"
                     />
                 </div>
-                <div className="flex-1">
-                    <p className="text-[10px] text-[var(--text-muted)] font-medium tracking-wider uppercase">Generador de Cotizaciones</p>
+                <div className="flex-1 min-w-0">
+                    <p className="text-[10px] text-[var(--text-muted)] font-medium tracking-wider uppercase truncate">Generador de Cotizaciones</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <button
@@ -424,17 +424,17 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
             {/* Logistics Section */}
             <section className="mb-8 space-y-4">
-                <div className="flex justify-between items-center mb-4 text-[var(--accent-orange)]">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 text-[var(--accent-orange)]">
                     <div className="flex items-center gap-2">
                         <MapPin size={18} />
                         <h3 className="text-lg font-semibold uppercase tracking-wider">Logística / Ubicaciones</h3>
                     </div>
                     <button
                         onClick={addLogisticsItem}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl transition-all shadow-xl shadow-blue-900/20 text-[10px] font-black uppercase tracking-[0.1em] btn-premium"
+                        className="flex items-center gap-1.5 px-3 py-2 sm:px-5 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl sm:rounded-2xl transition-all shadow-lg text-[9px] sm:text-[10px] font-black uppercase tracking-wider btn-premium shrink-0"
                     >
-                        <Plus size={16} />
-                        Agregar Ubicación
+                        <Plus size={14} className="sm:w-4 sm:h-4" />
+                        <span className="whitespace-nowrap">Agregar Ubicación</span>
                     </button>
                 </div>
 
@@ -479,7 +479,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                                     {/* Per-Location Requirements */}
                                     <div className="bg-[var(--background)]/50 p-4 rounded-2xl border border-[var(--border)]">
-                                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
                                             {REQUIREMENT_NUMBER_KEYS.map((req) => (
                                                 <div key={req.key} className="glass-card p-2 rounded-xl flex flex-col justify-center items-center gap-1 border border-[var(--border)]">
                                                     <label className="text-[10px] font-medium text-[var(--text-muted)] truncate w-full text-center">{req.label}</label>
