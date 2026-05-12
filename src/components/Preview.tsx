@@ -6,16 +6,10 @@ import { BudgetData } from '@/types';
 import { PresupuestoPdf } from './pdf/Documento';
 import { Download, Loader2 } from 'lucide-react';
 
-const PDFViewer = dynamic(
-    () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
+const BlobProvider = dynamic(
+    () => import('@react-pdf/renderer').then((mod) => mod.BlobProvider),
     {
         ssr: false,
-        loading: () => (
-            <div className="flex flex-col items-center justify-center h-full bg-slate-50 text-slate-400 gap-3">
-                <Loader2 size={24} className="animate-spin text-blue-500" />
-                <span className="text-sm font-medium">Preparando visor de PDF...</span>
-            </div>
-        ),
     }
 );
 
@@ -62,10 +56,30 @@ export default function Preview({ data }: PreviewProps) {
                 </PDFDownloadLink>
             </div>
             <div className="flex-1 overflow-hidden w-full h-full relative">
-                {/* Forzamos el block y la altura para que el iframe no colapse en móviles */}
-                <PDFViewer style={{ width: '100%', height: '100%', border: 'none' }} showToolbar={false}>
-                    <PresupuestoPdf data={data} />
-                </PDFViewer>
+                {/* Usamos BlobProvider manual con key para forzar la recarga del iframe y evitar el bug de Safari iOS/Móvil */}
+                <BlobProvider document={<PresupuestoPdf data={data} />}>
+                    {({ url, loading, error }) => {
+                        if (error) {
+                            return <div className="flex items-center justify-center h-full text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
+                        }
+                        if (loading || !url) {
+                            return (
+                                <div className="flex items-center justify-center h-full flex-col text-gray-500">
+                                    <Loader2 size={24} className="animate-spin mb-2 text-blue-500" />
+                                    <span className="text-sm">Generando vista previa...</span>
+                                </div>
+                            );
+                        }
+                        return (
+                            <iframe 
+                                key={url} 
+                                src={`${url}#toolbar=0`} 
+                                className="w-full h-full border-none" 
+                                title="Vista Previa PDF"
+                            />
+                        );
+                    }}
+                </BlobProvider>
             </div>
         </div>
     );
