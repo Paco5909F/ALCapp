@@ -69,7 +69,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                     onChange={handleInputChange}
                     onFocus={handleFocus}
                     placeholder={placeholder}
-                    className="w-full glass-input rounded-2xl py-4 px-6 pr-12 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-slate-500/50 uppercase"
+                    className="w-full glass-input rounded-2xl py-3 px-5 pr-12 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-slate-500/50 uppercase text-base"
                 />
                 <button
                     type="button"

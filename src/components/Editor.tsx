@@ -201,7 +201,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
     };
 
     return (
-        <div className="flex flex-col h-full glass-panel p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--accent-blue)]/20">
+        <div className="flex flex-col h-full glass-panel p-3 sm:p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--accent-blue)]/20">
             <div className="flex items-center gap-4 mb-8 pb-4 border-b border-[var(--border)]">
                 <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border border-[var(--border)]">
                     <Image
@@ -279,7 +279,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         validityDays: Number(e.target.value),
                                     },
                                 })}
-                                className="w-full bg-transparent outline-none cursor-pointer appearance-none"
+                                className="w-full bg-transparent outline-none cursor-pointer appearance-none text-base"
                             >
                                 <option value={15} className="bg-[var(--dropdown-bg)]">15 días</option>
                                 <option value={7} className="bg-[var(--dropdown-bg)]">7 días</option>
@@ -301,7 +301,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                     name="date"
                                     value={data.client.date}
                                     onChange={handleClientChange}
-                                    className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
+                                    className="w-full glass-input rounded-2xl py-3 px-5 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
                                 />
                             </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -329,7 +329,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                     name="eventTime"
                                                     value={data.client.eventTime || ''}
                                                     onChange={handleClientChange}
-                                                    className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
+                                                    className="w-full glass-input rounded-2xl py-3 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
                                                 />
                                             </div>
                                         </div>
@@ -341,7 +341,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                     name="eventEndTime"
                                                     value={data.client.eventEndTime || ''}
                                                     onChange={handleClientChange}
-                                                    className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
+                                                    className="w-full glass-input rounded-2xl py-3 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
                                                 />
                                             </div>
                                         </div>
@@ -379,7 +379,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             <select
                                 value={data.requirements.iluminacion}
                                 onChange={(e) => handleRequirementChange('iluminacion', e.target.value)}
-                                className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-sm appearance-none"
+                                className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-base appearance-none"
                             >
                                 <option value="ninguna" className="bg-[var(--dropdown-bg)]">Ninguna</option>
                                 <option value="basica" className="bg-[var(--dropdown-bg)]">Básica</option>
@@ -396,7 +396,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             <select
                                 value={data.requirements.consola}
                                 onChange={(e) => handleRequirementChange('consola', e.target.value)}
-                                className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-sm appearance-none"
+                                className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-base appearance-none"
                             >
                                 <option value="ninguna" className="bg-[var(--dropdown-bg)]">Ninguna</option>
                                 <option value="8ch" className="bg-[var(--dropdown-bg)]">8 Canales</option>
@@ -425,9 +425,9 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
             {/* Logistics Section */}
             <section className="mb-8 space-y-4">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 text-[var(--accent-orange)]">
-                    <div className="flex items-center gap-2">
-                        <MapPin size={18} />
-                        <h3 className="text-lg font-semibold uppercase tracking-wider">Logística / Ubicaciones</h3>
+                    <div className="flex items-center gap-2 min-w-0">
+                        <MapPin size={16} className="shrink-0" />
+                        <h3 className="text-sm sm:text-lg font-semibold uppercase tracking-wider truncate">Logística / Ubicaciones</h3>
                     </div>
                     <button
                         onClick={addLogisticsItem}
@@ -445,13 +445,13 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         </div>
                     ) : (
                         data.logistics.map((item) => (
-                            <div key={item.id} className="relative p-5 rounded-3xl glass-card group hover:border-blue-500/40 transition-all">
+                            <div key={item.id} className="relative p-3 sm:p-5 rounded-2xl sm:rounded-3xl glass-card group hover:border-blue-500/40 transition-all overflow-hidden">
                                 <button
                                     onClick={() => removeLogisticsItem(item.id)}
-                                    className="absolute -top-2 -right-2 bg-[var(--dropdown-bg)] text-[var(--text-muted)] hover:bg-red-500 hover:text-white transition-all p-2 rounded-xl border border-[var(--border)] shadow-xl z-10 active:scale-90"
+                                    className="absolute top-2 right-2 bg-[var(--dropdown-bg)] text-[var(--text-muted)] hover:bg-red-500 hover:text-white transition-all p-1.5 rounded-lg border border-[var(--border)] shadow-xl z-10 active:scale-90"
                                     title="Eliminar ubicación"
                                 >
-                                    <Trash2 size={16} />
+                                    <Trash2 size={14} />
                                 </button>
 
                                 <div className="space-y-4">
@@ -471,7 +471,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 type="text"
                                                 value={item.details}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'details', e.target.value)}
-                                                className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-[var(--text-muted)]/50"
+                                                className="w-full glass-input rounded-2xl py-3 px-5 font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-[var(--text-muted)]/50 text-base"
                                                 placeholder="Notas adicionales..."
                                             />
                                         </div>
@@ -570,7 +570,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             value={data.client.conditions}
                             onChange={handleClientChange}
                             rows={3}
-                            className="w-full bg-transparent p-4 rounded-xl border border-[var(--border)] focus:border-blue-500 outline-none transition resize-none text-sm font-medium placeholder:text-[var(--text-muted)]/30"
+                            className="w-full bg-transparent p-4 rounded-xl border border-[var(--border)] focus:border-blue-500 outline-none transition resize-none text-base font-medium placeholder:text-[var(--text-muted)]/30"
                             placeholder="Forma de pago, horarios, requerimientos..."
                         />
                     </div>
