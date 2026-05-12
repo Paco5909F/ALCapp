@@ -51,8 +51,8 @@ export default function Home() {
 
     if (isVerifying) {
         return (
-            <div className="h-screen w-screen bg-slate-900 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            <div className="h-screen w-screen bg-[var(--background)] flex items-center justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
             </div>
         );
     }

@@ -81,7 +81,7 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
         <div className="flex items-center glass-input rounded-xl overflow-hidden">
             <button
                 onClick={handleDecrement}
-                className="p-2 hover:bg-white/5 active:bg-white/10 text-slate-500 transition-colors"
+                className="p-2 hover:bg-[var(--card-bg)] active:bg-white/10 text-[var(--text-muted)] transition-colors"
                 type="button"
             >
                 <Minus size={14} />
@@ -95,7 +95,7 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
             />
             <button
                 onClick={handleIncrement}
-                className="p-2 hover:bg-white/5 active:bg-white/10 text-slate-500 transition-colors"
+                className="p-2 hover:bg-[var(--card-bg)] active:bg-white/10 text-[var(--text-muted)] transition-colors"
                 type="button"
             >
                 <Plus size={14} />
@@ -201,9 +201,9 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
     };
 
     return (
-        <div className="flex flex-col h-full glass-panel p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
-            <div className="flex items-center gap-4 mb-8 pb-4 border-b border-white/10">
-                <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border border-white/10">
+        <div className="flex flex-col h-full glass-panel p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--accent-blue)]/20">
+            <div className="flex items-center gap-4 mb-8 pb-4 border-b border-[var(--border)]">
+                <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border border-[var(--border)]">
                     <Image
                         src="/images/logo.png"
                         alt="ALC Logo"
@@ -213,12 +213,12 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     />
                 </div>
                 <div className="flex-1">
-                    <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Generador de Cotizaciones</p>
+                    <p className="text-[10px] text-[var(--text-muted)] font-medium tracking-wider uppercase">Generador de Cotizaciones</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <button
                         onClick={toggleTheme}
-                        className="p-2.5 bg-white/5 hover:bg-blue-500/10 text-slate-400 hover:text-blue-400 rounded-xl border border-white/5 transition-all active:scale-95"
+                        className="p-2.5 bg-[var(--card-bg)] hover:bg-blue-500/10 text-[var(--text-muted)] hover:text-blue-500 rounded-xl border border-[var(--border)] transition-all active:scale-95"
                         title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
                     >
                         {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -226,7 +226,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     {onLogout && (
                         <button
                             onClick={onLogout}
-                            className="p-2.5 bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-xl border border-white/5 transition-all active:scale-95"
+                            className="p-2.5 bg-[var(--card-bg)] hover:bg-red-500/10 text-[var(--text-muted)] hover:text-red-500 rounded-xl border border-[var(--border)] transition-all active:scale-95"
                             title="Cerrar sesión"
                         >
                             <LogOut size={18} />
@@ -244,31 +244,31 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                 <div className="grid grid-cols-1 gap-5">
                     <div className="glass-card p-4 rounded-2xl hover:border-blue-500/40 transition-colors group">
-                        <label className="block text-xs font-bold text-slate-400 mb-2 uppercase group-hover:text-blue-400 transition-colors">Nombre / Razón Social</label>
+                        <label className="block text-xs font-bold text-[var(--text-muted)] mb-2 uppercase group-hover:text-blue-400 transition-colors">Nombre / Razón Social</label>
                         <input
                             type="text"
                             name="name"
                             value={data.client.name}
                             onChange={handleClientChange}
-                            className="w-full bg-transparent text-white border-b border-white/10 focus:border-blue-500 outline-none transition-all py-2 text-lg font-medium placeholder-slate-700"
+                            className="w-full bg-transparent border-b border-[var(--border)] focus:border-blue-500 outline-none transition-all py-2 text-lg font-medium placeholder:text-[var(--text-muted)]/30"
                             placeholder="EJ: JUAN PÉREZ"
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
-                            <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Fecha de Emisión</label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="glass-card p-3 rounded-2xl">
+                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Fecha de Emisión</label>
                             <input
                                 type="date"
                                 name="emissionDate"
                                 value={data.client.emissionDate || ''}
                                 onChange={handleClientChange}
-                                className="w-full bg-transparent text-white outline-none [&::-webkit-calendar-picker-indicator]:invert opacity-80 focus:opacity-100 transition-opacity"
+                                className="w-full bg-transparent outline-none opacity-80 focus:opacity-100 transition-opacity"
                             />
                         </div>
 
-                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
-                            <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Validez</label>
+                        <div className="glass-card p-3 rounded-2xl">
+                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Validez</label>
                             <select
                                 name="validityDays"
                                 value={data.client.validityDays || 15}
@@ -279,10 +279,10 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         validityDays: Number(e.target.value),
                                     },
                                 })}
-                                className="w-full bg-transparent text-white outline-none cursor-pointer appearance-none"
+                                className="w-full bg-transparent outline-none cursor-pointer appearance-none"
                             >
-                                <option value={15} className="bg-slate-900">15 días</option>
-                                <option value={7} className="bg-slate-900">7 días</option>
+                                <option value={15} className="bg-[var(--dropdown-bg)]">15 días</option>
+                                <option value={7} className="bg-[var(--dropdown-bg)]">7 días</option>
                             </select>
                         </div>
                     </div>
@@ -295,7 +295,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Fecha</label>
+                                <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Fecha</label>
                                 <input
                                     type="date"
                                     name="date"
@@ -304,48 +304,48 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                     className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
                                 />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Tipo</label>
-                                    <Combobox
-                                        options={EVENT_TYPES}
-                                        value={data.client.eventType || ''}
-                                        onChange={(val) => onChange({
-                                            ...data,
-                                            client: {
-                                                ...data.client,
-                                                eventType: val.toUpperCase(),
-                                            },
-                                        })}
-                                        placeholder="SELECCIONAR TIPO..."
-                                    />
-                                </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Horario Inicio</label>
-                                        <div className="relative group">
-                                            <input
-                                                type="time"
-                                                name="eventTime"
-                                                value={data.client.eventTime || ''}
-                                                onChange={handleClientChange}
-                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
-                                            />
+                                        <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Tipo</label>
+                                        <Combobox
+                                            options={EVENT_TYPES}
+                                            value={data.client.eventType || ''}
+                                            onChange={(val) => onChange({
+                                                ...data,
+                                                client: {
+                                                    ...data.client,
+                                                    eventType: val.toUpperCase(),
+                                                },
+                                            })}
+                                            placeholder="SELECCIONAR TIPO..."
+                                        />
+                                    </div>
+                                    <div className="flex flex-col md:flex-row gap-3">
+                                        <div className="flex-1">
+                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Inicio</label>
+                                            <div className="relative group">
+                                                <input
+                                                    type="time"
+                                                    name="eventTime"
+                                                    value={data.client.eventTime || ''}
+                                                    onChange={handleClientChange}
+                                                    className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="flex-1">
+                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Fin</label>
+                                            <div className="relative group">
+                                                <input
+                                                    type="time"
+                                                    name="eventEndTime"
+                                                    value={data.client.eventEndTime || ''}
+                                                    onChange={handleClientChange}
+                                                    className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Horario Fin</label>
-                                        <div className="relative group">
-                                            <input
-                                                type="time"
-                                                name="eventEndTime"
-                                                value={data.client.eventEndTime || ''}
-                                                onChange={handleClientChange}
-                                                className="w-full glass-input rounded-2xl py-4 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -364,7 +364,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     <div className="grid grid-cols-2 gap-3">
                         {REQUIREMENT_NUMBER_KEYS.map((req) => (
                         <div key={req.key} className="glass-card p-4 rounded-2xl flex flex-col justify-center items-center gap-2 shadow-sm hover:border-purple-500/40 transition-colors">
-                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">{req.label}</label>
+                                <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-center">{req.label}</label>
                                 <Stepper
                                     value={data.requirements[req.key] || 0}
                                     onChange={(val) => handleRequirementChange(req.key, val)}
@@ -375,7 +375,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <div className="glass-card p-3 rounded-2xl">
-                            <label className="block text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-widest ml-1">Iluminación</label>
+                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-2 uppercase tracking-widest ml-1">Iluminación</label>
                             <select
                                 value={data.requirements.iluminacion}
                                 onChange={(e) => handleRequirementChange('iluminacion', e.target.value)}
@@ -392,7 +392,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         </div>
 
                         <div className="glass-card p-3 rounded-2xl">
-                            <label className="block text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-widest ml-1">Consola</label>
+                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-2 uppercase tracking-widest ml-1">Consola</label>
                             <select
                                 value={data.requirements.consola}
                                 onChange={(e) => handleRequirementChange('consola', e.target.value)}
@@ -405,7 +405,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             </select>
                         </div>
 
-                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5 flex flex-col justify-center">
+                        <div className="glass-card p-3 rounded-2xl flex flex-col justify-center">
                             <label className="flex items-center gap-3 cursor-pointer hover:text-purple-400 transition w-full h-full group">
                                 <div className="relative flex items-center justify-center">
                                     <input
@@ -440,7 +440,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                 <div className="space-y-3">
                     {(!data.logistics || data.logistics.length === 0) ? (
-                        <div className="text-slate-500 text-center py-4 border border-dashed border-slate-700 rounded-lg">
+                        <div className="text-[var(--text-muted)] text-center py-6 border border-dashed border-[var(--border)] rounded-2xl glass-card">
                             <p className="text-xs">No hay ubicaciones agregadas.</p>
                         </div>
                     ) : (
@@ -448,7 +448,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             <div key={item.id} className="relative p-5 rounded-3xl glass-card group hover:border-blue-500/40 transition-all">
                                 <button
                                     onClick={() => removeLogisticsItem(item.id)}
-                                    className="absolute -top-2 -right-2 bg-[var(--dropdown-bg)] text-slate-500 hover:bg-red-500 hover:text-white transition-all p-2 rounded-xl border border-[var(--border)] shadow-xl z-10 active:scale-90"
+                                    className="absolute -top-2 -right-2 bg-[var(--dropdown-bg)] text-[var(--text-muted)] hover:bg-red-500 hover:text-white transition-all p-2 rounded-xl border border-[var(--border)] shadow-xl z-10 active:scale-90"
                                     title="Eliminar ubicación"
                                 >
                                     <Trash2 size={16} />
@@ -457,7 +457,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                 <div className="space-y-4">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Lugar / Ubicación</label>
+                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase">Lugar / Ubicación</label>
                                             <Combobox
                                                 options={LOCATIONS}
                                                 value={item.location}
@@ -466,23 +466,23 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Observaciones / Detalle Adicional</label>
+                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase">Observaciones / Detalle Adicional</label>
                                             <input
                                                 type="text"
                                                 value={item.details}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'details', e.target.value)}
-                                                className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-slate-500/50"
+                                                className="w-full glass-input rounded-2xl py-4 px-6 font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-[var(--text-muted)]/50"
                                                 placeholder="Notas adicionales..."
                                             />
                                         </div>
                                     </div>
 
                                     {/* Per-Location Requirements */}
-                                    <div className="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
+                                    <div className="bg-[var(--background)]/50 p-4 rounded-2xl border border-[var(--border)]">
                                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
                                             {REQUIREMENT_NUMBER_KEYS.map((req) => (
-                                                <div key={req.key} className="bg-slate-800 p-2 rounded border border-slate-700 flex flex-col justify-center items-center gap-1">
-                                                    <label className="text-[10px] font-medium text-slate-400 truncate w-full text-center">{req.label}</label>
+                                                <div key={req.key} className="glass-card p-2 rounded-xl flex flex-col justify-center items-center gap-1 border border-[var(--border)]">
+                                                    <label className="text-[10px] font-medium text-[var(--text-muted)] truncate w-full text-center">{req.label}</label>
                                                     <Stepper
                                                         value={item.requirements?.[req.key] || 0}
                                                         onChange={(val) => updateLogisticsItem(item.id, `req.${req.key}`, val)}
@@ -494,7 +494,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                             <select
                                                 value={item.requirements?.iluminacion || 'ninguna'}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'req.iluminacion', e.target.value)}
-                                                className="bg-slate-800 text-white rounded border border-slate-700 text-xs p-1 outline-none"
+                                                className="bg-[var(--dropdown-bg)] border border-[var(--border)] rounded-xl text-[10px] p-2 outline-none font-bold uppercase tracking-wider"
                                             >
                                                 <option value="ninguna">Ilum: Ninguna</option>
                                                 <option value="basica">Ilum: Básica</option>
@@ -508,7 +508,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                             <select
                                                 value={item.requirements?.consola || 'ninguna'}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'req.consola', e.target.value)}
-                                                className="bg-slate-800 text-white rounded border border-slate-700 text-xs p-1 outline-none"
+                                                className="bg-[var(--dropdown-bg)] border border-[var(--border)] rounded-xl text-[10px] p-2 outline-none font-bold uppercase tracking-wider"
                                             >
                                                 <option value="ninguna">Consola: Ninguna</option>
                                                 <option value="8ch">Consola: 8 Canales</option>
@@ -516,14 +516,14 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 <option value="32ch">Consola: 32 Canales</option>
                                             </select>
 
-                                            <label className="flex items-center gap-2 cursor-pointer hover:text-orange-400 transition bg-slate-800 rounded border border-slate-700 p-1 justify-center">
+                                            <label className="flex items-center gap-2 cursor-pointer hover:text-orange-500 transition glass-card rounded-xl p-2 justify-center border border-[var(--border)]">
                                                 <input
                                                     type="checkbox"
                                                     checked={item.requirements?.karaoke || false}
                                                     onChange={(e) => updateLogisticsItem(item.id, 'req.karaoke', e.target.checked)}
                                                     className="accent-orange-500 w-3 h-3"
                                                 />
-                                                <span className="text-xs font-medium text-slate-400">Karaoke</span>
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Karaoke</span>
                                             </label>
                                         </div>
                                     </div>
@@ -537,12 +537,12 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
             {/* Finalization Section */}
             <section className="mb-8 space-y-4">
 
-                <div className="mt-8 pt-6 border-t border-slate-700">
-                    <div className="bg-slate-800 p-5 rounded-xl border border-slate-600">
-                        <label className="block text-xs font-bold text-green-400 mb-2 uppercase tracking-wide">Total Personalizado (Opcional)</label>
-                        <p className="text-[10px] text-slate-400 mb-3">Si se deja vacío, se calcula automáticamente.</p>
+                <div className="mt-8 pt-6 border-t border-[var(--border)]">
+                    <div className="glass-card p-5 rounded-2xl border border-[var(--border)] shadow-xl shadow-green-500/5">
+                        <label className="block text-xs font-bold text-green-500 mb-2 uppercase tracking-wide">Total Personalizado (Opcional)</label>
+                        <p className="text-[10px] text-[var(--text-muted)] mb-4 font-medium opacity-60">Si se deja vacío, se calcula automáticamente.</p>
                         <div className="relative">
-                            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
+                            <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" size={24} />
                             <input
                                 type="text"
                                 inputMode="numeric"
@@ -555,30 +555,30 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         onChange({ ...data, customTotal: val });
                                     }
                                 }}
-                                className="w-full bg-slate-900 border border-slate-600 rounded-lg p-3 pl-10 text-xl font-bold text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+                                className="w-full glass-input rounded-2xl p-4 pl-14 text-2xl font-black outline-none transition-all placeholder:text-[var(--text-muted)]/20"
                                 placeholder="0.00"
                             />
                         </div>
                     </div>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-slate-700">
-                    <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
-                        <label className="block text-xs font-bold text-slate-400 mb-2 uppercase">Observaciones / Condiciones</label>
+                <div className="mt-6 pt-6 border-t border-[var(--border)]">
+                    <div className="glass-card p-4 rounded-2xl border border-[var(--border)]">
+                        <label className="block text-xs font-bold text-[var(--text-muted)] mb-2 uppercase tracking-widest ml-1">Observaciones / Condiciones</label>
                         <textarea
                             name="conditions"
                             value={data.client.conditions}
                             onChange={handleClientChange}
                             rows={3}
-                            className="w-full bg-slate-900/50 text-white p-3 rounded border border-slate-600 focus:border-blue-500 outline-none transition resize-none text-sm"
+                            className="w-full bg-transparent p-4 rounded-xl border border-[var(--border)] focus:border-blue-500 outline-none transition resize-none text-sm font-medium placeholder:text-[var(--text-muted)]/30"
                             placeholder="Forma de pago, horarios, requerimientos..."
                         />
                     </div>
                 </div>
             </section >
 
-            <div className="pt-8 pb-4 text-center">
-                <p className="text-[10px] uppercase font-bold tracking-widest text-white">
+            <div className="pt-12 pb-6 text-center opacity-40">
+                <p className="text-[10px] uppercase font-bold tracking-[0.2em]">
                     Sistema desarrollado por Joaquín Rosas
                 </p>
             </div>

@@ -31,9 +31,9 @@ export default function Preview({ data }: PreviewProps) {
     };
 
     return (
-        <div className="h-full w-full bg-[#05070a] relative flex flex-col">
-            <div className="glass-panel border-b border-white/5 p-4 flex justify-between items-center z-10">
-                <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Vista Previa</h3>
+        <div className="h-full w-full bg-[var(--background)] relative flex flex-col">
+            <div className="glass-panel border-b border-[var(--border)] p-4 flex justify-between items-center z-10">
+                <h3 className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em]">Vista Previa</h3>
                 <PDFDownloadLink
                     document={<PresupuestoPdf data={data} />}
                     fileName={getFileName()}
@@ -63,7 +63,7 @@ export default function Preview({ data }: PreviewProps) {
                         }
                         if (loading || !url) {
                             return (
-                                <div className="flex items-center justify-center h-full flex-col text-slate-500">
+                                <div className="flex items-center justify-center h-full flex-col text-[var(--text-muted)]">
                                     <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
                                     <span className="text-[10px] font-bold uppercase tracking-widest">Renderizando Documento...</span>
                                 </div>

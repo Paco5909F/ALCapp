@@ -96,7 +96,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                                     key={option}
                                     type="button"
                                     onClick={() => handleSelect(option)}
-                                    className="w-full text-left px-4 py-3 text-xs font-bold text-slate-500 hover:bg-blue-600/10 hover:text-blue-600 dark:hover:text-white rounded-xl transition flex items-center justify-between group/item uppercase tracking-widest"
+                                    className="w-full text-left px-4 py-3 text-xs font-bold text-[var(--text-muted)] hover:bg-blue-600/10 hover:text-blue-600 rounded-xl transition flex items-center justify-between group/item uppercase tracking-widest"
                                 >
                                     {option}
                                     {value === option && <Check size={16} className="text-blue-400" />}
