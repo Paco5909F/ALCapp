@@ -49,6 +49,11 @@ html, body {
   padding: 0;
   touch-action: pan-y;
   overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
 }
 
 *, ::before, ::after {
@@ -121,4 +126,20 @@ input, select, textarea {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: color-mix(in srgb, var(--scrollbar-thumb), black 10%);
+}
+
+/* Structural Hardening for Mobile */
+.layout-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.input-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 1rem;
+  width: 100%;
 }

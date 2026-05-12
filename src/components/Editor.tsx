@@ -320,10 +320,10 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                             placeholder="SELECCIONAR TIPO..."
                                         />
                                     </div>
-                                    <div className="flex flex-col sm:flex-row gap-3">
-                                        <div className="flex-1 min-w-0">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div className="min-w-0">
                                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Inicio</label>
-                                            <div className="relative group">
+                                            <div className="relative group overflow-hidden rounded-2xl">
                                                 <input
                                                     type="time"
                                                     name="eventTime"
@@ -333,9 +333,9 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="flex-1 min-w-0">
+                                        <div className="min-w-0">
                                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Fin</label>
-                                            <div className="relative group">
+                                            <div className="relative group overflow-hidden rounded-2xl">
                                                 <input
                                                     type="time"
                                                     name="eventEndTime"
@@ -424,7 +424,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
             {/* Logistics Section */}
             <section className="mb-8 space-y-4">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 text-[var(--accent-orange)]">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 text-[var(--accent-orange)] w-full overflow-hidden">
                     <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
                         <MapPin size={16} className="shrink-0" />
                         <h3 className="text-sm sm:text-lg font-semibold uppercase tracking-wider truncate">Logística / Ubicaciones</h3>
