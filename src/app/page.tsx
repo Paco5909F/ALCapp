@@ -88,7 +88,13 @@ export default function Home() {
 
                 {/* Right Panel: Preview */}
                 <div className={`w-full md:w-1/2 h-full overflow-hidden bg-gray-100 ${activeTab === 'preview' ? 'block' : 'hidden md:block'}`}>
-                    <Preview data={data} />
+                    {activeTab === 'preview' ? (
+                        <Preview key="mobile-preview" data={data} />
+                    ) : (
+                        <div className="hidden md:block h-full">
+                            <Preview key="desktop-preview" data={data} />
+                        </div>
+                    )}
                 </div>
             </div>
         </main>
