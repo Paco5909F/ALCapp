@@ -3,7 +3,6 @@ import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 import { BudgetData, TechnicalRequirements } from '@/types';
 import { formatCurrency, formatDate } from '@/lib/format';
-import { LOGO_BASE64 } from '@/lib/logo-base64';
 
 const COLORS = {
     primary: '#000000',
@@ -33,18 +32,20 @@ const styles = StyleSheet.create({
     logoSection: {
         flexDirection: 'row',
         width: '60%',
+        alignItems: 'center',
     },
     logoImage: {
         width: 60,
         height: 60,
-        marginRight: 10,
-        marginTop: 5,
+        marginRight: 20,
+        flexShrink: 0,
     },
     companyDetails: {
         justifyContent: 'center',
+        minHeight: 60,
     },
     companyName: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: 'Helvetica-Bold',
         textTransform: 'uppercase',
         marginBottom: 4,
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     sectionTitle: {
-        fontSize: 7,
+        fontSize: 8,
         fontFamily: 'Helvetica-Bold',
         backgroundColor: '#FFF',
         paddingRight: 5,
@@ -117,14 +118,14 @@ const styles = StyleSheet.create({
         marginBottom: 6,
     },
     fieldLabel: {
-        fontSize: 6,
+        fontSize: 7,
         fontFamily: 'Helvetica-Bold',
         color: COLORS.textLight,
         textTransform: 'uppercase',
         marginBottom: 2,
     },
     fieldValue: {
-        fontSize: 9,
+        fontSize: 8,
         fontFamily: 'Helvetica-Bold',
         color: COLORS.primary,
     },
@@ -297,10 +298,9 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 {/* Header */}
                 <View style={styles.headerContainer}>
                     <View style={styles.logoSection}>
-                        {/* Logo kept as it adds value, but layout adjusted to match text style of reference */}
-                        <Image src={LOGO_BASE64} style={styles.logoImage} />
+                        <Image src="/images/logo.png" style={styles.logoImage} />
                         <View style={styles.companyDetails}>
-                            <Text style={{ fontSize: 14, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', marginBottom: 4 }}>
+                            <Text style={styles.companyName}>
                                 ALC SONIDO EVENTOS
                             </Text>
                             <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
@@ -310,7 +310,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                                 O&apos;Higgins, Buenos Aires
                             </Text>
                             <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
-                                Tel: 2364 - 608008 | Email: alcproduccionescontacto@gmail.com
+                                Tel: 2364 - 608008 | Email: alcproducciones@gmail.com
                             </Text>
                         </View>
                     </View>
@@ -558,7 +558,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 {/* Standard Header (Logo Left) */}
                 <View style={styles.headerContainer}>
                     <View style={styles.logoSection}>
-                        <Image src={LOGO_BASE64} style={styles.logoImage} />
+                        <Image src="/images/logo.png" style={styles.logoImage} />
                         <View style={styles.companyDetails}>
                             <Text style={styles.companyName}>
                                 ALC SONIDO EVENTOS
@@ -585,10 +585,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
 
                     {/* Item 1 */}
                     <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-                        <Text style={{ width: 20, fontSize: 10, fontFamily: 'Helvetica-Bold' }}>1.</Text>
+                        <Text style={{ width: 20, fontSize: 9, fontFamily: 'Helvetica-Bold' }}>1.</Text>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>CONFIRMACIÓN Y PAGO</Text>
-                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
+                            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>CONFIRMACIÓN Y PAGO</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 1.4, color: '#333' }}>
                                 La fecha del evento queda confirmada únicamente con el pago acordado. El servicio deberá estar abonado en su totalidad antes del inicio del evento.
                             </Text>
                         </View>
@@ -596,10 +596,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
 
                     {/* Item 2 */}
                     <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-                        <Text style={{ width: 20, fontSize: 10, fontFamily: 'Helvetica-Bold' }}>2.</Text>
+                        <Text style={{ width: 20, fontSize: 9, fontFamily: 'Helvetica-Bold' }}>2.</Text>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>POLÍTICA DE CANCELACIÓN</Text>
-                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
+                            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>POLÍTICA DE CANCELACIÓN</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 1.4, color: '#333' }}>
                                 En caso de cancelación por parte del cliente, no se realizan reintegros de dinero. Solo se podrá optar por una reprogramación de la fecha sujeta a la disponibilidad de la empresa.
                             </Text>
                         </View>
@@ -607,10 +607,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
 
                     {/* Item 3 */}
                     <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-                        <Text style={{ width: 20, fontSize: 10, fontFamily: 'Helvetica-Bold' }}>3.</Text>
+                        <Text style={{ width: 20, fontSize: 9, fontFamily: 'Helvetica-Bold' }}>3.</Text>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>CUIDADO DEL EQUIPAMIENTO</Text>
-                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
+                            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>CUIDADO DEL EQUIPAMIENTO</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 1.4, color: '#333' }}>
                                 El cuidado de los equipos instalados y el respeto hacia el personal técnico son condición indispensable para la permanencia y continuidad del servicio durante el evento.
                             </Text>
                         </View>
@@ -618,10 +618,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
 
                     {/* Item 4 */}
                     <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-                        <Text style={{ width: 20, fontSize: 10, fontFamily: 'Helvetica-Bold' }}>4.</Text>
+                        <Text style={{ width: 20, fontSize: 9, fontFamily: 'Helvetica-Bold' }}>4.</Text>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>SEGURIDAD Y CLIMA</Text>
-                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
+                            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>SEGURIDAD Y CLIMA</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 1.4, color: '#333' }}>
                                 Las condiciones climáticas adversas (en eventos al aire libre) o situaciones de inseguridad que pongan en riesgo el equipamiento o al personal pueden implicar la suspensión momentánea o el desmontaje total del servicio.
                             </Text>
                         </View>
@@ -629,10 +629,10 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
 
                     {/* Item 5 */}
                     <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-                        <Text style={{ width: 20, fontSize: 10, fontFamily: 'Helvetica-Bold' }}>5.</Text>
+                        <Text style={{ width: 20, fontSize: 9, fontFamily: 'Helvetica-Bold' }}>5.</Text>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>CONDICIONES ESPECIALES</Text>
-                            <Text style={{ fontSize: 9, lineHeight: 1.4, color: '#333' }}>
+                            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', marginBottom: 2, textTransform: 'uppercase' }}>CONDICIONES ESPECIALES</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 1.4, color: '#333' }}>
                                 Cualquier requerimiento especial como traslados fuera de zona, conexión de bandas en vivo, o uso del sistema de sonido por terceros debe ser consultado y aprobado previamente.
                             </Text>
                         </View>

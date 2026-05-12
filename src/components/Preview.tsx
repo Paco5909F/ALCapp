@@ -1,20 +1,27 @@
 'use client';
 
-import { useState, useEffect, useDeferredValue } from 'react';
 import dynamic from 'next/dynamic';
 import { BudgetData } from '@/types';
 import { PresupuestoPdf } from './pdf/Documento';
 import { Download, Loader2 } from 'lucide-react';
 
-import { BlobProvider, PDFDownloadLink } from '@react-pdf/renderer';
+const BlobProvider = dynamic(
+    () => import('@react-pdf/renderer').then((mod) => mod.BlobProvider),
+    {
+        ssr: false,
+    }
+);
+
+const PDFDownloadLink = dynamic(
+    () => import('@react-pdf/renderer').then((mod) => mod.PDFDownloadLink),
+    { ssr: false }
+);
 
 interface PreviewProps {
     data: BudgetData;
 }
 
 export default function Preview({ data }: PreviewProps) {
-    const deferredData = useDeferredValue(data);
-    const [refreshKey, setRefreshKey] = useState(0);
     const getFileName = () => {
         const name = data?.client?.name ? data.client.name.split(' ')[0] : 'Cliente';
         const dateDate = data?.client?.date ? new Date(data.client.date + 'T12:00:00') : new Date();
@@ -24,22 +31,13 @@ export default function Preview({ data }: PreviewProps) {
     };
 
     return (
-        <div className="h-full w-full bg-gray-100 border-l border-gray-200 relative flex flex-col">
-            <div className="bg-white border-b border-gray-200 p-3 flex justify-between items-center shadow-sm z-10">
-                <div className="flex items-center gap-3">
-                    <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Vista Previa</h3>
-                    <button 
-                        onClick={() => setRefreshKey(prev => prev + 1)}
-                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                        title="Recargar vista"
-                    >
-                        <Loader2 size={16} className={`${deferredData !== data ? 'animate-spin' : ''} text-gray-400`} />
-                    </button>
-                </div>
+        <div className="h-full w-full bg-[#05070a] relative flex flex-col">
+            <div className="glass-panel border-b border-white/5 p-4 flex justify-between items-center z-10">
+                <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Vista Previa</h3>
                 <PDFDownloadLink
-                    document={<PresupuestoPdf data={deferredData} />}
+                    document={<PresupuestoPdf data={data} />}
                     fileName={getFileName()}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium transition shadow-sm"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-900/20 btn-premium"
                 >
                     {({ loading }) => (
                         loading ? (
@@ -56,48 +54,28 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 overflow-hidden w-full h-full relative" key={refreshKey}>
+            <div className="flex-1 overflow-hidden w-full h-full relative">
                 {/* Usamos BlobProvider manual con key para forzar la recarga del iframe y evitar el bug de Safari iOS/Móvil */}
-                <BlobProvider document={<PresupuestoPdf data={deferredData} />} key={refreshKey}>
+                <BlobProvider document={<PresupuestoPdf data={data} />}>
                     {({ url, loading, error }) => {
                         if (error) {
                             return <div className="flex items-center justify-center h-full text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
                         }
                         if (loading || !url) {
                             return (
-                                <div className="flex items-center justify-center h-full flex-col text-gray-500">
-                                    <Loader2 size={24} className="animate-spin mb-2 text-blue-500" />
-                                    <span className="text-sm">Generando vista previa...</span>
+                                <div className="flex items-center justify-center h-full flex-col text-slate-500">
+                                    <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
+                                    <span className="text-[10px] font-bold uppercase tracking-widest">Renderizando Documento...</span>
                                 </div>
                             );
                         }
                         return (
-                            <div className="w-full h-full flex flex-col">
-                                <div className="flex-1 relative bg-white">
-                                    <object
-                                        data={url}
-                                        type="application/pdf"
-                                        className="w-full h-full"
-                                        key={url}
-                                    >
-                                        <div className="flex flex-col items-center justify-center h-full p-6 text-center gap-4">
-                                            <p className="text-gray-600">El navegador no puede mostrar el PDF automáticamente.</p>
-                                        </div>
-                                    </object>
-                                </div>
-                                {/* Mobile Fallback Button */}
-                                <div className="md:hidden p-4 bg-white border-t border-gray-200 flex justify-center">
-                                    <a 
-                                        href={url} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-bold text-center flex items-center justify-center gap-2"
-                                    >
-                                        <Download size={20} />
-                                        VER PDF EN PANTALLA COMPLETA
-                                    </a>
-                                </div>
-                            </div>
+                            <iframe 
+                                key={url} 
+                                src={`${url}#toolbar=0`} 
+                                className="w-full h-full border-none" 
+                                title="Vista Previa PDF"
+                            />
                         );
                     }}
                 </BlobProvider>

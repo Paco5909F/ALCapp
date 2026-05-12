@@ -61,7 +61,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
 
     return (
         <div className={`relative ${className}`} ref={containerRef}>
-            <div className="relative">
+            <div className="relative group">
                 <input
                     ref={inputRef}
                     type="text"
@@ -69,7 +69,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                     onChange={handleInputChange}
                     onFocus={handleFocus}
                     placeholder={placeholder}
-                    className="w-full bg-slate-900 border border-slate-600 rounded p-2 pr-8 text-sm focus:border-blue-500 outline-none placeholder-slate-700 transition text-white"
+                    className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 pr-12 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all placeholder:text-slate-700 uppercase"
                 />
                 <button
                     type="button"
@@ -81,29 +81,31 @@ export const Combobox: React.FC<ComboboxProps> = ({
                             inputRef.current?.focus();
                         }
                     }}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-blue-400 transition-colors"
                 >
-                    <ChevronDown size={16} />
+                    <ChevronDown size={20} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
             </div>
 
             {isOpen && (
-                <div className="absolute z-50 w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg shadow-xl max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-600">
+                <div className="absolute z-50 w-full mt-2 bg-[#1a1f2e] border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-h-60 overflow-y-auto scrollbar-none animate-in fade-in zoom-in-95 duration-200">
                     {filteredOptions.length > 0 ? (
-                        filteredOptions.map((option) => (
-                            <button
-                                key={option}
-                                type="button"
-                                onClick={() => handleSelect(option)}
-                                className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition flex items-center justify-between"
-                            >
-                                {option}
-                                {value === option && <Check size={14} className="text-green-500" />}
-                            </button>
-                        ))
+                        <div className="p-2 space-y-1">
+                            {filteredOptions.map((option) => (
+                                <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => handleSelect(option)}
+                                    className="w-full text-left px-4 py-3 text-xs font-bold text-slate-400 hover:bg-blue-600/20 hover:text-white rounded-xl transition flex items-center justify-between group/item uppercase tracking-widest"
+                                >
+                                    {option}
+                                    {value === option && <Check size={16} className="text-blue-400" />}
+                                </button>
+                            ))}
+                        </div>
                     ) : (
-                        <div className="px-3 py-2 text-xs text-slate-500 italic">
-                            No hay coincidencias predefinidas
+                        <div className="px-5 py-4 text-[10px] text-slate-500 font-bold uppercase tracking-widest italic text-center">
+                            Sin coincidencias
                         </div>
                     )}
                 </div>

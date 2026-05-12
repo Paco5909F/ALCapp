@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createSessionToken, getAuthCookieName, getSessionTtlSeconds, hasConfiguredCredentials, verifyAdminCredentials } from '@/lib/auth';
 import { clearRateLimit, isRateLimited } from '@/lib/rate-limit';
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Unused EMAIL_REGEX removed
 const MAX_EMAIL_LENGTH = 254;
 const MAX_PASSWORD_LENGTH = 256;
 

@@ -58,10 +58,10 @@ export default function Home() {
     }
 
     return (
-        <main className="flex flex-col h-[100dvh] overflow-hidden relative bg-[#05070a]">
+        <main className="flex flex-col h-[100dvh] overflow-hidden relative bg-[#05070a] font-sans">
             {/* Ambient Background Glows */}
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
 
             {/* Mobile Tabs Header */}
             <div className="md:hidden flex w-full bg-slate-900/80 backdrop-blur-md border-b border-white/10 z-20 shrink-0">
@@ -88,13 +88,7 @@ export default function Home() {
 
                 {/* Right Panel: Preview */}
                 <div className={`w-full md:w-1/2 h-full overflow-hidden bg-gray-100 ${activeTab === 'preview' ? 'block' : 'hidden md:block'}`}>
-                    {activeTab === 'preview' ? (
-                        <Preview key="mobile-preview" data={data} />
-                    ) : (
-                        <div className="hidden md:block h-full">
-                            <Preview key="desktop-preview" data={data} />
-                        </div>
-                    )}
+                    <Preview data={data} />
                 </div>
             </div>
         </main>

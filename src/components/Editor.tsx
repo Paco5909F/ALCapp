@@ -78,10 +78,10 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
     };
 
     return (
-        <div className="flex items-center bg-slate-900 rounded-lg border border-slate-600 overflow-hidden">
+        <div className="flex items-center bg-black/40 rounded-xl border border-white/5 overflow-hidden">
             <button
                 onClick={handleDecrement}
-                className="p-2 hover:bg-slate-700 active:bg-slate-600 text-slate-400 transition"
+                className="p-2 hover:bg-white/5 active:bg-white/10 text-slate-500 transition-colors"
                 type="button"
             >
                 <Minus size={14} />
@@ -91,11 +91,11 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
                 value={value}
                 onChange={handleChange}
                 onFocus={handleFocus}
-                className="w-12 bg-transparent text-center font-bold outline-none text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-10 bg-transparent text-center font-black outline-none text-white text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <button
                 onClick={handleIncrement}
-                className="p-2 hover:bg-slate-700 active:bg-slate-600 text-slate-400 transition"
+                className="p-2 hover:bg-white/5 active:bg-white/10 text-slate-500 transition-colors"
                 type="button"
             >
                 <Plus size={14} />
@@ -184,9 +184,9 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
     };
 
     return (
-        <div className="flex flex-col h-full bg-slate-900/40 backdrop-blur-md text-white p-6 overflow-y-auto shadow-xl scrollbar-thin scrollbar-thumb-slate-700">
-            <div className="flex items-center gap-4 mb-8 pb-4 border-b border-slate-700">
-                <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border-2 border-slate-600">
+        <div className="flex flex-col h-full glass-panel text-white p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
+            <div className="flex items-center gap-4 mb-8 pb-4 border-b border-white/10">
+                <div className="relative w-14 h-14 bg-white rounded-xl overflow-hidden shadow-lg border border-white/10">
                     <Image
                         src="/images/logo.png"
                         alt="ALC Logo"
@@ -196,16 +196,15 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     />
                 </div>
                 <div className="flex-1">
-                    <h2 className="text-2xl font-bold tracking-tight uppercase text-white">ALC Presupuestos</h2>
                     <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Generador de Cotizaciones</p>
                 </div>
                 {onLogout && (
                     <button
                         onClick={onLogout}
-                        className="p-2 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-lg transition-colors"
+                        className="p-2.5 bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-xl border border-white/5 transition-all active:scale-95"
                         title="Cerrar sesión"
                     >
-                        <LogOut size={20} />
+                        <LogOut size={18} />
                     </button>
                 )}
             </div>
@@ -218,32 +217,32 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-5">
-                    <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-blue-500 transition-colors group">
+                    <div className="bg-black/40 p-4 rounded-2xl border border-white/5 hover:border-blue-500/40 transition-colors group">
                         <label className="block text-xs font-bold text-slate-400 mb-2 uppercase group-hover:text-blue-400 transition-colors">Nombre / Razón Social</label>
                         <input
                             type="text"
                             name="name"
                             value={data.client.name}
                             onChange={handleClientChange}
-                            className="w-full bg-transparent text-white border-b-2 border-slate-600 focus:border-blue-500 outline-none transition-all py-2 text-lg font-medium placeholder-slate-600"
+                            className="w-full bg-transparent text-white border-b border-white/10 focus:border-blue-500 outline-none transition-all py-2 text-lg font-medium placeholder-slate-700"
                             placeholder="EJ: JUAN PÉREZ"
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
-                            <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Fecha de Emisión</label>
+                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                            <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Fecha de Emisión</label>
                             <input
                                 type="date"
                                 name="emissionDate"
                                 value={data.client.emissionDate || ''}
                                 onChange={handleClientChange}
-                                className="w-full bg-transparent text-white outline-none [&::-webkit-calendar-picker-indicator]:invert"
+                                className="w-full bg-transparent text-white outline-none [&::-webkit-calendar-picker-indicator]:invert opacity-80 focus:opacity-100 transition-opacity"
                             />
                         </div>
 
-                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
-                            <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Validez</label>
+                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                            <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Validez</label>
                             <select
                                 name="validityDays"
                                 value={data.client.validityDays || 15}
@@ -254,15 +253,15 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         validityDays: Number(e.target.value),
                                     },
                                 })}
-                                className="w-full bg-slate-800 text-white outline-none cursor-pointer"
+                                className="w-full bg-transparent text-white outline-none cursor-pointer appearance-none"
                             >
-                                <option value={15}>15 días</option>
-                                <option value={7}>7 días</option>
+                                <option value={15} className="bg-slate-900">15 días</option>
+                                <option value={7} className="bg-slate-900">7 días</option>
                             </select>
                         </div>
                     </div>
 
-                    <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                    <div className="bg-black/40 p-5 rounded-3xl border border-white/5">
                         <div className="flex items-center gap-2 mb-4 text-blue-400">
                             <Calendar size={16} />
                             <span className="text-xs font-bold uppercase">Detalles del Evento</span>
@@ -270,18 +269,18 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-medium text-slate-500 mb-1">FECHA</label>
+                                <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Fecha</label>
                                 <input
                                     type="date"
                                     name="date"
                                     value={data.client.date}
                                     onChange={handleClientChange}
-                                    className="w-full bg-transparent text-white border-b border-slate-600 focus:border-blue-500 outline-none pb-1 [&::-webkit-calendar-picker-indicator]:invert"
+                                    className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-slate-500 mb-1">TIPO</label>
+                                    <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Tipo</label>
                                     <Combobox
                                         options={EVENT_TYPES}
                                         value={data.client.eventType || ''}
@@ -295,26 +294,30 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         placeholder="SELECCIONAR TIPO..."
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-2">
+                                <div className="grid grid-cols-2 gap-3">
                                     <div>
-                                        <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO INICIO</label>
-                                        <input
-                                            type="time"
-                                            name="eventTime"
-                                            value={data.client.eventTime || ''}
-                                            onChange={handleClientChange}
-                                            className="w-full bg-slate-900 text-white border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
-                                        />
+                                        <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Horario Inicio</label>
+                                        <div className="relative group">
+                                            <input
+                                                type="time"
+                                                name="eventTime"
+                                                value={data.client.eventTime || ''}
+                                                onChange={handleClientChange}
+                                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-4 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                            />
+                                        </div>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-medium text-slate-500 mb-1">HORARIO FIN</label>
-                                        <input
-                                            type="time"
-                                            name="eventEndTime"
-                                            value={data.client.eventEndTime || ''}
-                                            onChange={handleClientChange}
-                                            className="w-full bg-slate-900 text-white border border-slate-600 rounded p-2 text-sm focus:border-green-500 outline-none placeholder-slate-700 transition [&::-webkit-calendar-picker-indicator]:invert"
-                                        />
+                                        <label className="block text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest ml-1">Horario Fin</label>
+                                        <div className="relative group">
+                                            <input
+                                                type="time"
+                                                name="eventEndTime"
+                                                value={data.client.eventEndTime || ''}
+                                                onChange={handleClientChange}
+                                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-4 text-white font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all [&::-webkit-calendar-picker-indicator]:invert"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -334,8 +337,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                     <div className="grid grid-cols-2 gap-3">
                         {REQUIREMENT_NUMBER_KEYS.map((req) => (
-                            <div key={req.key} className="bg-slate-800 p-3 rounded-lg border border-slate-700 flex flex-col justify-center items-center gap-2 shadow-sm">
-                                <label className="text-xs font-bold text-slate-400 uppercase tracking-wide text-center">{req.label}</label>
+                        <div key={req.key} className="bg-black/40 p-4 rounded-2xl border border-white/5 flex flex-col justify-center items-center gap-2 shadow-sm hover:border-purple-500/40 transition-colors">
+                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">{req.label}</label>
                                 <Stepper
                                     value={data.requirements[req.key] || 0}
                                     onChange={(val) => handleRequirementChange(req.key, val)}
@@ -345,46 +348,48 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
-                            <label className="block text-xs font-bold text-slate-400 mb-2 uppercase">Iluminación</label>
+                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                            <label className="block text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-widest ml-1">Iluminación</label>
                             <select
                                 value={data.requirements.iluminacion}
                                 onChange={(e) => handleRequirementChange('iluminacion', e.target.value)}
-                                className="w-full bg-slate-900 text-white p-2 rounded border border-slate-600 outline-none text-sm"
+                                className="w-full bg-transparent text-white p-2 rounded-xl border border-white/5 outline-none text-sm appearance-none"
                             >
-                                <option value="ninguna">Ninguna</option>
-                                <option value="basica">Básica</option>
-                                <option value="media">Media</option>
-                                <option value="completa">Completa</option>
-                                <option value="torre_chica">Torre Chica</option>
-                                <option value="torre_media">Torre Media</option>
-                                <option value="estruct_grande">Estructura Grande</option>
+                                <option value="ninguna" className="bg-slate-900">Ninguna</option>
+                                <option value="basica" className="bg-slate-900">Básica</option>
+                                <option value="media" className="bg-slate-900">Media</option>
+                                <option value="completa" className="bg-slate-900">Completa</option>
+                                <option value="torre_chica" className="bg-slate-900">Torre Chica</option>
+                                <option value="torre_media" className="bg-slate-900">Torre Media</option>
+                                <option value="estruct_grande" className="bg-slate-900">Estructura Grande</option>
                             </select>
                         </div>
 
-                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
-                            <label className="block text-xs font-bold text-slate-400 mb-2 uppercase">Consola</label>
+                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                            <label className="block text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-widest ml-1">Consola</label>
                             <select
                                 value={data.requirements.consola}
                                 onChange={(e) => handleRequirementChange('consola', e.target.value)}
-                                className="w-full bg-slate-900 text-white p-2 rounded border border-slate-600 outline-none text-sm"
+                                className="w-full bg-transparent text-white p-2 rounded-xl border border-white/5 outline-none text-sm appearance-none"
                             >
-                                <option value="ninguna">Ninguna</option>
-                                <option value="8ch">8 Canales</option>
-                                <option value="12ch">12 Canales</option>
-                                <option value="32ch">32 Canales</option>
+                                <option value="ninguna" className="bg-slate-900">Ninguna</option>
+                                <option value="8ch" className="bg-slate-900">8 Canales</option>
+                                <option value="12ch" className="bg-slate-900">12 Canales</option>
+                                <option value="32ch" className="bg-slate-900">32 Canales</option>
                             </select>
                         </div>
 
-                        <div className="bg-slate-800 p-3 rounded-lg border border-slate-700 flex flex-col justify-center">
-                            <label className="flex items-center gap-2 cursor-pointer hover:border-purple-500 transition w-full h-full">
-                                <input
-                                    type="checkbox"
-                                    checked={data.requirements?.karaoke || false}
-                                    onChange={(e) => handleRequirementChange('karaoke', e.target.checked)}
-                                    className="accent-purple-500 w-4 h-4 ml-2"
-                                />
-                                <span className="text-sm font-medium ml-2">Karaoke</span>
+                        <div className="bg-black/40 p-3 rounded-2xl border border-white/5 flex flex-col justify-center">
+                            <label className="flex items-center gap-3 cursor-pointer hover:text-purple-400 transition w-full h-full group">
+                                <div className="relative flex items-center justify-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={data.requirements?.karaoke || false}
+                                        onChange={(e) => handleRequirementChange('karaoke', e.target.checked)}
+                                        className="accent-purple-500 w-5 h-5 rounded-lg"
+                                    />
+                                </div>
+                                <span className="text-[10px] font-bold uppercase tracking-widest">Karaoke</span>
                             </label>
                         </div>
                     </div>
@@ -400,10 +405,10 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     </div>
                     <button
                         onClick={addLogisticsItem}
-                        className="flex items-center gap-2 px-3 py-1 bg-orange-600 hover:bg-orange-500 text-white rounded-full transition shadow-lg shadow-orange-900/20 text-[10px] font-bold uppercase tracking-wide"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl transition-all shadow-xl shadow-blue-900/20 text-[10px] font-black uppercase tracking-[0.1em] btn-premium"
                     >
-                        <Plus size={14} />
-                        Agregar
+                        <Plus size={16} />
+                        Agregar Ubicación
                     </button>
                 </div>
 
@@ -414,13 +419,13 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         </div>
                     ) : (
                         data.logistics.map((item) => (
-                            <div key={item.id} className="relative p-3 rounded-lg bg-slate-800 border border-slate-700 group hover:border-orange-500/50 transition-all">
+                            <div key={item.id} className="relative p-5 rounded-3xl bg-black/40 border border-white/5 group hover:border-blue-500/40 transition-all">
                                 <button
                                     onClick={() => removeLogisticsItem(item.id)}
-                                    className="absolute -top-2 -right-2 bg-slate-700 text-slate-400 hover:bg-red-500 hover:text-white transition p-1.5 rounded-full shadow-md z-10"
+                                    className="absolute -top-2 -right-2 bg-[#0f141d] text-slate-500 hover:bg-red-500 hover:text-white transition-all p-2 rounded-xl border border-white/10 shadow-xl z-10 active:scale-90"
                                     title="Eliminar ubicación"
                                 >
-                                    <Trash2 size={14} />
+                                    <Trash2 size={16} />
                                 </button>
 
                                 <div className="space-y-4">
@@ -440,7 +445,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 type="text"
                                                 value={item.details}
                                                 onChange={(e) => updateLogisticsItem(item.id, 'details', e.target.value)}
-                                                className="w-full bg-slate-900 text-white border border-slate-600 rounded p-2 text-sm focus:border-orange-500 outline-none placeholder-slate-700"
+                                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-white font-bold outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all placeholder:text-slate-600"
                                                 placeholder="Notas adicionales..."
                                             />
                                         </div>
