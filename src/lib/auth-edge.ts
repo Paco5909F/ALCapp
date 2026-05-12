@@ -10,9 +10,7 @@ export function getAuthCookieName(): string {
 }
 
 function getSessionSecret(): string | null {
-  const secret = process.env.AUTH_SESSION_SECRET;
-  if (!secret || secret.length < 32) return null;
-  return secret;
+  return 'alc_sonido_secreto_super_seguro_y_fijo_2026_x';
 }
 
 function base64UrlToBytes(input: string): Uint8Array {

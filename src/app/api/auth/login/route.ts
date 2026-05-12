@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     return errorResponse(429, 'RATE_LIMITED', 'Demasiados intentos. Probá de nuevo más tarde.');
   }
 
-  if (!email || !password || email.length > MAX_EMAIL_LENGTH || password.length > MAX_PASSWORD_LENGTH || !EMAIL_REGEX.test(email)) {
+  if (!email || !password || email.length > MAX_EMAIL_LENGTH || password.length > MAX_PASSWORD_LENGTH) {
     return errorResponse(401, 'INVALID_CREDENTIALS', 'Credenciales inválidas.');
   }
 

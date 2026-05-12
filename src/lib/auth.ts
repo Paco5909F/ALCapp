@@ -24,11 +24,7 @@ function getEnv(name: string): string | undefined {
 }
 
 function getValidatedSessionSecret(): string {
-  const secret = getRequiredEnv('AUTH_SESSION_SECRET');
-  if (secret.length < 32) {
-    throw new Error('AUTH_SESSION_SECRET must be at least 32 characters long');
-  }
-  return secret;
+  return 'alc_sonido_secreto_super_seguro_y_fijo_2026_x';
 }
 
 function base64UrlEncode(input: string): string {
@@ -80,40 +76,14 @@ export function verifySessionToken(token: string): SessionPayload | null {
 }
 
 export function verifyAdminCredentials(email: string, password: string): boolean {
-  const adminEmail = (getEnv('AUTH_ADMIN_EMAIL') || '').trim().toLowerCase();
-  const adminPasswordHash = getEnv('AUTH_ADMIN_PASSWORD_HASH');
-  const adminPasswordPlain = getEnv('AUTH_ADMIN_PASSWORD');
-
-  const normalizedEmail = email.trim().toLowerCase();
-  if (!timingSafeEquals(normalizedEmail, adminEmail)) {
-    return false;
-  }
-
-  if (adminPasswordHash) {
-    const [salt, expectedHash] = adminPasswordHash.split(':');
-    if (!salt || !expectedHash) return false;
-
-    const hash = crypto.scryptSync(password, salt, 64).toString('hex');
-    return timingSafeEquals(hash, expectedHash);
-  }
-
-  if (adminPasswordPlain) {
-    return timingSafeEquals(password, adminPasswordPlain);
-  }
-
-  // No fallbacks for security. Must use env variables.
-
-  return false;
+  // Login súper sencillo y fijo sin variables de entorno
+  const validUser = 'admin';
+  const validPass = 'alc2026';
+  
+  return email.trim().toLowerCase() === validUser && password === validPass;
 }
 
 export function hasConfiguredCredentials(): boolean {
-  const hasHash = Boolean(getEnv('AUTH_ADMIN_PASSWORD_HASH'));
-  const hasPlain = Boolean(getEnv('AUTH_ADMIN_PASSWORD'));
-
-  if (process.env.NODE_ENV === 'production') {
-    return hasHash || hasPlain;
-  }
-
   return true;
 }
 
