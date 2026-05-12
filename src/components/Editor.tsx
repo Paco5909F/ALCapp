@@ -287,7 +287,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         </div>
                     </div>
 
-                    <div className="glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl">
+                    <div className="glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl overflow-hidden">
                         <div className="flex items-center gap-2 mb-4 text-[var(--accent-blue)]">
                             <Calendar size={16} />
                             <span className="text-xs font-bold uppercase">Detalles del Evento</span>
@@ -320,8 +320,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                             placeholder="SELECCIONAR TIPO..."
                                         />
                                     </div>
-                                    <div className="flex flex-col md:flex-row gap-3">
-                                        <div className="flex-1">
+                                    <div className="flex flex-col sm:flex-row gap-3">
+                                        <div className="flex-1 min-w-0">
                                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Inicio</label>
                                             <div className="relative group">
                                                 <input
@@ -329,11 +329,11 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                     name="eventTime"
                                                     value={data.client.eventTime || ''}
                                                     onChange={handleClientChange}
-                                                    className="w-full glass-input rounded-2xl py-3 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
+                                                    className="w-full glass-input rounded-2xl py-3 px-3 sm:px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
                                                 />
                                             </div>
                                         </div>
-                                        <div className="flex-1">
+                                        <div className="flex-1 min-w-0">
                                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Fin</label>
                                             <div className="relative group">
                                                 <input
@@ -341,7 +341,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                     name="eventEndTime"
                                                     value={data.client.eventEndTime || ''}
                                                     onChange={handleClientChange}
-                                                    className="w-full glass-input rounded-2xl py-3 px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
+                                                    className="w-full glass-input rounded-2xl py-3 px-3 sm:px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
                                                 />
                                             </div>
                                         </div>
