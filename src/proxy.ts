@@ -10,7 +10,7 @@ export async function proxy(request: NextRequest) {
 
   const isSessionValid = token ? Boolean(await verifySessionTokenEdge(token)) : false;
 
-  if (pathname.startsWith('/_next') || pathname.startsWith('/api/auth') || pathname === '/favicon.ico') {
+  if (pathname.startsWith('/_next') || pathname.startsWith('/api/auth') || pathname === '/favicon.ico' || pathname.startsWith('/images/')) {
     return NextResponse.next();
   }
 

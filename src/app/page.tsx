@@ -87,7 +87,7 @@ export default function Home() {
                 </div>
 
                 {/* Right Panel: Preview */}
-                <div className={`w-full md:w-1/2 h-full overflow-hidden bg-slate-900/40 backdrop-blur-sm ${activeTab === 'preview' ? 'block' : 'hidden md:block'}`}>
+                <div className={`w-full md:w-1/2 h-full overflow-hidden bg-gray-100 ${activeTab === 'preview' ? 'block' : 'hidden md:block'}`}>
                     <Preview data={data} />
                 </div>
             </div>
