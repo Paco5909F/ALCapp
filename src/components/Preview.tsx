@@ -14,6 +14,7 @@ interface PreviewProps {
 
 export default function Preview({ data }: PreviewProps) {
     const deferredData = useDeferredValue(data);
+    const [refreshKey, setRefreshKey] = useState(0);
     const getFileName = () => {
         const name = data?.client?.name ? data.client.name.split(' ')[0] : 'Cliente';
         const dateDate = data?.client?.date ? new Date(data.client.date + 'T12:00:00') : new Date();
@@ -25,7 +26,16 @@ export default function Preview({ data }: PreviewProps) {
     return (
         <div className="h-full w-full bg-gray-100 border-l border-gray-200 relative flex flex-col">
             <div className="bg-white border-b border-gray-200 p-3 flex justify-between items-center shadow-sm z-10">
-                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Vista Previa</h3>
+                <div className="flex items-center gap-3">
+                    <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Vista Previa</h3>
+                    <button 
+                        onClick={() => setRefreshKey(prev => prev + 1)}
+                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                        title="Recargar vista"
+                    >
+                        <Loader2 size={16} className={`${deferredData !== data ? 'animate-spin' : ''} text-gray-400`} />
+                    </button>
+                </div>
                 <PDFDownloadLink
                     document={<PresupuestoPdf data={deferredData} />}
                     fileName={getFileName()}
@@ -46,9 +56,9 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 overflow-hidden w-full h-full relative">
+            <div className="flex-1 overflow-hidden w-full h-full relative" key={refreshKey}>
                 {/* Usamos BlobProvider manual con key para forzar la recarga del iframe y evitar el bug de Safari iOS/Móvil */}
-                <BlobProvider document={<PresupuestoPdf data={deferredData} />}>
+                <BlobProvider document={<PresupuestoPdf data={deferredData} />} key={refreshKey}>
                     {({ url, loading, error }) => {
                         if (error) {
                             return <div className="flex items-center justify-center h-full text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
