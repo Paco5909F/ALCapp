@@ -73,13 +73,17 @@ export default function Preview({ data }: PreviewProps) {
                         }
                         return (
                             <div className="w-full h-full flex flex-col">
-                                <div className="flex-1 relative bg-white border border-gray-200">
-                                    <iframe 
-                                        key={url} 
-                                        src={url} 
-                                        className="w-full h-full border-none" 
-                                        title="Vista Previa PDF"
-                                    />
+                                <div className="flex-1 relative bg-white">
+                                    <object
+                                        data={url}
+                                        type="application/pdf"
+                                        className="w-full h-full"
+                                        key={url}
+                                    >
+                                        <div className="flex flex-col items-center justify-center h-full p-6 text-center gap-4">
+                                            <p className="text-gray-600">El navegador no puede mostrar el PDF automáticamente.</p>
+                                        </div>
+                                    </object>
                                 </div>
                                 {/* Mobile Fallback Button */}
                                 <div className="md:hidden p-4 bg-white border-t border-gray-200 flex justify-center">
