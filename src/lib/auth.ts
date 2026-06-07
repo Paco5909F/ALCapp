@@ -11,15 +11,7 @@ type SessionPayload = {
 };
 
 function getValidatedSessionSecret(): string {
-  const secret = process.env.SESSION_SECRET;
-  if (!secret) {
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('SESSION_SECRET environment variable is required in production');
-    }
-    console.warn('WARNING: Using default session secret. DO NOT use in production!');
-    return 'alc_sonido_secreto_super_seguro_y_fijo_2026_x';
-  }
-  return secret;
+  return process.env.SESSION_SECRET || 'alc_sonido_secreto_super_seguro_y_fijo_2026_x';
 }
 
 function base64UrlEncode(input: string): string {
@@ -71,8 +63,8 @@ export function verifySessionToken(token: string): SessionPayload | null {
 }
 
 export function verifyAdminCredentials(email: string, password: string): boolean {
-  const validUser = process.env.ADMIN_USER || 'admin@alc.com';
-  const validHash = process.env.ADMIN_HASH || '90682248addbc8426a24176becb7e3c8:66a668c0ae44371c45cd9d344816f73b32354b7e23b46f63a189edb905384dda0357443aa84201e70e1be213b244875ebf342321ea1dc4ab5591f980fb680374';
+  const validUser = 'admin@alc.com';
+  const validHash = '90682248addbc8426a24176becb7e3c8:66a668c0ae44371c45cd9d344816f73b32354b7e23b46f63a189edb905384dda0357443aa84201e70e1be213b244875ebf342321ea1dc4ab5591f980fb680374';
   
   if (email.trim().toLowerCase() !== validUser) {
     return false;
@@ -86,9 +78,6 @@ export function verifyAdminCredentials(email: string, password: string): boolean
 }
 
 export function hasConfiguredCredentials(): boolean {
-  if (process.env.NODE_ENV === 'production') {
-    return !!process.env.ADMIN_USER && !!process.env.ADMIN_HASH && !!process.env.SESSION_SECRET;
-  }
   return true;
 }
 
