@@ -31,6 +31,7 @@ interface PreviewProps {
 export default function Preview({ data }: PreviewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [containerWidth, setContainerWidth] = useState<number>(0);
+    const [numPages, setNumPages] = useState<number>(1);
 
     useEffect(() => {
         const observer = new ResizeObserver((entries) => {
@@ -99,9 +100,10 @@ export default function Preview({ data }: PreviewProps) {
                             
                             // Renderizado usando react-pdf para móviles y desktop gigante
                             return (
-                                <div className="bg-white shadow-2xl border border-gray-200 overflow-hidden" style={{ minWidth: containerWidth ? `${containerWidth}px` : 'auto' }}>
+                                <div className="bg-white shadow-2xl border border-gray-200 overflow-hidden flex flex-col items-center" style={{ width: containerWidth ? `${containerWidth}px` : 'auto' }}>
                                     <Document 
                                         file={url} 
+                                        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
                                         loading={
                                             <div className="flex items-center justify-center h-[500px] flex-col text-[var(--text-muted)] w-full">
                                                 <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
@@ -109,13 +111,17 @@ export default function Preview({ data }: PreviewProps) {
                                             </div>
                                         }
                                     >
-                                        <Page 
-                                            pageNumber={1} 
-                                            width={containerWidth ? containerWidth : undefined} 
-                                            renderTextLayer={false}
-                                            renderAnnotationLayer={false}
-                                            className="max-w-full"
-                                        />
+                                        {Array.from(new Array(numPages), (el, index) => (
+                                            <div key={`page_${index + 1}`} className={index > 0 ? "border-t border-gray-200 pt-2 mt-2" : ""}>
+                                                <Page 
+                                                    pageNumber={index + 1} 
+                                                    width={containerWidth ? containerWidth - 2 : undefined} 
+                                                    renderTextLayer={false}
+                                                    renderAnnotationLayer={false}
+                                                    className="max-w-full"
+                                                />
+                                            </div>
+                                        ))}
                                     </Document>
                                 </div>
                             );
