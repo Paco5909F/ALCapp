@@ -35,14 +35,14 @@ export default function Preview({ data }: PreviewProps) {
     useEffect(() => {
         const observer = new ResizeObserver((entries) => {
             if (entries[0]) {
-                // Reducido el margen para que se vea más grande
-                setContainerWidth(entries[0].contentRect.width - 8); 
+                // Margen intermedio (16) para que sea "un poquito más grande" que el original de 32
+                setContainerWidth(entries[0].contentRect.width - 16); 
             }
         });
         
         if (containerRef.current) {
             observer.observe(containerRef.current);
-            setContainerWidth(containerRef.current.clientWidth - 8);
+            setContainerWidth(containerRef.current.clientWidth - 16);
         }
         
         return () => observer.disconnect();
