@@ -246,9 +246,9 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
         return new Date();
     };
 
-    const emissionDate = parseDate(data.client.emissionDate);
+    const emissionDate = parseDate(data?.client?.emissionDate);
     const validUntil = new Date(emissionDate);
-    validUntil.setDate(emissionDate.getDate() + (data.client.validityDays || 15));
+    validUntil.setDate(emissionDate.getDate() + (data?.client?.validityDays || 15));
 
     const formatRequirements = (reqs?: TechnicalRequirements) => {
         if (!reqs) return '';
@@ -360,7 +360,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                         </View>
                         <View style={{ width: '30%' }}>
                             <Text style={styles.fieldLabel}>TIPO</Text>
-                            <Text style={styles.fieldValue}>{data.client.eventType || '-'}</Text>
+                            <Text style={styles.fieldValue}>{data?.client?.eventType || '-'}</Text>
                         </View>
                         <View style={{ width: '40%' }}>
                             <Text style={styles.fieldLabel}>HORARIO</Text>

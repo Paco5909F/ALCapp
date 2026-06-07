@@ -10,7 +10,15 @@ export function getAuthCookieName(): string {
 }
 
 function getSessionSecret(): string | null {
-  return 'alc_sonido_secreto_super_seguro_y_fijo_2026_x';
+  const secret = process.env.SESSION_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      return null;
+    }
+    console.warn('WARNING: Using default session secret in edge. DO NOT use in production!');
+    return 'alc_sonido_secreto_super_seguro_y_fijo_2026_x';
+  }
+  return secret;
 }
 
 function base64UrlToBytes(input: string): Uint8Array {

@@ -57,7 +57,7 @@ export default function Home() {
         );
     }
     return (
-        <main className="fixed inset-0 flex flex-col h-[100dvh] w-screen overflow-hidden bg-[var(--background)] font-sans z-10">
+        <main className="fixed inset-0 flex flex-col overflow-hidden bg-[var(--background)] font-sans z-10">
             {/* Ambient Background Glows - Locked and Clipped */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]"></div>

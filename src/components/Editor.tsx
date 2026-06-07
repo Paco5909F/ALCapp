@@ -256,53 +256,60 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="glass-card p-3 rounded-2xl">
-                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Fecha de Emisión</label>
-                            <input
-                                type="date"
-                                name="emissionDate"
-                                value={data.client.emissionDate || ''}
-                                onChange={handleClientChange}
-                                className="w-full bg-transparent outline-none opacity-80 focus:opacity-100 transition-opacity"
-                            />
+                        <div className="glass-card p-3 rounded-2xl space-y-1">
+                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1 text-blue-500/60">Fecha de Emisión</label>
+                            <div className="glass-input rounded-2xl focus-within:ring-2 focus-within:ring-blue-500/40 transition-all overflow-hidden h-12 flex items-center">
+                                <input
+                                    type="date"
+                                    name="emissionDate"
+                                    value={data.client.emissionDate || ''}
+                                    onChange={handleClientChange}
+                                    className="w-full bg-transparent px-4 outline-none opacity-80 focus:opacity-100 transition-opacity text-base h-full"
+                                />
+                            </div>
                         </div>
 
-                        <div className="glass-card p-3 rounded-2xl">
+                        <div className="glass-card p-3 rounded-2xl space-y-1">
                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Validez</label>
-                            <select
-                                name="validityDays"
-                                value={data.client.validityDays || 15}
-                                onChange={(e) => onChange({
-                                    ...data,
-                                    client: {
-                                        ...data.client,
-                                        validityDays: Number(e.target.value),
-                                    },
-                                })}
-                                className="w-full bg-transparent outline-none cursor-pointer appearance-none text-base"
-                            >
-                                <option value={15} className="bg-[var(--dropdown-bg)]">15 días</option>
-                                <option value={7} className="bg-[var(--dropdown-bg)]">7 días</option>
-                            </select>
+                            <div className="glass-input rounded-xl focus-within:ring-2 focus-within:ring-blue-500/40 transition-all overflow-hidden border-none bg-white/5">
+                                <select
+                                    name="validityDays"
+                                    value={data.client.validityDays || 15}
+                                    onChange={(e) => onChange({
+                                        ...data,
+                                        client: {
+                                            ...data.client,
+                                            validityDays: Number(e.target.value),
+                                        },
+                                    })}
+                                    className="w-full bg-transparent py-2 px-3 outline-none cursor-pointer appearance-none text-base"
+                                >
+                                    <option value={15} className="bg-[var(--dropdown-bg)]">15 días</option>
+                                    <option value={7} className="bg-[var(--dropdown-bg)]">7 días</option>
+                                    <option value={30} className="bg-[var(--dropdown-bg)]">30 días</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl overflow-hidden">
+                    <div className="glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl">
                         <div className="flex items-center gap-2 mb-4 text-[var(--accent-blue)]">
                             <Calendar size={16} />
                             <span className="text-xs font-bold uppercase">Detalles del Evento</span>
                         </div>
 
                         <div className="space-y-4">
-                            <div>
-                                <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Fecha</label>
-                                <input
-                                    type="date"
-                                    name="date"
-                                    value={data.client.date}
-                                    onChange={handleClientChange}
-                                    className="w-full glass-input rounded-2xl py-3 px-5 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
-                                />
+                            <div className="space-y-1">
+                                <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1 text-blue-500/60">Fecha del Evento</label>
+                                <div className="glass-input rounded-2xl focus-within:ring-2 focus-within:ring-blue-500/40 focus-within:border-blue-500/40 transition-all overflow-hidden h-12 flex items-center">
+                                    <input
+                                        type="date"
+                                        name="date"
+                                        value={data.client.date}
+                                        onChange={handleClientChange}
+                                        className="w-full bg-transparent px-4 font-bold outline-none text-base h-full"
+                                    />
+                                </div>
                             </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                     <div>
@@ -321,27 +328,27 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         />
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        <div className="min-w-0">
-                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Inicio</label>
-                                            <div className="relative group overflow-hidden rounded-2xl">
+                                        <div className="min-w-0 space-y-1">
+                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1 text-blue-500/60">Horario Inicio</label>
+                                            <div className="glass-input rounded-2xl focus-within:ring-2 focus-within:ring-blue-500/40 focus-within:border-blue-500/40 transition-all overflow-hidden h-12 flex items-center">
                                                 <input
                                                     type="time"
                                                     name="eventTime"
                                                     value={data.client.eventTime || ''}
                                                     onChange={handleClientChange}
-                                                    className="w-full glass-input rounded-2xl py-3 px-3 sm:px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
+                                                    className="w-full bg-transparent px-4 font-bold outline-none text-base h-full"
                                                 />
                                             </div>
                                         </div>
-                                        <div className="min-w-0">
-                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Horario Fin</label>
-                                            <div className="relative group overflow-hidden rounded-2xl">
+                                        <div className="min-w-0 space-y-1">
+                                            <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1 text-blue-500/60">Horario Fin</label>
+                                            <div className="glass-input rounded-2xl focus-within:ring-2 focus-within:ring-blue-500/40 focus-within:border-blue-500/40 transition-all overflow-hidden h-12 flex items-center">
                                                 <input
                                                     type="time"
                                                     name="eventEndTime"
                                                     value={data.client.eventEndTime || ''}
                                                     onChange={handleClientChange}
-                                                    className="w-full glass-input rounded-2xl py-3 px-3 sm:px-4 font-bold outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all text-base"
+                                                    className="w-full bg-transparent px-4 font-bold outline-none text-base h-full"
                                                 />
                                             </div>
                                         </div>

@@ -54,31 +54,33 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 overflow-hidden w-full h-full relative">
-                {/* Usamos BlobProvider manual con key para forzar la recarga del iframe y evitar el bug de Safari iOS/Móvil */}
-                <BlobProvider document={<PresupuestoPdf data={data} />}>
-                    {({ url, loading, error }) => {
-                        if (error) {
-                            return <div className="flex items-center justify-center h-full text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
-                        }
-                        if (loading || !url) {
+            <div className="flex-1 w-full h-full relative bg-[var(--background)] flex flex-col p-0 overflow-y-auto">
+                <div className="w-full h-full min-h-[80vh] bg-white relative shrink-0">
+                    {/* Usamos BlobProvider manual con key para forzar la recarga del iframe y evitar el bug de Safari iOS/Móvil */}
+                    <BlobProvider document={<PresupuestoPdf data={data} />}>
+                        {({ url, loading, error }) => {
+                            if (error) {
+                                return <div className="flex items-center justify-center h-full text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
+                            }
+                            if (loading || !url) {
+                                return (
+                                    <div className="flex items-center justify-center h-full flex-col text-[var(--text-muted)] bg-[var(--background)]">
+                                        <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
+                                        <span className="text-[10px] font-bold uppercase tracking-widest">Renderizando Documento...</span>
+                                    </div>
+                                );
+                            }
                             return (
-                                <div className="flex items-center justify-center h-full flex-col text-[var(--text-muted)]">
-                                    <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest">Renderizando Documento...</span>
-                                </div>
+                                <iframe 
+                                    key={url} 
+                                    src={`${url}#toolbar=0&navpanes=0`} 
+                                    className="absolute inset-0 w-full h-full border-none block" 
+                                    title="Vista Previa PDF"
+                                />
                             );
-                        }
-                        return (
-                            <iframe 
-                                key={url} 
-                                src={`${url}#toolbar=0`} 
-                                className="w-full h-full border-none" 
-                                title="Vista Previa PDF"
-                            />
-                        );
-                    }}
-                </BlobProvider>
+                        }}
+                    </BlobProvider>
+                </div>
             </div>
         </div>
     );
