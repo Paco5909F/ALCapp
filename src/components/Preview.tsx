@@ -35,14 +35,14 @@ export default function Preview({ data }: PreviewProps) {
     useEffect(() => {
         const observer = new ResizeObserver((entries) => {
             if (entries[0]) {
-                // Margen intermedio (16) para que sea "un poquito más grande" que el original de 32
-                setContainerWidth(entries[0].contentRect.width - 16); 
+                // Sin margen extra, toma el 100% del contenedor disponible
+                setContainerWidth(entries[0].contentRect.width); 
             }
         });
         
         if (containerRef.current) {
             observer.observe(containerRef.current);
-            setContainerWidth(containerRef.current.clientWidth - 16);
+            setContainerWidth(containerRef.current.clientWidth);
         }
         
         return () => observer.disconnect();
@@ -81,7 +81,7 @@ export default function Preview({ data }: PreviewProps) {
                 </PDFDownloadLink>
             </div>
             
-            <div className="flex-1 w-full h-full relative bg-[var(--background)] flex flex-col p-4 sm:p-8 overflow-y-auto" ref={containerRef}>
+            <div className="flex-1 w-full h-full relative bg-[var(--background)] flex flex-col p-2 sm:p-8 overflow-y-auto" ref={containerRef}>
                 <div className="w-full min-h-[50vh] flex flex-col items-center justify-start pb-20">
                     <BlobProvider document={<PresupuestoPdf data={data} />}>
                         {({ url, loading, error }) => {
