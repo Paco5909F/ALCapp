@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 // No unused isDev here anymore
 
-const csp = "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; frame-src 'self' blob: data:; connect-src 'self' ws: wss: http: https: data: blob:; worker-src 'self' blob:; frame-ancestors 'self';";
+const csp = "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; frame-src 'self' blob: data:; connect-src 'self' ws: wss: http: https: data: blob:; worker-src 'self' blob: https://unpkg.com; frame-ancestors 'self';";
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@react-pdf/renderer'],

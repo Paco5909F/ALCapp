@@ -1,15 +1,22 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { BudgetData } from '@/types';
 import { PresupuestoPdf } from './pdf/Documento';
 import { Download, Loader2 } from 'lucide-react';
 
+// react-pdf core imports
+import { Document, Page, pdfjs } from 'react-pdf';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+
+// Configurar worker de PDF.js
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
 const BlobProvider = dynamic(
     () => import('@react-pdf/renderer').then((mod) => mod.BlobProvider),
-    {
-        ssr: false,
-    }
+    { ssr: false }
 );
 
 const PDFDownloadLink = dynamic(
@@ -22,6 +29,25 @@ interface PreviewProps {
 }
 
 export default function Preview({ data }: PreviewProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [containerWidth, setContainerWidth] = useState<number>(0);
+
+    useEffect(() => {
+        const observer = new ResizeObserver((entries) => {
+            if (entries[0]) {
+                // Dejar un pequeño margen para que no toque los bordes exactos
+                setContainerWidth(entries[0].contentRect.width - 32); 
+            }
+        });
+        
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+            setContainerWidth(containerRef.current.clientWidth - 32);
+        }
+        
+        return () => observer.disconnect();
+    }, []);
+
     const getFileName = () => {
         const name = data?.client?.name ? data.client.name.split(' ')[0] : 'Cliente';
         const dateDate = data?.client?.date ? new Date(data.client.date + 'T12:00:00') : new Date();
@@ -54,29 +80,44 @@ export default function Preview({ data }: PreviewProps) {
                     )}
                 </PDFDownloadLink>
             </div>
-            <div className="flex-1 w-full h-full relative bg-[var(--background)] flex flex-col p-0 overflow-y-auto">
-                <div className="w-full h-full min-h-[80vh] bg-white relative shrink-0">
-                    {/* Usamos BlobProvider manual con key para forzar la recarga del iframe y evitar el bug de Safari iOS/Móvil */}
+            
+            <div className="flex-1 w-full h-full relative bg-[var(--background)] flex flex-col p-4 sm:p-8 overflow-y-auto" ref={containerRef}>
+                <div className="w-full min-h-[50vh] flex flex-col items-center justify-start pb-20">
                     <BlobProvider document={<PresupuestoPdf data={data} />}>
                         {({ url, loading, error }) => {
                             if (error) {
-                                return <div className="flex items-center justify-center h-full text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
+                                return <div className="text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
                             }
                             if (loading || !url) {
                                 return (
-                                    <div className="flex items-center justify-center h-full flex-col text-[var(--text-muted)] bg-[var(--background)]">
+                                    <div className="flex items-center justify-center min-h-[50vh] flex-col text-[var(--text-muted)] w-full">
                                         <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
                                         <span className="text-[10px] font-bold uppercase tracking-widest">Renderizando Documento...</span>
                                     </div>
                                 );
                             }
+                            
+                            // Renderizado usando react-pdf para móviles y desktop perfecto
                             return (
-                                <iframe 
-                                    key={url} 
-                                    src={`${url}#toolbar=0&navpanes=0&view=Fit`} 
-                                    className="absolute inset-0 w-full h-full border-none block" 
-                                    title="Vista Previa PDF"
-                                />
+                                <div className="bg-white shadow-2xl border border-gray-200 overflow-hidden" style={{ minWidth: containerWidth ? `${containerWidth}px` : 'auto' }}>
+                                    <Document 
+                                        file={url} 
+                                        loading={
+                                            <div className="flex items-center justify-center h-[500px] flex-col text-[var(--text-muted)] w-full">
+                                                <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
+                                                <span className="text-[10px] font-bold uppercase tracking-widest">Cargando Visualizador...</span>
+                                            </div>
+                                        }
+                                    >
+                                        <Page 
+                                            pageNumber={1} 
+                                            width={containerWidth ? containerWidth : undefined} 
+                                            renderTextLayer={false}
+                                            renderAnnotationLayer={false}
+                                            className="max-w-full"
+                                        />
+                                    </Document>
+                                </div>
                             );
                         }}
                     </BlobProvider>
