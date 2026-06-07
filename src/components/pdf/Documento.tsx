@@ -334,12 +334,12 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 </View>
 
                 <View style={[styles.dataBox, { marginBottom: 5 }]}>
-                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'space-between' }]}>
+                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'flex-start' }]}>
                         <View style={{ width: '60%' }}>
                             <Text style={styles.fieldLabel}>RAZÓN SOCIAL / NOMBRE</Text>
                             <Text style={styles.fieldValue}>{data.client.name || '-'}</Text>
                         </View>
-                        <View style={{ width: '35%' }}>
+                        <View style={{ width: '40%' }}>
                             <Text style={styles.fieldLabel}>CONDICIÓN IVA</Text>
                             <Text style={styles.fieldValue}>CONSUMIDOR FINAL</Text>
                         </View>
@@ -353,8 +353,8 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 </View>
 
                 <View style={styles.dataBox}>
-                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'space-between' }]}>
-                        <View style={{ width: '25%' }}>
+                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'flex-start' }]}>
+                        <View style={{ width: '30%' }}>
                             <Text style={styles.fieldLabel}>FECHA</Text>
                             <Text style={styles.fieldValue}>{formatDate(data.client.date) || '-'}</Text>
                         </View>
