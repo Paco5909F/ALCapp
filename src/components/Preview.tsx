@@ -73,7 +73,7 @@ export default function Preview({ data }: PreviewProps) {
                             return (
                                 <iframe 
                                     key={url} 
-                                    src={`${url}#toolbar=0&navpanes=0`} 
+                                    src={`${url}#toolbar=0&navpanes=0&view=Fit`} 
                                     className="absolute inset-0 w-full h-full border-none block" 
                                     title="Vista Previa PDF"
                                 />
