@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logoImage: {
-        width: 75,
-        height: 75,
+        width: 60,
+        height: 60,
         marginRight: 20,
         flexShrink: 0,
     },
@@ -246,9 +246,9 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
         return new Date();
     };
 
-    const emissionDate = parseDate(data?.client?.emissionDate);
+    const emissionDate = parseDate(data.client.emissionDate);
     const validUntil = new Date(emissionDate);
-    validUntil.setDate(emissionDate.getDate() + (data?.client?.validityDays || 15));
+    validUntil.setDate(emissionDate.getDate() + (data.client.validityDays || 15));
 
     const formatRequirements = (reqs?: TechnicalRequirements) => {
         if (!reqs) return '';
@@ -334,12 +334,12 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 </View>
 
                 <View style={[styles.dataBox, { marginBottom: 5 }]}>
-                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'flex-start' }]}>
+                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'space-between' }]}>
                         <View style={{ width: '60%' }}>
                             <Text style={styles.fieldLabel}>RAZÓN SOCIAL / NOMBRE</Text>
                             <Text style={styles.fieldValue}>{data.client.name || '-'}</Text>
                         </View>
-                        <View style={{ width: '40%' }}>
+                        <View style={{ width: '35%' }}>
                             <Text style={styles.fieldLabel}>CONDICIÓN IVA</Text>
                             <Text style={styles.fieldValue}>CONSUMIDOR FINAL</Text>
                         </View>
@@ -353,16 +353,16 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                 </View>
 
                 <View style={styles.dataBox}>
-                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'flex-start' }]}>
+                    <View style={[styles.column, { width: '100%', flexDirection: 'row', justifyContent: 'space-between' }]}>
                         <View style={{ width: '30%' }}>
                             <Text style={styles.fieldLabel}>FECHA</Text>
                             <Text style={styles.fieldValue}>{formatDate(data.client.date) || '-'}</Text>
                         </View>
                         <View style={{ width: '30%' }}>
                             <Text style={styles.fieldLabel}>TIPO</Text>
-                            <Text style={styles.fieldValue}>{data?.client?.eventType || '-'}</Text>
+                            <Text style={styles.fieldValue}>{data.client.eventType || '-'}</Text>
                         </View>
-                        <View style={{ width: '40%' }}>
+                        <View style={{ width: '35%' }}>
                             <Text style={styles.fieldLabel}>HORARIO</Text>
                             <Text style={styles.fieldValue}>
                                 {data.client.eventTime || '-'}
@@ -563,11 +563,8 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.companyName}>
                                 ALC SONIDO EVENTOS
                             </Text>
-                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000', marginBottom: 2 }}>
+                            <Text style={{ fontSize: 10, fontFamily: 'Helvetica', color: '#000' }}>
                                 TÉRMINOS Y CONDICIONES
-                            </Text>
-                            <Text style={{ fontSize: 8, fontFamily: 'Helvetica', color: COLORS.textLight }}>
-                                CONDICIONES GENERALES DEL SERVICIO
                             </Text>
                         </View>
                     </View>
