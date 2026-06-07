@@ -31,8 +31,14 @@ interface PreviewProps {
 export default function Preview({ data }: PreviewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [containerWidth, setContainerWidth] = useState<number>(0);
+    const [isDesktop, setIsDesktop] = useState<boolean>(true); // Default to true (desktop layout) for SSR safety, will fix on mount
 
     useEffect(() => {
+        const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+        checkDesktop(); // Check on mount
+        
+        window.addEventListener('resize', checkDesktop);
+        
         const observer = new ResizeObserver((entries) => {
             if (entries[0]) {
                 // Sin margen extra, toma el 100% del contenedor disponible
@@ -45,7 +51,10 @@ export default function Preview({ data }: PreviewProps) {
             setContainerWidth(containerRef.current.clientWidth);
         }
         
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('resize', checkDesktop);
+        };
     }, []);
 
     const getFileName = () => {
@@ -82,7 +91,7 @@ export default function Preview({ data }: PreviewProps) {
             </div>
             
             <div className="flex-1 w-full h-full relative bg-[var(--background)] flex flex-col p-2 sm:p-8 overflow-y-auto" ref={containerRef}>
-                <div className="w-full min-h-[50vh] flex flex-col items-center justify-start pb-20">
+                <div className="w-full min-h-[50vh] flex flex-col items-center justify-start pb-20 h-full">
                     <BlobProvider document={<PresupuestoPdf data={data} />}>
                         {({ url, loading, error }) => {
                             if (error) {
@@ -97,7 +106,18 @@ export default function Preview({ data }: PreviewProps) {
                                 );
                             }
                             
-                            // Renderizado usando react-pdf para móviles y desktop perfecto
+                            // En Desktop devolvemos el iframe nativo original que es vectorial y nítido
+                            if (isDesktop) {
+                                return (
+                                    <iframe 
+                                        src={url} 
+                                        className="w-full h-full rounded-lg shadow-xl" 
+                                        style={{ minHeight: '75vh' }}
+                                    />
+                                );
+                            }
+
+                            // En móvil usamos react-pdf para evitar el bug de iOS Safari
                             return (
                                 <div className="bg-white shadow-2xl border border-gray-200 overflow-hidden" style={{ minWidth: containerWidth ? `${containerWidth}px` : 'auto' }}>
                                     <Document 
