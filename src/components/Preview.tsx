@@ -35,14 +35,17 @@ export default function Preview({ data }: PreviewProps) {
     useEffect(() => {
         const observer = new ResizeObserver((entries) => {
             if (entries[0]) {
-                // Sin margen extra, toma el 100% del contenedor disponible
-                setContainerWidth(entries[0].contentRect.width); 
+                const w = entries[0].contentRect.width;
+                // Solo "fitear" al ancho en mobile (menor a 768px). 
+                // En desktop, dejar que se vea al tamaño natural (0) para no deformarlo ni agigantarlo.
+                setContainerWidth(w > 768 ? 0 : w); 
             }
         });
         
         if (containerRef.current) {
             observer.observe(containerRef.current);
-            setContainerWidth(containerRef.current.clientWidth);
+            const w = containerRef.current.clientWidth;
+            setContainerWidth(w > 768 ? 0 : w);
         }
         
         return () => observer.disconnect();
