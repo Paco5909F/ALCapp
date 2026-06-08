@@ -61,7 +61,7 @@ const DEFAULT_REQUIREMENTS: TechnicalRequirements = {
 };
 
 // Internal Stepper Component for improved mobile UX
-const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: number) => void, min?: number }) => {
+const Stepper = ({ value, onChange, min = 0, id }: { value: number, onChange: (val: number) => void, min?: number, id?: string }) => {
     const handleIncrement = () => onChange(value + 1);
     const handleDecrement = () => {
         if (value > min) onChange(value - 1);
@@ -69,7 +69,8 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = parseInt(e.target.value);
-        if (isNaN(val)) onChange(0); // Optional: handle empty as 0
+        if (isNaN(val)) onChange(min);
+        else if (val < min) onChange(min);
         else onChange(val);
     };
 
@@ -88,8 +89,8 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
             </button>
             <input
                 type="number"
-                name="stepper-input"
-                id="stepper-input"
+                name={id || "stepper-input"}
+                id={id || "stepper-input"}
                 autoComplete="off"
                 value={value}
                 onChange={handleChange}
@@ -318,6 +319,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                     <div className="relative z-50">
                                         <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Tipo</label>
                                         <Combobox
+                                            id="tipo-evento"
                                             options={EVENT_TYPES}
                                             value={data.client.eventType || ''}
                                             onChange={(val) => onChange({
@@ -376,6 +378,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         <div key={req.key} className="glass-card p-4 rounded-2xl flex flex-col justify-center items-center gap-2 shadow-sm hover:border-purple-500/40 transition-colors">
                                 <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-center">{req.label}</label>
                                 <Stepper
+                                    id={`req-${req.key}`}
                                     value={data.requirements[req.key] || 0}
                                     onChange={(val) => handleRequirementChange(req.key, val)}
                                 />
@@ -387,6 +390,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         <div className="glass-card p-3 rounded-2xl">
                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-2 uppercase tracking-widest ml-1">Iluminación</label>
                             <select
+                                id="req-iluminacion"
+                                name="req-iluminacion"
                                 value={data.requirements.iluminacion}
                                 onChange={(e) => handleRequirementChange('iluminacion', e.target.value)}
                                 className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-base appearance-none"
@@ -404,6 +409,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                         <div className="glass-card p-3 rounded-2xl">
                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-2 uppercase tracking-widest ml-1">Consola</label>
                             <select
+                                id="req-consola"
+                                name="req-consola"
                                 value={data.requirements.consola}
                                 onChange={(e) => handleRequirementChange('consola', e.target.value)}
                                 className="w-full bg-transparent p-2 rounded-xl border border-[var(--border)] outline-none text-base appearance-none"
@@ -469,6 +476,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                         <div className="relative z-50">
                                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase">Lugar / Ubicación</label>
                                             <Combobox
+                                                id={`logistics-location-${item.id}`}
                                                 options={LOCATIONS}
                                                 value={item.location}
                                                 onChange={(val) => updateLogisticsItem(item.id, 'location', val)}
@@ -494,6 +502,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                                 <div key={req.key} className="glass-card p-2 rounded-xl flex flex-col justify-center items-center gap-1 border border-[var(--border)]">
                                                     <label className="text-[10px] font-medium text-[var(--text-muted)] truncate w-full text-center">{req.label}</label>
                                                     <Stepper
+                                                        id={`logistics-req-${item.id}-${req.key}`}
                                                         value={item.requirements?.[req.key] || 0}
                                                         onChange={(val) => updateLogisticsItem(item.id, `req.${req.key}`, val)}
                                                     />

@@ -7,6 +7,7 @@ interface ComboboxProps {
     options: string[];
     placeholder?: string;
     className?: string;
+    id?: string;
 }
 
 export const Combobox: React.FC<ComboboxProps> = ({
@@ -14,7 +15,8 @@ export const Combobox: React.FC<ComboboxProps> = ({
     onChange,
     options,
     placeholder = "Seleccionar...",
-    className
+    className,
+    id
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [filter, setFilter] = useState('');
@@ -65,8 +67,8 @@ export const Combobox: React.FC<ComboboxProps> = ({
                 <input
                     ref={inputRef}
                     type="text"
-                    name="combobox-input"
-                    id="combobox-input"
+                    name={id || "combobox-input"}
+                    id={id || "combobox-input"}
                     autoComplete="off"
                     value={value}
                     onChange={handleInputChange}
