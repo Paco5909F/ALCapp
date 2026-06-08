@@ -88,6 +88,9 @@ const Stepper = ({ value, onChange, min = 0 }: { value: number, onChange: (val: 
             </button>
             <input
                 type="number"
+                name="stepper-input"
+                id="stepper-input"
+                autoComplete="off"
                 value={value}
                 onChange={handleChange}
                 onFocus={handleFocus}

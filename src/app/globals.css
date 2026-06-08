@@ -55,6 +55,11 @@ textarea {
   background-clip: padding-box !important;
 }
 
+select option {
+  background-color: var(--dropdown-bg);
+  color: var(--foreground);
+}
+
 input::-webkit-calendar-picker-indicator {
   filter: invert(0.5);
   cursor: pointer;

@@ -65,6 +65,9 @@ export const Combobox: React.FC<ComboboxProps> = ({
                 <input
                     ref={inputRef}
                     type="text"
+                    name="combobox-input"
+                    id="combobox-input"
+                    autoComplete="off"
                     value={value}
                     onChange={handleInputChange}
                     onFocus={handleFocus}
