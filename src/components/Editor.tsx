@@ -239,7 +239,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
             </div>
 
             {/* Client Section */}
-            <section className="mb-8 space-y-6">
+            <section className="relative z-30 mb-8 space-y-6">
                 <div className="flex items-center gap-2 text-[var(--accent-blue)] mb-4">
                     <User size={18} />
                     <h3 className="text-lg font-semibold uppercase tracking-wider">Datos del Cliente</h3>
@@ -365,7 +365,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
             {/* Requirements Section (Hidden if Logistics exist) */}
             {(!data.logistics || data.logistics.length === 0) && (
-                <section className="mb-8 space-y-4">
+                <section className="relative z-20 mb-8 space-y-4">
                     <div className="flex items-center gap-2 text-[var(--accent-purple)] mb-4">
                         <Settings size={18} />
                         <h3 className="text-lg font-semibold uppercase tracking-wider">Técnica</h3>
@@ -433,7 +433,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
             )}
 
             {/* Logistics Section */}
-            <section className="mb-8 space-y-4">
+            <section className="relative z-10 mb-8 space-y-4">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 text-[var(--accent-orange)] w-full overflow-hidden">
                     <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
                         <MapPin size={16} className="shrink-0" />
