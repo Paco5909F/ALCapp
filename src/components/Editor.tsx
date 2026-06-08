@@ -454,8 +454,8 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                             <p className="text-xs">No hay ubicaciones agregadas.</p>
                         </div>
                     ) : (
-                        data.logistics.map((item) => (
-                            <div key={item.id} className="relative p-3 sm:p-5 rounded-2xl sm:rounded-3xl glass-card group hover:border-blue-500/40 transition-all overflow-hidden">
+                        data.logistics.map((item, index) => (
+                            <div key={item.id} style={{ zIndex: 100 - index }} className="relative p-3 sm:p-5 rounded-2xl sm:rounded-3xl glass-card group hover:border-blue-500/40 transition-all">
                                 <button
                                     onClick={() => removeLogisticsItem(item.id)}
                                     className="absolute top-2 right-2 bg-[var(--dropdown-bg)] text-[var(--text-muted)] hover:bg-red-500 hover:text-white transition-all p-1.5 rounded-lg border border-[var(--border)] shadow-xl z-10 active:scale-90"
@@ -466,7 +466,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
 
                                 <div className="space-y-4">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                        <div>
+                                        <div className="relative z-50">
                                             <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase">Lugar / Ubicación</label>
                                             <Combobox
                                                 options={LOCATIONS}
