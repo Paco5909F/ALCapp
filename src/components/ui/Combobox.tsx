@@ -22,9 +22,9 @@ export const Combobox: React.FC<ComboboxProps> = ({
     const inputRef = useRef<HTMLInputElement>(null);
 
     // Filter options based on input, but always show all if filter is empty or matches value exactly
-    const filteredOptions = options.filter(option =>
-        option.toLowerCase().includes(filter.toLowerCase())
-    );
+    const filteredOptions = (filter === value || filter === '') 
+        ? options 
+        : options.filter(option => option.toLowerCase().includes(filter.toLowerCase()));
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

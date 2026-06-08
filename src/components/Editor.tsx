@@ -315,7 +315,7 @@ export default function Editor({ data, onChange, onLogout }: EditorProps) {
                                 </div>
                             </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                    <div>
+                                    <div className="relative z-50">
                                         <label className="block text-[10px] font-bold text-[var(--text-muted)] mb-1 uppercase tracking-widest ml-1">Tipo</label>
                                         <Combobox
                                             options={EVENT_TYPES}
