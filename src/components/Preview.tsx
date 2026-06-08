@@ -82,8 +82,37 @@ export default function Preview({ data }: PreviewProps) {
                 </PDFDownloadLink>
             </div>
             
-            {/* Visor Único (react-pdf) para Desktop y Mobile, solucionando zoom y renderizado en todas las plataformas */}
-            <div className="flex-1 w-full h-full relative bg-[var(--background)] flex flex-col p-2 sm:p-8 overflow-y-auto" ref={containerRef}>
+            {/* DESKTOP (md:flex) - Visor iframe nativo completo */}
+            <div className="hidden md:flex flex-1 w-full h-full relative bg-[var(--background)] flex-col p-0 overflow-y-auto">
+                <div className="w-full h-full min-h-[80vh] bg-white relative shrink-0">
+                    <BlobProvider document={<PresupuestoPdf data={data} />}>
+                        {({ url, loading, error }) => {
+                            if (error) {
+                                return <div className="text-red-500 text-sm p-4 text-center">Error al generar PDF: {error.message}</div>;
+                            }
+                            if (loading || !url) {
+                                return (
+                                    <div className="flex items-center justify-center h-full flex-col text-[var(--text-muted)] bg-[var(--background)]">
+                                        <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
+                                        <span className="text-[10px] font-bold uppercase tracking-widest">Renderizando Documento...</span>
+                                    </div>
+                                );
+                            }
+                            return (
+                                <iframe 
+                                    key={url} 
+                                    src={url} 
+                                    className="absolute inset-0 w-full h-full border-none block" 
+                                    title="Vista Previa PDF"
+                                />
+                            );
+                        }}
+                    </BlobProvider>
+                </div>
+            </div>
+
+            {/* MOBILE (md:hidden) - Solución con react-pdf para encajar en pantalla */}
+            <div className="flex md:hidden flex-1 w-full h-full relative bg-[var(--background)] flex-col p-2 overflow-y-auto" ref={containerRef}>
                 <div className="w-full min-h-[50vh] flex flex-col items-center justify-start pb-20">
                     <BlobProvider document={<PresupuestoPdf data={data} />}>
                         {({ url, loading, error }) => {

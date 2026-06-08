@@ -339,7 +339,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.fieldLabel}>RAZÓN SOCIAL / NOMBRE</Text>
                             <Text style={styles.fieldValue}>{data.client.name || '-'}</Text>
                         </View>
-                        <View style={{ width: '35%', alignItems: 'center' }}>
+                        <View style={{ width: '35%' }}>
                             <Text style={styles.fieldLabel}>CONDICIÓN IVA</Text>
                             <Text style={styles.fieldValue}>CONSUMIDOR FINAL</Text>
                         </View>
@@ -362,7 +362,7 @@ export const PresupuestoPdf: React.FC<PresupuestoPdfProps> = ({ data }) => {
                             <Text style={styles.fieldLabel}>TIPO</Text>
                             <Text style={styles.fieldValue}>{data?.client?.eventType || '-'}</Text>
                         </View>
-                        <View style={{ width: '35%', alignItems: 'center' }}>
+                        <View style={{ width: '35%' }}>
                             <Text style={styles.fieldLabel}>HORARIO</Text>
                             <Text style={styles.fieldValue}>
                                 {data.client.eventTime || '-'}
