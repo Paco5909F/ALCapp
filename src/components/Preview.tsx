@@ -99,44 +99,30 @@ export default function Preview({ data }: PreviewProps) {
                             }
                             
                             return (
-                                <>
-                                    {/* Desktop: Iframe nativo original, infinitamente nítido y con sus propios controles */}
-                                    <div className="hidden md:block w-full h-full">
-                                        <iframe 
-                                            src={url} 
-                                            className="w-full h-full rounded-lg shadow-xl" 
-                                            style={{ minHeight: '80vh' }}
-                                        />
-                                    </div>
-
-                                    {/* Mobile: react-pdf forzado a encajar al ancho para evitar el bug de iOS Safari */}
-                                    <div className="block md:hidden w-full">
-                                        <div className="bg-white shadow-2xl border border-gray-200 overflow-hidden flex flex-col items-center" style={{ width: containerWidth ? `${containerWidth}px` : 'auto' }}>
-                                            <Document 
-                                                file={url} 
-                                                onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                                                loading={
-                                                    <div className="flex items-center justify-center h-[500px] flex-col text-[var(--text-muted)] w-full">
-                                                        <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
-                                                        <span className="text-[10px] font-bold uppercase tracking-widest">Cargando Visualizador...</span>
-                                                    </div>
-                                                }
-                                            >
-                                                {Array.from(new Array(numPages), (el, index) => (
-                                                    <div key={`page_${index + 1}`} className={index > 0 ? "border-t border-gray-200 pt-2 mt-2" : ""}>
-                                                        <Page 
-                                                            pageNumber={index + 1} 
-                                                            width={containerWidth ? containerWidth - 2 : undefined} 
-                                                            renderTextLayer={false}
-                                                            renderAnnotationLayer={false}
-                                                            className="max-w-full"
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </Document>
-                                        </div>
-                                    </div>
-                                </>
+                                <div className="bg-white shadow-2xl border border-gray-200 overflow-hidden flex flex-col items-center" style={{ width: containerWidth ? `${containerWidth}px` : 'auto' }}>
+                                    <Document 
+                                        file={url} 
+                                        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                                        loading={
+                                            <div className="flex items-center justify-center h-[500px] flex-col text-[var(--text-muted)] w-full">
+                                                <Loader2 size={32} className="animate-spin mb-4 text-blue-500/50" />
+                                                <span className="text-[10px] font-bold uppercase tracking-widest">Cargando Visualizador...</span>
+                                            </div>
+                                        }
+                                    >
+                                        {Array.from(new Array(numPages), (el, index) => (
+                                            <div key={`page_${index + 1}`} className={index > 0 ? "border-t border-gray-200 pt-2 mt-2 w-full flex justify-center" : "w-full flex justify-center"}>
+                                                <Page 
+                                                    pageNumber={index + 1} 
+                                                    width={containerWidth ? containerWidth - 2 : undefined} 
+                                                    renderTextLayer={false}
+                                                    renderAnnotationLayer={false}
+                                                    className="max-w-full"
+                                                />
+                                            </div>
+                                        ))}
+                                    </Document>
+                                </div>
                             );
                         }}
                     </BlobProvider>
